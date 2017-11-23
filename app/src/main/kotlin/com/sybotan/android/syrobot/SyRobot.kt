@@ -37,9 +37,6 @@ class SyRobot : Application() {
         val TAG = "SyRobot"
     }
 
-    init {
-
-    }
     /**
      * 创建应用时调用
      */
