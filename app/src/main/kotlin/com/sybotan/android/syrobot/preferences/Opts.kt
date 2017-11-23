@@ -30,7 +30,7 @@ import android.content.SharedPreferences
  *
  * @author  Andy
  */
-object MainPreferences {
+object Opts {
     var pref : SharedPreferences? = null
 
     // 是否显示手柄控制界面
@@ -40,4 +40,4 @@ object MainPreferences {
             pref!!.edit().putBoolean("joystickVisibility", value).apply()
         }
 
-} // Object MainPreferences
+} // Object Opts

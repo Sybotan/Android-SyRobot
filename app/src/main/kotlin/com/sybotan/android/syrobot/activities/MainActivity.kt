@@ -36,8 +36,7 @@ import android.view.MenuItem
 import com.sybotan.android.syrobot.R
 import com.sybotan.android.syrobot.SyRobot
 import com.sybotan.android.syrobot.fragments.JoystickFragment
-import com.sybotan.android.syrobot.fragments.ProgrammingFragment
-import com.sybotan.android.syrobot.preferences.MainPreferences
+import com.sybotan.android.syrobot.preferences.Opts
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -115,10 +114,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         uiAppbar.setOnMenuItemClickListener({ item ->
             val id = item.getItemId()
             if (id == R.id.menu_joystick) {
-                MainPreferences.joystickVisibility = true
+                Opts.joystickVisibility = true
                 updateFragment()
             } else if (id == R.id.menu_program) {
-                MainPreferences.joystickVisibility = false
+                Opts.joystickVisibility = false
                 updateFragment()
             }
             true
@@ -131,8 +130,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      */
     private fun updateFragment() {
         val fragment: Fragment
-        Log.d(SyRobot.TAG, "-------------------------------------------------${MainPreferences.joystickVisibility}")
-        //if (MainPreferences.joystickVisibility) {
+        Log.d(SyRobot.TAG, "-------------------------------------------------${Opts.joystickVisibility}")
+        //if (Opts.joystickVisibility) {
             fragment = JoystickFragment()
 //        } else {
 //            fragment = ProgrammingFragment()

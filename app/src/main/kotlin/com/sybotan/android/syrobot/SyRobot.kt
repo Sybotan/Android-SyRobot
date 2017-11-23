@@ -25,7 +25,7 @@ package com.sybotan.android.syrobot
 
 import android.app.Application
 import android.content.Context
-import com.sybotan.android.syrobot.preferences.MainPreferences
+import com.sybotan.android.syrobot.preferences.Opts
 
 /**
  * 应用入口
@@ -46,7 +46,7 @@ class SyRobot : Application() {
     override fun onCreate() {
         super.onCreate()
         // 初始化MainPreferences对象
-        MainPreferences.pref = getSharedPreferences(TAG, Context.MODE_PRIVATE)
+        Opts.pref = getSharedPreferences(TAG, Context.MODE_PRIVATE)
         return
     } // Function onCreate()
 
