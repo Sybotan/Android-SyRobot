@@ -33,6 +33,9 @@ import com.sybotan.android.syrobot.R
  * @author  Andy
  */
 class MainActivity : AppCompatActivity() {
+    val APP_ID = "10410170"
+    val API_KEY = "RkSClKjZcclmDPBnn6c7RV7M"
+    val SECRET_KEY = "tg41qnImYk7ScZ3foHgQXwkR0nOoTq8d"
 
     /**
      * 创建Activity时调用
@@ -40,5 +43,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //doAsync {
+            //val client = com.baidu.aip.ocr.AipOcr(APP_ID, API_KEY, SECRET_KEY)
+            //val rs = client.generalUrl("https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKDLn9fO8gEQrAIY-gEyCLdfwKZEugFA", java.util.HashMap<String, String>())
+            //android.util.Log.d("SyRobot", "rs.toString()")
+        //}
+        return
     } // Function onCreate()
 } // Class MainActivity
