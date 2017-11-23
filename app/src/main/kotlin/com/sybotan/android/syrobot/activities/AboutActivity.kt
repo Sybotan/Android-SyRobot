@@ -26,21 +26,21 @@ package com.sybotan.android.syrobot.activities
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.sybotan.android.syrobot.R
-import kotlinx.android.synthetic.main.activity_help.*
+import kotlinx.android.synthetic.main.activity_about.*
 
 /**
- * 帮助Activity
+ * 关于
  *
  * @author  Andy
  */
-class HelpActivity : AppCompatActivity() {
+class AboutActivity : AppCompatActivity() {
 
     /**
      * 创建Activity时调用
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_help)
+        setContentView(R.layout.activity_about)
         updateAppbar()
         return
     } // Function onCreate()
@@ -49,11 +49,11 @@ class HelpActivity : AppCompatActivity() {
      * 更新顶部条
      */
     private fun updateAppbar() {
-        uiAppbar.setTitle(R.string.title_activity_help)
+        uiAppbar.setTitle(R.string.title_activity_about)
         setSupportActionBar(uiAppbar)
         // 标题栏显示返回，点击返回上一页
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         // 点击返回
         uiAppbar.setNavigationOnClickListener{ finish() }
     } // Function updateAppBar()
-} // Class HelpActivity
+} // Class AboutActivity

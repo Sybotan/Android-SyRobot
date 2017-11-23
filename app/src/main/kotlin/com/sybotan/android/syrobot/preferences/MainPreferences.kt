@@ -21,39 +21,23 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.android.syrobot.activities
+package com.sybotan.android.syrobot.preferences
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import com.sybotan.android.syrobot.R
-import kotlinx.android.synthetic.main.activity_help.*
+import android.content.SharedPreferences
 
 /**
- * 帮助Activity
+ * 系统参数设置
  *
  * @author  Andy
  */
-class HelpActivity : AppCompatActivity() {
+object MainPreferences {
+    var pref : SharedPreferences? = null
 
-    /**
-     * 创建Activity时调用
-     */
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_help)
-        updateAppbar()
-        return
-    } // Function onCreate()
+    // 是否显示手柄控制界面
+    var joystickVisibility: Boolean
+        get() = pref!!.getBoolean("joystickVisibility", true)
+        set(value){
+            pref!!.edit().putBoolean("joystickVisibility", value).apply()
+        }
 
-    /**
-     * 更新顶部条
-     */
-    private fun updateAppbar() {
-        uiAppbar.setTitle(R.string.title_activity_help)
-        setSupportActionBar(uiAppbar)
-        // 标题栏显示返回，点击返回上一页
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        // 点击返回
-        uiAppbar.setNavigationOnClickListener{ finish() }
-    } // Function updateAppBar()
-} // Class HelpActivity
+} // Object MainPreferences

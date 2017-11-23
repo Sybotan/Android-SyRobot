@@ -23,5 +23,31 @@
 
 package com.sybotan.android.syrobot
 
-class SyRobot {
-}
+import android.app.Application
+import android.content.Context
+import com.sybotan.android.syrobot.preferences.MainPreferences
+
+/**
+ * 应用入口
+ *
+ * @author  Andy
+ */
+class SyRobot : Application() {
+    companion object {
+        val TAG = "SyRobot"
+    }
+
+    init {
+
+    }
+    /**
+     * 创建应用时调用
+     */
+    override fun onCreate() {
+        super.onCreate()
+        // 初始化MainPreferences对象
+        MainPreferences.pref = getSharedPreferences(TAG, Context.MODE_PRIVATE)
+        return
+    } // Function onCreate()
+
+} // Object  SyRobot

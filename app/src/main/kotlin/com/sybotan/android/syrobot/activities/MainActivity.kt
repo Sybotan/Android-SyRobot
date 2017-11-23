@@ -23,16 +23,29 @@
 
 package com.sybotan.android.syrobot.activities
 
+import android.app.Fragment
+import android.content.Intent
+import android.net.Uri
+import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.design.widget.NavigationView
 import android.os.Bundle
+import android.support.v7.app.ActionBarDrawerToggle
+import android.util.Log
+import android.view.MenuItem
 import com.sybotan.android.syrobot.R
+import com.sybotan.android.syrobot.SyRobot
+import com.sybotan.android.syrobot.fragments.JoystickFragment
+import com.sybotan.android.syrobot.fragments.ProgrammingFragment
+import com.sybotan.android.syrobot.preferences.MainPreferences
+import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * 主Activity
  *
  * @author  Andy
  */
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     val APP_ID = "10410170"
     val API_KEY = "RkSClKjZcclmDPBnn6c7RV7M"
     val SECRET_KEY = "tg41qnImYk7ScZ3foHgQXwkR0nOoTq8d"
@@ -44,11 +57,90 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //doAsync {
-            //val client = com.baidu.aip.ocr.AipOcr(APP_ID, API_KEY, SECRET_KEY)
-            //val rs = client.generalUrl("https://tpc.googlesyndication.com/pagead/imgad?id=CICAgKDLn9fO8gEQrAIY-gEyCLdfwKZEugFA", java.util.HashMap<String, String>())
-            //android.util.Log.d("SyRobot", "rs.toString()")
-        //}
+        // 导航切换
+        val toggle = ActionBarDrawerToggle(
+                this, uiDrawerLayout, uiAppbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        uiDrawerLayout.setDrawerListener(toggle)
+        toggle.syncState()
+
+        // 设置侧边导航项目选择监听器
+        uiNavView.setNavigationItemSelectedListener(this)
+
+        updateAppbar()
+        updateFragment()
         return
     } // Function onCreate()
+
+    /**
+     * 用户按返回键时调用
+     */
+    override fun onBackPressed() {
+        if (uiDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            uiDrawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+        return
+    } // Function onBackPressed()
+
+    /**
+     * 选择导航菜单时触发
+     *
+     * @param item  选择的菜单项
+     * @return
+     */
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val intent : Intent
+        val id = item.getItemId()
+        Log.d(SyRobot.TAG, "menuId=$id")
+        when(id) {
+            R.id.uiNavTaobao -> intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://shop155631146.taobao.com"))
+            R.id.uiNavJointSettings -> intent = Intent(this, JointSettingsActivity::class.java)
+            R.id.uiNavHelp -> intent = Intent(this, HelpActivity::class.java)
+            else -> intent = Intent(this, AboutActivity::class.java)
+        }
+
+        startActivity(intent)
+        return true
+    } // Function onNavigationItemSelected()
+
+    /**
+     * 更新顶部条
+     */
+    private fun updateAppbar() {
+        uiAppbar.setTitle(R.string.app_name)
+        // 回载菜单
+        uiAppbar.inflateMenu(R.menu.menu_app)
+
+        uiAppbar.setOnMenuItemClickListener({ item ->
+            val id = item.getItemId()
+            if (id == R.id.menu_joystick) {
+                MainPreferences.joystickVisibility = true
+                updateFragment()
+            } else if (id == R.id.menu_program) {
+                MainPreferences.joystickVisibility = false
+                updateFragment()
+            }
+            true
+        })
+        return
+    } // Function updateToolbar()
+
+    /**
+     * 更新fragment
+     */
+    private fun updateFragment() {
+        val fragment: Fragment
+        Log.d(SyRobot.TAG, "-------------------------------------------------${MainPreferences.joystickVisibility}")
+        //if (MainPreferences.joystickVisibility) {
+            fragment = JoystickFragment()
+//        } else {
+//            fragment = ProgrammingFragment()
+//        }
+
+//        fragmentManager.beginTransaction()
+//                    .replace(R.id.uiContainer, fragment)
+//                    .commit()
+        return
+    } // Function updateFragment()
 } // Class MainActivity

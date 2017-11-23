@@ -21,39 +21,23 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.android.syrobot.activities
+package com.sybotan.android.syrobot.fragments
 
-import android.support.v7.app.AppCompatActivity
+import android.app.Fragment
 import android.os.Bundle
-import com.sybotan.android.syrobot.R
-import kotlinx.android.synthetic.main.activity_help.*
 
 /**
- * 帮助Activity
+ * 编程界面
  *
  * @author  Andy
  */
-class HelpActivity : AppCompatActivity() {
+class ProgrammingFragment  : Fragment() {
 
     /**
-     * 创建Activity时调用
+     * 创建Fragment时调用
      */
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_help)
-        updateAppbar()
         return
     } // Function onCreate()
-
-    /**
-     * 更新顶部条
-     */
-    private fun updateAppbar() {
-        uiAppbar.setTitle(R.string.title_activity_help)
-        setSupportActionBar(uiAppbar)
-        // 标题栏显示返回，点击返回上一页
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        // 点击返回
-        uiAppbar.setNavigationOnClickListener{ finish() }
-    } // Function updateAppBar()
-} // Class HelpActivity
+} // Class ProgrammingFragment

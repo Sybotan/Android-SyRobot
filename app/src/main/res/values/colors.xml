@@ -26,4 +26,21 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="theme_100">@color/blue_100</color>
+    <color name="theme_200">@color/blue_200</color>
+    <color name="theme_300">@color/blue_300</color>
+    <color name="theme_400">@color/blue_400</color>
+    <color name="theme_500">@color/blue_500</color>
+    <color name="theme_600">@color/blue_600</color>
+    <color name="theme_700">@color/blue_700</color>
+    <color name="theme_800">@color/blue_800</color>
+    <color name="theme_900">@color/blue_900</color>
+
+    <!-- SyRobot theme -->
+    <color name="sybotan_green">#00a73c</color>
+    <color name="sybotan_green_dark">#00983a</color>
+    <color name="sybotan_white">#FFFDFB</color>
+    <color name="sybotan_black">#261400</color>
+    <color name="sybotan_light_grey">#D3C6AC</color>
 </resources>

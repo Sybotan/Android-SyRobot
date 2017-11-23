@@ -22,5 +22,66 @@
   -->
 
 <resources>
-    <string name="app_name">SyRobot</string>
+    <!-- app -->
+    <string name="app_name">斯伯坦机器人</string>
+    <string name="copyright">北京力成恒通科技有限公司 版权所有\nCopyright © 2015-2017 Sybotan.\nAll Rights Reserved.</string>
+
+    <!-- activity -->
+    <string name="title_activity_about">关于</string>
+    <string name="title_activity_joint_settings">关节设置</string>
+    <string name="title_activity_developer">开发者工具</string>
+    <string name="title_activity_help">帮助中心</string>
+
+    <!-- navigation -->
+    <string name="navigation_drawer_open">打开导航面板</string>
+    <string name="navigation_drawer_close">关闭导航面板</string>
+    <string name="nav_item_joint_settings">关节设置</string>
+    <string name="nav_item_developer">开发者工具</string>
+    <string name="nav_item_help">帮助中心</string>
+    <string name="nav_item_about">关于</string>
+
+    <!-- motion -->
+    <string name="motion_icon_description">图标</string>
+    <string name="motion_loop_count_hint">1</string>
+    <string name="multiplication_sign">×</string>
+    <string name="unknown_motion_id">\??</string>
+    <string name="unknown_motion_name">未知</string>
+    <string name="no_icon_path">file:///android_asset/img/motion/no_icon.png</string>
+
+    <!-- data -->
+    <string name="sample_program_directory">sample/</string>
+    <string name="sequence_file_name">sequence.json</string>
+    <string name="motions_file_name">motions.json</string>
+
+    <!-- 菜单 -->
+    <string name="action_joystick">遥控</string>
+    <string name="action_program">编程</string>
+    <string name="action_taobao">淘宝店</string>
+    <string name="action_delete_program">删除</string>
+    <string name="action_write_program">运行</string>
+    <string name="action_search_sybotan">搜索机器人</string>
+    <string name="action_ok">确定</string>
+    <string name="action_cancel">取消</string>
+    <string name="action_rescan">重试</string>
+    <string name="action_deny">拒绝</string>
+    <string name="action_allow">允许</string>
+
+    <!-- 按钮 -->
+    <string name="button_max">最大值</string>
+    <string name="button_min">最小值</string>
+    <string name="button_home_setting">回中设置</string>
+    <string name="button_step">增量</string>
+    <string name="button_stop">停止</string>
+
+    <!-- message -->
+    <string name="scanning_syrobot">搜索机器人</string>
+    <string name="syrobot_not_found">未找到机器人</string>
+    <string name="select_syrobot">选择机器人</string>
+    <string name="syrobot_connected">已连接</string>
+    <string name="syrobot_disconnected">断开连接</string>
+    <string name="please_wait">请稍候...</string>
+    <string name="connection_error">连接错误</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
