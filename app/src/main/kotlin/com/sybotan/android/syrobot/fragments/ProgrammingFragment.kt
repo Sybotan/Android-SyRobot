@@ -25,19 +25,23 @@ package com.sybotan.android.syrobot.fragments
 
 import android.app.Fragment
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.sybotan.android.syrobot.R
 
 /**
  * 编程界面
  *
  * @author  Andy
  */
-class ProgrammingFragment  : Fragment() {
+object ProgrammingFragment  : Fragment() {
+    private val TAG = ProgrammingFragment::class.java.simpleName
 
-    /**
-     * 创建Fragment时调用
-     */
-    override fun onCreate(savedInstanceState: Bundle) {
-        super.onCreate(savedInstanceState)
-        return
-    } // Function onCreate()
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log.d(TAG, "ProgrammingFragment::onCreateView")
+        // Inflate the layout for this fragment
+        return inflater!!.inflate(R.layout.fragment_programming, container, false)
+    }
 } // Class ProgrammingFragment

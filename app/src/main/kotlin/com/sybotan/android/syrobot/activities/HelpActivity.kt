@@ -34,7 +34,9 @@ import kotlinx.android.synthetic.main.activity_help.*
  * @author  Andy
  */
 class HelpActivity : AppCompatActivity() {
-
+    companion object {
+        val TAG = HelpActivity::class.java.simpleName
+    }
     /**
      * 创建Activity时调用
      */

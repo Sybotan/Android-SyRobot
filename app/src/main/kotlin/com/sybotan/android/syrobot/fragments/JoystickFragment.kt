@@ -25,6 +25,7 @@ package com.sybotan.android.syrobot.fragments
 
 import android.app.Fragment
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,17 +36,11 @@ import com.sybotan.android.syrobot.R
  *
  * @author  Andy
  */
-class JoystickFragment : Fragment() {
-    /**
-     * 创建Fragment时调用
-     */
-    override fun onCreate(savedInstanceState: Bundle) {
-        super.onCreate(savedInstanceState)
-        return
-    } // Function onCreate()
+object JoystickFragment : Fragment() {
+    private val TAG = JoystickFragment::class.java.simpleName
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log.d(TAG, "ProgrammingFragment::onCreateView")
         // Inflate the layout for this fragment
         return inflater!!.inflate(R.layout.fragment_joystick, container, false)
     }

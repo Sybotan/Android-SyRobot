@@ -25,8 +25,6 @@ package com.sybotan.android.syrobot.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.app.ActionBar
-import android.view.View
 import com.sybotan.android.syrobot.R
 import kotlinx.android.synthetic.main.activity_joint_settings.*
 
@@ -36,7 +34,9 @@ import kotlinx.android.synthetic.main.activity_joint_settings.*
  * @author  Andy
  */
 class JointSettingsActivity : AppCompatActivity() {
-
+    companion object {
+        val TAG = JointSettingsActivity::class.java.simpleName
+    }
     /**
      * 创建Activity时调用
      */

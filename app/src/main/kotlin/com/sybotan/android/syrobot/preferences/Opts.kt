@@ -24,6 +24,7 @@
 package com.sybotan.android.syrobot.preferences
 
 import android.content.SharedPreferences
+import android.util.Log
 
 /**
  * 系统参数设置
@@ -31,6 +32,8 @@ import android.content.SharedPreferences
  * @author  Andy
  */
 object Opts {
+    private val TAG = Opts::class.java.simpleName
+
     var pref : SharedPreferences? = null
 
     // 是否显示手柄控制界面
@@ -38,6 +41,7 @@ object Opts {
         get() = pref!!.getBoolean("joystickVisibility", true)
         set(value){
             pref!!.edit().putBoolean("joystickVisibility", value).apply()
+            Log.d(TAG, "Opts::joystickVisibility=$value")
         }
 
 } // Object Opts

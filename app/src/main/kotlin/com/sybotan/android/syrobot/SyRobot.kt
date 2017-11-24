@@ -34,7 +34,7 @@ import com.sybotan.android.syrobot.preferences.Opts
  */
 class SyRobot : Application() {
     companion object {
-        val TAG = "SyRobot"
+        val TAG = SyRobot::class.java.simpleName
     }
 
     /**

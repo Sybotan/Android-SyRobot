@@ -34,8 +34,8 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.util.Log
 import android.view.MenuItem
 import com.sybotan.android.syrobot.R
-import com.sybotan.android.syrobot.SyRobot
 import com.sybotan.android.syrobot.fragments.JoystickFragment
+import com.sybotan.android.syrobot.fragments.ProgrammingFragment
 import com.sybotan.android.syrobot.preferences.Opts
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -45,6 +45,9 @@ import kotlinx.android.synthetic.main.activity_main.*
  * @author  Andy
  */
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    companion object {
+        val TAG = MainActivity::class.java.simpleName
+    }
     val APP_ID = "10410170"
     val API_KEY = "RkSClKjZcclmDPBnn6c7RV7M"
     val SECRET_KEY = "tg41qnImYk7ScZ3foHgQXwkR0nOoTq8d"
@@ -91,7 +94,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val intent : Intent
         val id = item.getItemId()
-        Log.d(SyRobot.TAG, "menuId=$id")
+        Log.d(TAG, "menuId=$id")
         when(id) {
             R.id.uiNavTaobao -> intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://shop155631146.taobao.com"))
             R.id.uiNavJointSettings -> intent = Intent(this, JointSettingsActivity::class.java)
@@ -130,16 +133,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      */
     private fun updateFragment() {
         val fragment: Fragment
-        Log.d(SyRobot.TAG, "-------------------------------------------------${Opts.joystickVisibility}")
-        //if (Opts.joystickVisibility) {
-            fragment = JoystickFragment()
-//        } else {
-//            fragment = ProgrammingFragment()
-//        }
+        Log.d(TAG, "Opts.joystickVisibility=${Opts.joystickVisibility}")
+        if (Opts.joystickVisibility) {
+            fragment = JoystickFragment
+        } else {
+            fragment = ProgrammingFragment
+        }
 
-//        fragmentManager.beginTransaction()
-//                    .replace(R.id.uiContainer, fragment)
-//                    .commit()
+        fragmentManager.beginTransaction()
+                    .replace(R.id.uiContainer, fragment)
+                    .commit()
         return
     } // Function updateFragment()
 } // Class MainActivity

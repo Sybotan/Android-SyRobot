@@ -34,7 +34,9 @@ import kotlinx.android.synthetic.main.activity_about.*
  * @author  Andy
  */
 class AboutActivity : AppCompatActivity() {
-
+    companion object {
+        val TAG = AboutActivity::class.java.simpleName
+    }
     /**
      * 创建Activity时调用
      */
