@@ -1,0 +1,352 @@
+[
+  {
+    "name": "标准",
+    "motionList": [
+      {
+        "id": 0,
+        "iconPath": "images/normal/normal__lstep.png",
+        "name": "向左"
+      },
+      {
+        "id": 1,
+        "iconPath": "images/normal/normal__fstep.png",
+        "name": "向前"
+      },
+      {
+        "id": 2,
+        "iconPath": "images/normal/normal__rstep.png",
+        "name": "向右"
+      },
+      {
+        "id": 3,
+        "iconPath": "images/normal/normal__a-hem.png",
+        "name": "下摆"
+      },
+      {
+        "id": 4,
+        "iconPath": "images/normal/normal__bow.png",
+        "name": "鞠躬"
+      },
+      {
+        "id": 5,
+        "iconPath": "images/normal/normal__propose.png",
+        "name": "欢迎"
+      },
+      {
+        "id": 6,
+        "iconPath": "images/normal/normal__hug.png",
+        "name": "拥抱"
+      },
+      {
+        "id": 7,
+        "iconPath": "images/normal/normal__clap.png",
+        "name": "鼓掌"
+      },
+      {
+        "id": 8,
+        "iconPath": "images/normal/normal__high-five.png",
+        "name": "击掌"
+      },
+      {
+        "id": 70,
+        "iconPath": "images/no_image.png",
+        "name": "向前走"
+      },
+      {
+        "id": 71,
+        "iconPath": "images/no_image.png",
+        "name": "向左转"
+      },
+      {
+        "id": 72,
+        "iconPath": "images/no_image.png",
+        "name": "向右转"
+      },
+      {
+        "id": 73,
+        "iconPath": "images/no_image.png",
+        "name": "向后退"
+      }
+    ]
+  },
+  {
+    "name": "玩盒子",
+    "motionList": [
+      {
+        "id": 10,
+        "iconPath": "images/box/box__shake_a_box.png",
+        "name": "摇晃盒子"
+      },
+      {
+        "id": 11,
+        "iconPath": "images/box/box__pick_up_high.png",
+        "name": "高位拿起"
+      },
+      {
+        "id": 12,
+        "iconPath": "images/box/box__pick_up_low.png",
+        "name": "低位拿起"
+      },
+      {
+        "id": 13,
+        "iconPath": "images/box/box__receive_a_box.png",
+        "name": "得到盒子"
+      },
+      {
+        "id": 14,
+        "iconPath": "images/box/box__present_a_box.png",
+        "name": "展示例子"
+      },
+      {
+        "id": 15,
+        "iconPath": "images/box/box__pass_a_box.png",
+        "name": "传递盒子"
+      },
+      {
+        "id": 16,
+        "iconPath": "images/box/box__throw_a_box.png",
+        "name": "扔掉盒子"
+      },
+      {
+        "id": 17,
+        "iconPath": "images/box/box__put_down_high.png",
+        "name": "高位放下"
+      },
+      {
+        "id": 18,
+        "iconPath": "images/box/box__put_down_low.png",
+        "name": "低位放下"
+      },
+      {
+        "id": 74,
+        "iconPath": "images/no_image.png",
+        "name": "向前搬"
+      },
+      {
+        "id": 75,
+        "iconPath": "images/no_image.png",
+        "name": "向左搬"
+      },
+      {
+        "id": 76,
+        "iconPath": "images/no_image.png",
+        "name": "向右搬"
+      },
+      {
+        "id": 77,
+        "iconPath": "images/no_image.png",
+        "name": "向后搬"
+      }
+    ]
+  },
+  {
+    "name": "踢足球",
+    "motionList": [
+      {
+        "id": 20,
+        "iconPath": "images/soccer/soccer__defense_lstep.png",
+        "name": "向左防卫"
+      },
+      {
+        "id": 21,
+        "iconPath": "images/soccer/soccer__dribble.png",
+        "name": "运球"
+      },
+      {
+        "id": 22,
+        "iconPath": "images/soccer/soccer__defense_rstep.png",
+        "name": "向右防卫"
+      },
+      {
+        "id": 23,
+        "iconPath": "images/soccer/soccer__lkick.png",
+        "name": "左脚踢球"
+      },
+      {
+        "id": 24,
+        "iconPath": "images/soccer/soccer__long_dribble.png",
+        "name": "持续运球"
+      },
+      {
+        "id": 25,
+        "iconPath": "images/soccer/soccer__rkick.png",
+        "name": "右脚踢球"
+      },
+      {
+        "id": 26,
+        "iconPath": "images/soccer/soccer__pass_to_left.png",
+        "name": "向左传球"
+      },
+      {
+        "id": 27,
+        "iconPath": "images/soccer/soccer__pass_it_to_me!.png",
+        "name": "传球给我"
+      },
+      {
+        "id": 28,
+        "iconPath": "images/soccer/soccer__pass_to_right.png",
+        "name": "向右传球"
+      },
+      {
+        "id": 70,
+        "iconPath": "images/no_image.png",
+        "name": "向前走"
+      },
+      {
+        "id": 71,
+        "iconPath": "images/no_image.png",
+        "name": "向左转"
+      },
+      {
+        "id": 72,
+        "iconPath": "images/no_image.png",
+        "name": "向右转"
+      },
+      {
+        "id": 73,
+        "iconPath": "images/no_image.png",
+        "name": "向后退"
+      }
+    ]
+  },
+  {
+    "name": "跳舞",
+    "motionList": [
+      {
+        "id": 30,
+        "iconPath": "images/dance/dance__lstep.png",
+        "name": "向左跳舞"
+      },
+      {
+        "id": 31,
+        "iconPath": "images/dance/dance__fstep.png",
+        "name": "向前跳舞"
+      },
+      {
+        "id": 32,
+        "iconPath": "images/dance/dance__rstep.png",
+        "name": "向右跳舞"
+      },
+      {
+        "id": 33,
+        "iconPath": "images/dance/dance__finish_pose.png",
+        "name": "跳舞结束"
+      },
+      {
+        "id": 34,
+        "iconPath": "images/dance/dance__up___down.png",
+        "name": "上下舞姿"
+      },
+      {
+        "id": 35,
+        "iconPath": "images/dance/dance__wiggle.png",
+        "name": "摆动舞姿"
+      },
+      {
+        "id": 36,
+        "iconPath": "images/dance/dance__bstep.png",
+        "name": "向后跳舞"
+      },
+      {
+        "id": 37,
+        "iconPath": "images/dance/dance__bow.png",
+        "name": "弯腰舞姿"
+      },
+      {
+        "id": 38,
+        "iconPath": "images/dance/dance__twist.png",
+        "name": "摆舞姿"
+      },
+      {
+        "id": 70,
+        "iconPath": "images/no_image.png",
+        "name": "向前走"
+      },
+      {
+        "id": 71,
+        "iconPath": "images/no_image.png",
+        "name": "向左转"
+      },
+      {
+        "id": 72,
+        "iconPath": "images/no_image.png",
+        "name": "向右转"
+      },
+      {
+        "id": 73,
+        "iconPath": "images/no_image.png",
+        "name": "向后退"
+      }
+    ]
+  },
+  {
+    "name": "滑旱冰",
+    "motionList": [
+      {
+        "id": 40,
+        "iconPath": "images/roller_skating/roller_skating__ina_bauer_lfoot.png",
+        "name": "左脚后仰"
+      },
+      {
+        "id": 41,
+        "iconPath": "images/roller_skating/roller_skating__brake_for_forward.png",
+        "name": "向前刹车"
+      },
+      {
+        "id": 42,
+        "iconPath": "images/roller_skating/roller_skating__ina_bauer_rfoot.png",
+        "name": "右脚后仰"
+      },
+      {
+        "id": 43,
+        "iconPath": "images/roller_skating/roller_skating__balance_on_lfoot.png",
+        "name": "左脚平衡"
+      },
+      {
+        "id": 44,
+        "iconPath": "images/roller_skating/roller_skating__upright.png",
+        "name": "直立"
+      },
+      {
+        "id": 45,
+        "iconPath": "images/roller_skating/roller_skating__balance_on_rfoot.png",
+        "name": "右脚平衡"
+      },
+      {
+        "id": 46,
+        "iconPath": "images/roller_skating/roller_skating__heel___toe_lfoot.png",
+        "name": "左脚倾斜"
+      },
+      {
+        "id": 47,
+        "iconPath": "images/roller_skating/roller_skating__brake_for_back.png",
+        "name": "向后刹车"
+      },
+      {
+        "id": 48,
+        "iconPath": "images/roller_skating/roller_skating__heel___toe_rfoot.png",
+        "name": "右脚倾斜"
+      },
+      {
+        "id": 78,
+        "iconPath": "images/no_image.png",
+        "name": "向前滑"
+      },
+      {
+        "id": 79,
+        "iconPath": "images/no_image.png",
+        "name": "向左滑"
+      },
+      {
+        "id": 80,
+        "iconPath": "images/no_image.png",
+        "name": "向右滑"
+      },
+      {
+        "id": 81,
+        "iconPath": "images/no_image.png",
+        "name": "向后滑"
+      }
+    ]
+  }
+]

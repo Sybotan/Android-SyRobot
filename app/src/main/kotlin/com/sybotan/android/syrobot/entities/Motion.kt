@@ -21,27 +21,15 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.android.syrobot.fragments
-
-import android.app.Fragment
-import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.sybotan.android.syrobot.R
+package com.sybotan.android.syrobot.entities
 
 /**
- * 手柄控制界面
+ * 动作实体类
  *
  * @author  Andy
  */
-object JoystickFragment : Fragment() {
-    private val TAG = JoystickFragment::class.java.simpleName
-
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log.d(TAG, "ProgrammingFragment::onCreateView")
-        // Inflate the layout for this fragment
-        return inflater!!.inflate(R.layout.fragment_joystick, container, false)
-    }
-} // Class JoystickFragment
+data class Motion(
+        var id: Int = 0,
+        var name: String = "",
+        var iconPath: String = ""
+    )

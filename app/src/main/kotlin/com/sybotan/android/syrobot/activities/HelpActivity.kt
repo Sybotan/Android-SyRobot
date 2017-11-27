@@ -25,6 +25,7 @@ package com.sybotan.android.syrobot.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.sybotan.android.syrobot.R
 import kotlinx.android.synthetic.main.activity_help.*
 
@@ -35,14 +36,15 @@ import kotlinx.android.synthetic.main.activity_help.*
  */
 class HelpActivity : AppCompatActivity() {
     companion object {
-        val TAG = HelpActivity::class.java.simpleName
-    }
+        private val TAG = HelpActivity::class.java.simpleName
+    } // companion object
     /**
      * 创建Activity时调用
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_help)
+        Log.v(TAG, "onCreate")
         updateAppbar()
         return
     } // Function onCreate()

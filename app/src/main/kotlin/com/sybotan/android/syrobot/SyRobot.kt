@@ -26,6 +26,7 @@ package com.sybotan.android.syrobot
 import android.app.Application
 import android.content.Context
 import com.sybotan.android.syrobot.preferences.Opts
+import com.sybotan.android.syrobot.views.adapters.MotionCategoryAdapter
 
 /**
  * 应用入口
@@ -33,9 +34,7 @@ import com.sybotan.android.syrobot.preferences.Opts
  * @author  Andy
  */
 class SyRobot : Application() {
-    companion object {
-        val TAG = SyRobot::class.java.simpleName
-    }
+    private val TAG = SyRobot::class.java.simpleName
 
     /**
      * 创建应用时调用
@@ -44,6 +43,8 @@ class SyRobot : Application() {
         super.onCreate()
         // 初始化MainPreferences对象
         Opts.pref = getSharedPreferences(TAG, Context.MODE_PRIVATE)
+
+        MotionCategoryAdapter.loadMotionFile(applicationContext.assets.open("littlestar/motions.json"))
         return
     } // Function onCreate()
 

@@ -22,16 +22,13 @@
   ~ *********************************************************************************************************************
   -->
 
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:bottom="8dp"
-        android:left="4dp"
-        android:right="4dp"
-        android:top="8dp">
-        <shape>
-            <solid android:color="@color/sybotan_light_grey"/>
-            <corners android:radius="8dp"/>
-            <size android:width="4dp"/>
-        </shape>
-    </item>
-</layer-list>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="oval">
+    <solid android:color="@color/sybotan_white"/>
+    <stroke
+            android:width="5dp"
+            android:color="#F7F5F3"/>
+    <size
+            android:width="100dp"
+            android:height="100dp"/>
+</shape>

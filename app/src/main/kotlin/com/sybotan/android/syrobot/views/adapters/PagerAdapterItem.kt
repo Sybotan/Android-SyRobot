@@ -21,44 +21,10 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.android.syrobot.activities
+package com.sybotan.android.syrobot.views.adapters
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import com.sybotan.android.syrobot.R
-import kotlinx.android.synthetic.main.activity_joint_settings.*
+import android.view.ViewGroup
 
-/**
- * 关节设置Activity
- *
- * @author  Andy
- */
-class JointSettingsActivity : AppCompatActivity() {
-    companion object {
-        private val TAG = JointSettingsActivity::class.java.simpleName
-    } // companion object
-
-    /**
-     * 创建Activity时调用
-     */
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_joint_settings)
-        updateAppbar()
-        return
-    } // Function onCreate()
-
-    /**
-     * 更新顶部条
-     */
-    private fun updateAppbar() {
-        uiAppbar.setTitle(R.string.title_activity_joint_settings)
-        setSupportActionBar(uiAppbar)
-        // 标题栏显示返回，点击返回上一页
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        // 点击返回
-        uiAppbar.setNavigationOnClickListener{ finish() }
-
-        return
-    } // Function updateAppBar()
-}
+interface PagerAdapterItem {
+    fun instantiateItem(container: ViewGroup, position: Int): Any
+} // Interface PagerAdapterItem

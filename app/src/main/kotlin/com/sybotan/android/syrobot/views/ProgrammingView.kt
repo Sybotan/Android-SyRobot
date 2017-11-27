@@ -21,27 +21,45 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.android.syrobot.fragments
+package com.sybotan.android.syrobot.views
 
-import android.app.Fragment
-import android.os.Bundle
-import android.util.Log
+import android.content.Context
+import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import com.sybotan.android.syrobot.R
+import com.sybotan.android.syrobot.views.adapters.PagerAdapterItem
+import com.sybotan.android.syrobot.views.adapters.MotionCategoryAdapter
+import kotlinx.android.synthetic.main.view_programming.view.*
 
 /**
  * 编程界面
  *
  * @author  Andy
  */
-object ProgrammingFragment  : Fragment() {
-    private val TAG = ProgrammingFragment::class.java.simpleName
+class ProgrammingView(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs), PagerAdapterItem {
+    private val TAG = ProgrammingView::class.java.simpleName
+    private val categoryAdapter = MotionCategoryAdapter(this)
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log.d(TAG, "ProgrammingFragment::onCreateView")
-        // Inflate the layout for this fragment
-        return inflater!!.inflate(R.layout.fragment_programming, container, false)
-    }
-} // Class ProgrammingFragment
+    // 初始化
+    init {
+        // 加载布局
+        LayoutInflater.from(context).inflate(R.layout.view_programming, this)
+        uiMotionCategoryPager.adapter = categoryAdapter
+    } // init
+
+    /**
+     * 实例化列表项视图
+     *
+     * @param   container   容器对象
+     * @param   position    数据项索引
+     * @return  列表项视图
+     */
+    override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        val view = MotionListView(categoryAdapter.getMotionList(position)!!, context)
+        container.addView(view)
+        return view
+    } // Function instantiateItem()
+} // Class JoystickView

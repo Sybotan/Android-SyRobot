@@ -34,9 +34,9 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.util.Log
 import android.view.MenuItem
 import com.sybotan.android.syrobot.R
-import com.sybotan.android.syrobot.fragments.JoystickFragment
-import com.sybotan.android.syrobot.fragments.ProgrammingFragment
 import com.sybotan.android.syrobot.preferences.Opts
+import com.sybotan.android.syrobot.views.JoystickView
+import com.sybotan.android.syrobot.views.ProgrammingView
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -46,18 +46,24 @@ import kotlinx.android.synthetic.main.activity_main.*
  */
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     companion object {
-        val TAG = MainActivity::class.java.simpleName
+        private val TAG = MainActivity::class.java.simpleName
     }
     val APP_ID = "10410170"
     val API_KEY = "RkSClKjZcclmDPBnn6c7RV7M"
     val SECRET_KEY = "tg41qnImYk7ScZ3foHgQXwkR0nOoTq8d"
 
+    var joystickView : JoystickView? = null
+    var programmingView : ProgrammingView? = null
     /**
      * 创建Activity时调用
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // 初始化控制与编程界面
+        joystickView = JoystickView(this)
+        programmingView = ProgrammingView(this)
 
         // 导航切换
         val toggle = ActionBarDrawerToggle(
@@ -70,6 +76,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         updateAppbar()
         updateFragment()
+
         return
     } // Function onCreate()
 
@@ -132,17 +139,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      * 更新fragment
      */
     private fun updateFragment() {
-        val fragment: Fragment
-        Log.d(TAG, "Opts.joystickVisibility=${Opts.joystickVisibility}")
+
+        uiContainer.removeAllViews()
+
         if (Opts.joystickVisibility) {
-            fragment = JoystickFragment
+            uiContainer.addView(joystickView)
         } else {
-            fragment = ProgrammingFragment
+            uiContainer.addView(programmingView)
         }
 
-        fragmentManager.beginTransaction()
-                    .replace(R.id.uiContainer, fragment)
-                    .commit()
         return
     } // Function updateFragment()
 } // Class MainActivity

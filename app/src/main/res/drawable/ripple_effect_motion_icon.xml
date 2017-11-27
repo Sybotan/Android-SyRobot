@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ *********************************************************************************************************************
+  ~ **********************************************************************************************************************
   ~
   ~               iFHS7.
   ~              ;BBMBMBMc                  rZMBMBR              BMB
@@ -19,19 +19,15 @@
   ~              ,  XMW  ..
   ~                  r                                                                     All rights reserved.
   ~
-  ~ *********************************************************************************************************************
+  ~ **********************************************************************************************************************
   -->
 
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:bottom="8dp"
-        android:left="4dp"
-        android:right="4dp"
-        android:top="8dp">
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+        android:color="@color/theme_400">
+    <item>
         <shape>
-            <solid android:color="@color/sybotan_light_grey"/>
-            <corners android:radius="8dp"/>
-            <size android:width="4dp"/>
+            <solid android:color="@color/blue_100"/>
+            <corners android:radius="6dp"/>
         </shape>
     </item>
-</layer-list>
+</ripple>

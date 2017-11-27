@@ -22,13 +22,13 @@
   ~ *********************************************************************************************************************
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="horizontal">
-
-    <TextView
-            android:text="编程"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/textView2" android:layout_weight="1"/>
-</LinearLayout>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="oval">
+    <solid android:color="@color/colorPrimaryDark"/>
+    <stroke
+            android:width="50dp"
+            android:color="@color/colorPrimary"/>
+    <size
+            android:width="100dp"
+            android:height="100dp"/>
+</shape>

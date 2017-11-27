@@ -21,44 +21,47 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.android.syrobot.activities
+package com.sybotan.android.syrobot.views
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
+import android.content.Context
+import android.support.design.widget.TabLayout
+import android.util.AttributeSet
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import com.sybotan.android.syrobot.R
-import kotlinx.android.synthetic.main.activity_joint_settings.*
+import com.sybotan.android.syrobot.views.adapters.PagerAdapterItem
+import com.sybotan.android.syrobot.views.adapters.MotionCategoryAdapter
+import kotlinx.android.synthetic.main.view_joystick.view.*
 
 /**
- * 关节设置Activity
+ * 控制界面
  *
  * @author  Andy
  */
-class JointSettingsActivity : AppCompatActivity() {
-    companion object {
-        private val TAG = JointSettingsActivity::class.java.simpleName
-    } // companion object
+class JoystickView(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs), PagerAdapterItem {
+    private val categoryAdapter = MotionCategoryAdapter(this)
+
+    // 初始化
+    init {
+        // 加载布局
+        LayoutInflater.from(context).inflate(R.layout.view_joystick, this)
+
+        uiMainTabs.tabMode = TabLayout.MODE_FIXED
+        uiMainTabs.setupWithViewPager(uiMotionViewPager)
+        uiMotionViewPager.adapter = categoryAdapter
+    } // init
 
     /**
-     * 创建Activity时调用
+     * 实例化列表项视图
+     *
+     * @param   container   容器对象
+     * @param   position    数据项索引
+     * @return  列表项视图
      */
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_joint_settings)
-        updateAppbar()
-        return
-    } // Function onCreate()
-
-    /**
-     * 更新顶部条
-     */
-    private fun updateAppbar() {
-        uiAppbar.setTitle(R.string.title_activity_joint_settings)
-        setSupportActionBar(uiAppbar)
-        // 标题栏显示返回，点击返回上一页
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        // 点击返回
-        uiAppbar.setNavigationOnClickListener{ finish() }
-
-        return
-    } // Function updateAppBar()
-}
+    override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        val view = MotionGridView(categoryAdapter.getMotionList(position)!!, context)
+        container.addView(view)
+        return view
+    } // Function instantiateItem()
+} // Class JoystickView
