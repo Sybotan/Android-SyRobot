@@ -37,9 +37,7 @@ import java.io.InputStream
  *
  * @author  Andy
  */
-open class MotionCategoryAdapter(item: PagerAdapterItem) : PagerAdapter() {
-    var adapterItem = item
-
+open class MotionCategoryAdapter : PagerAdapter() {
     companion object {
         private val TAG = MotionCategoryAdapter::class.java.simpleName
         lateinit var motionCategoryList: List<MotionCategory>
@@ -79,16 +77,6 @@ open class MotionCategoryAdapter(item: PagerAdapterItem) : PagerAdapter() {
     override fun getPageTitle(position: Int): String {
         return "${motionCategoryList[position].name}"
     } // Function getPageTitle()
-
-    /**
-     * 在窗口中添加视图
-     *
-     * @param   container   容器
-     * @param   position    被释放对象在容器中的索引
-     */
-    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        return adapterItem.instantiateItem(container, position)
-    } // Function instantiateItem()
 
     /**
      * 释放对象

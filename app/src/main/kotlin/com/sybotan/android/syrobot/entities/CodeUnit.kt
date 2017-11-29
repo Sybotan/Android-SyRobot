@@ -21,10 +21,15 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.android.syrobot.views.adapters
+package com.sybotan.android.syrobot.entities
 
-import android.view.ViewGroup
-
-interface PagerAdapterItem {
-    fun instantiateItem(container: ViewGroup, position: Int): Any
-} // Interface PagerAdapterItem
+/**
+ * 代码单元
+ *
+ * @author  Andy
+ */
+data class CodeUnit(
+        var motion: Motion,
+        var loopCount: Int = 1
+)
+// Class CodeUnit

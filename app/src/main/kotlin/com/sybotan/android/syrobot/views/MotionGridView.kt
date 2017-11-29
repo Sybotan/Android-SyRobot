@@ -94,7 +94,6 @@ class MotionGridView(motionList: List<Motion>, context: Context, attrs: Attribut
                 Log.v(TAG, "file:///android_asset/littlestar/${motion.iconPath}")
                 Picasso.with(context).load("file:///android_asset/littlestar/${motion.iconPath}").into(view.uiMotionIcon)
                 view.uiMotionName.text = motion.name
-                //view.uiMotionNumber.text = String.format("%02X", motion.id)
             } // Function bind()
         }
     } // Class MotionAdapter()

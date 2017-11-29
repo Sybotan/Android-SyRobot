@@ -28,6 +28,8 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.text.Editable
+import android.text.SpannableStringBuilder
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
@@ -35,32 +37,45 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import com.sybotan.android.syrobot.R
+import com.sybotan.android.syrobot.entities.CodeUnit
 import com.sybotan.android.syrobot.entities.Motion
-import kotlinx.android.synthetic.main.widget_motion_list_item.view.*
+import kotlinx.android.synthetic.main.view_codeunit_list_item.view.*
+import java.util.*
 
 /**
- * 竖向单列滑动式Motion视图控件
+ * 代码列表
  *
  * @author  Andy
  */
-class MotionListView(motionList: List<Motion>, context: Context, attrs: AttributeSet? = null) : RecyclerView(context, attrs) {
+class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : RecyclerView(context, attrs) {
     companion object {
-        private val TAG = MotionListView::class.java.simpleName
+        private val TAG = CodeUnitListView::class.java.simpleName
     }
 
-    val motionList: List<Motion>
+    // 代码列表
+    var codeUnitList = ArrayList<CodeUnit>()
+    val mainAdapter = CodeUnitListAdapter()
 
     // 初始化
     init {
         layoutManager = LinearLayoutManager(context)
-        this.motionList = motionList
-        adapter = MotionAdapter()
-        // 添加默认分隔线
+        adapter = mainAdapter
+        // 添加分隔线
         addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         ItemTouchHelper(ItemTouchHelperCallback()).attachToRecyclerView(this)
+        codeUnitList.add(CodeUnit(Motion(1, "test1"),1))
+        codeUnitList.add(CodeUnit(Motion(2, "test2"),2))
+        codeUnitList.add(CodeUnit(Motion(3, "test3"),3))
+        codeUnitList.add(CodeUnit(Motion(4, "test4"),4))
+        codeUnitList.add(CodeUnit(Motion(5, "test5"),5))
+        codeUnitList.add(CodeUnit(Motion(6, "test6"),6))
+        codeUnitList.add(CodeUnit(Motion(7, "test7"),7))
+        codeUnitList.add(CodeUnit(Motion(8, "test8"),8))
+        codeUnitList.add(CodeUnit(Motion(9, "test9"),9))
+        codeUnitList.add(CodeUnit(Motion(10, "test10"),10))
     } // init
 
-    inner class MotionAdapter : Adapter<MotionAdapter.MotionViewHolder>(){
+    inner class CodeUnitListAdapter : Adapter<CodeUnitListAdapter.CodeUnitListViewHolder>(){
         /**
          * 创建视图holder
          *
@@ -68,9 +83,9 @@ class MotionListView(motionList: List<Motion>, context: Context, attrs: Attribut
          * @param   viewType    视图类型
          * @return  视图图holder
          */
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MotionViewHolder {
-            val view = LayoutInflater.from(parent!!.context).inflate(R.layout.widget_motion_list_item, parent, false)
-            return MotionViewHolder(view)
+        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CodeUnitListViewHolder {
+            val view = LayoutInflater.from(parent!!.context).inflate(R.layout.view_codeunit_list_item, parent, false)
+            return CodeUnitListViewHolder(view)
         } // Function onCreateViewHolder()
 
         /**
@@ -79,8 +94,8 @@ class MotionListView(motionList: List<Motion>, context: Context, attrs: Attribut
          * @param   holder      保存数据holder
          * @param   position    数据索引
          */
-        override fun onBindViewHolder(holder: MotionViewHolder?, position: Int) {
-            holder!!.bind(motionList[position])
+        override fun onBindViewHolder(holder: CodeUnitListViewHolder?, position: Int) {
+            holder!!.bind(codeUnitList[position])
             return
         } // Function onBindViewHolder()
 
@@ -89,36 +104,56 @@ class MotionListView(motionList: List<Motion>, context: Context, attrs: Attribut
          *
          * @return  数据项数量
          */
-        override fun getItemCount(): Int = motionList.size
+        override fun getItemCount(): Int = codeUnitList.size
 
         /**
          * 视图Holder
          */
-        inner class MotionViewHolder(val view: View) : ViewHolder(view) {
-            fun bind(motion: Motion) {
-                Log.v(TAG, "file:///android_asset/littlestar/${motion.iconPath}")
-                Picasso.with(context).load("file:///android_asset/littlestar/${motion.iconPath}").into(view.uiMotionIcon)
-                view.uiMotionName.text = motion.name
-                //view.uiMotionNumber.text = String.format("%02X", motion.id)
+        inner class CodeUnitListViewHolder(val view: View) : ViewHolder(view) {
+            fun bind(codeUnit: CodeUnit) {
+                Log.v(CodeUnitListView.TAG, "file:///android_asset/littlestar/${codeUnit.motion.iconPath}")
+                Picasso.with(context).load("file:///android_asset/littlestar/${codeUnit.motion.iconPath}").into(view.uiMotionIcon)
+                view.uiMotionName.text = codeUnit.motion.name
+                view.uiLoopCount.text = SpannableStringBuilder(codeUnit.loopCount.toString())
             } // Function bind()
         }
     } // Class MotionAdapter()
 
+    /**
+     *
+     */
     inner class ItemTouchHelperCallback : ItemTouchHelper.Callback() {
         /**
          * 获得移动标志
          *
          */
-        override fun getMovementFlags(recyclerView: RecyclerView?, viewHolder: ViewHolder?): Int {
-            return makeMovementFlags(ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.RIGHT, 0);
+        override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: ViewHolder): Int {
+            // 上下滑拖拽
+            val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
+            // 左右滑删除
+            val swipeFlags = ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+            return makeMovementFlags(dragFlags, swipeFlags)
         } // Function getMovementFlags()
 
-        override fun onMove(recyclerView: RecyclerView?, viewHolder: ViewHolder?, target: ViewHolder?): Boolean {
+        /**
+         * 移动时回调
+         */
+        override fun onMove(recyclerView: RecyclerView, src: ViewHolder, target: ViewHolder): Boolean {
+            val srcPos = src.adapterPosition
+            val targetPos = target.adapterPosition
+            Collections.swap(codeUnitList, srcPos, targetPos)
+            mainAdapter.notifyItemMoved(srcPos, targetPos)
             return true
         } // Function onMove()
 
-        override fun onSwiped(viewHolder: ViewHolder?, direction: Int) {
+        /**
+         * 移除
+         */
+        override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
+            val pos = viewHolder.adapterPosition
+            codeUnitList.removeAt(pos)
+            mainAdapter.notifyItemRemoved(pos)
         } // Function onSwiped()
 
     } // Class ItemTouchHelperCallback()
-} // Class MotionGridView
+} // Class CodeUnitListView

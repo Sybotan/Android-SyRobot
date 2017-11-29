@@ -97,7 +97,7 @@ ui
                   android:layout_height="20dp"
                   android:background="@color/grey_300"
                   android:layout_below="@+id/uiProgrambar"/>
-        <ListView
+        <com.sybotan.android.syrobot.views.CodeUnitListView
                 android:id="@+id/uiProgram"
                 style="@style/MotionListStyle"
                 android:layout_width="match_parent"

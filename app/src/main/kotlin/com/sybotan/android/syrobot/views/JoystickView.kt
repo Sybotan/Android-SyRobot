@@ -30,7 +30,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.sybotan.android.syrobot.R
-import com.sybotan.android.syrobot.views.adapters.PagerAdapterItem
 import com.sybotan.android.syrobot.views.adapters.MotionCategoryAdapter
 import kotlinx.android.synthetic.main.view_joystick.view.*
 
@@ -39,9 +38,7 @@ import kotlinx.android.synthetic.main.view_joystick.view.*
  *
  * @author  Andy
  */
-class JoystickView(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs), PagerAdapterItem {
-    private val categoryAdapter = MotionCategoryAdapter(this)
-
+class JoystickView(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs){
     // 初始化
     init {
         // 加载布局
@@ -49,19 +46,21 @@ class JoystickView(context: Context, attrs: AttributeSet? = null) : LinearLayout
 
         uiMainTabs.tabMode = TabLayout.MODE_FIXED
         uiMainTabs.setupWithViewPager(uiMotionViewPager)
-        uiMotionViewPager.adapter = categoryAdapter
+
+        uiMotionViewPager.adapter = object : MotionCategoryAdapter(){
+            /**
+             * 实例化列表项视图
+             *
+             * @param   container   容器对象
+             * @param   position    数据项索引
+             * @return  列表项视图
+             */
+            override fun instantiateItem(container: ViewGroup, position: Int): Any {
+                val view = MotionGridView(getMotionList(position)!!, context)
+                container.addView(view)
+                return view
+            } // Function instantiateItem()
+        }
     } // init
 
-    /**
-     * 实例化列表项视图
-     *
-     * @param   container   容器对象
-     * @param   position    数据项索引
-     * @return  列表项视图
-     */
-    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val view = MotionGridView(categoryAdapter.getMotionList(position)!!, context)
-        container.addView(view)
-        return view
-    } // Function instantiateItem()
 } // Class JoystickView

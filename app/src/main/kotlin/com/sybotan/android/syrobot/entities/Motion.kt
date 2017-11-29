@@ -31,5 +31,5 @@ package com.sybotan.android.syrobot.entities
 data class Motion(
         var id: Int = 0,
         var name: String = "",
-        var iconPath: String = ""
+        var iconPath: String = "images/no_image.png"
     )
