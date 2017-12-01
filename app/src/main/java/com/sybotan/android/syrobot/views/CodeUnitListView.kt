@@ -28,7 +28,6 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
-import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.util.AttributeSet
 import android.util.Log
@@ -120,12 +119,16 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
     } // Class MotionAdapter()
 
     /**
+     * 拖拽回调操作类
      *
+     * @author  Andy
      */
     inner class ItemTouchHelperCallback : ItemTouchHelper.Callback() {
         /**
-         * 获得移动标志
+         * 获得拖拽删除标志
          *
+         * @param   recyclerView    RecyclerView对象
+         * @param   viewHolder      列表项（可以基于每一项进行设置，比如第一项不能删除与拖拽）
          */
         override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: ViewHolder): Int {
             // 上下滑拖拽
@@ -136,7 +139,11 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
         } // Function getMovementFlags()
 
         /**
-         * 移动时回调
+         * 在拖拽时调用
+         *
+         * @param   recyclerView    RecyclerView对象
+         * @param   src             源对象
+         * @param   target          目标对象
          */
         override fun onMove(recyclerView: RecyclerView, src: ViewHolder, target: ViewHolder): Boolean {
             val srcPos = src.adapterPosition
@@ -147,12 +154,16 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
         } // Function onMove()
 
         /**
-         * 移除
+         * 在删除时调用
+         *
+         * @param   viewHolder      被删除的对象
+         * @param   direction       删除方向（例如：是左移删除还是右移删除）
          */
         override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
             val pos = viewHolder.adapterPosition
             codeUnitList.removeAt(pos)
             mainAdapter.notifyItemRemoved(pos)
+            return
         } // Function onSwiped()
 
     } // Class ItemTouchHelperCallback()

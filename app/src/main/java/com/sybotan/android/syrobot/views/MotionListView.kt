@@ -104,20 +104,65 @@ class MotionListView(motionList: List<Motion>, context: Context, attrs: Attribut
         }
     } // Class MotionAdapter()
 
+    /**
+     * 拖拽回调操作类
+     *
+     * @author  Andy
+     */
     inner class ItemTouchHelperCallback : ItemTouchHelper.Callback() {
         /**
-         * 获得移动标志
+         * 在长按选中对象时调用
          *
+         * @param   viewHolder      选中的对象
+         * @param   actionState     状态
          */
-        override fun getMovementFlags(recyclerView: RecyclerView?, viewHolder: ViewHolder?): Int {
-            return makeMovementFlags(ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.RIGHT, 0);
+        override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+            if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+                //viewHolder!!.itemView.background = Drawable(Color.GRAY)
+                val pressedView = viewHolder!!.itemView
+                val bg = pressedView.background
+                pressedView.isPressed = true
+                pressedView.startDrag(null, DragShadowBuilder(pressedView),null, 0)
+                pressedView.isPressed = false
+                pressedView.background = bg
+            }
+            // 不掉用父类onSelectedChanged，屏蔽移动原来的对象
+            //super.onSelectedChanged(viewHolder, actionState)
+            return
+        } // Function onSelectedChanged()
+
+        /**
+         * 获得拖拽删除标志
+         *
+         * @param   recyclerView    RecyclerView对象
+         * @param   viewHolder      列表项（可以基于每一项进行设置，比如第一项不能删除与拖拽）
+         */
+        override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: ViewHolder): Int {
+            val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+            return makeMovementFlags(dragFlags, 0)
         } // Function getMovementFlags()
 
-        override fun onMove(recyclerView: RecyclerView?, viewHolder: ViewHolder?, target: ViewHolder?): Boolean {
+        /**
+         * 在拖拽时调用
+         *
+         * @param   recyclerView    RecyclerView对象
+         * @param   src             源对象
+         * @param   target          目标对象
+         */
+        override fun onMove(recyclerView: RecyclerView, src: ViewHolder, target: ViewHolder): Boolean {
+            // DO NOTHING
             return true
         } // Function onMove()
 
-        override fun onSwiped(viewHolder: ViewHolder?, direction: Int) {
+        /**
+         * 在删除时调用
+         *
+         * @param   viewHolder      被删除的对象
+         * @param   direction       删除方向（例如：是左移删除还是右移删除）
+         */
+        override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
+            // DO NOTHING
+            return
         } // Function onSwiped()
 
     } // Class ItemTouchHelperCallback()
