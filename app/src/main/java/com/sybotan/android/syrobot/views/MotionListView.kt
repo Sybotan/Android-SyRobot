@@ -23,6 +23,7 @@
 
 package com.sybotan.android.syrobot.views
 
+import android.content.ClipData
 import android.content.Context
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -30,12 +31,15 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.AttributeSet
 import android.util.Log
+import android.view.DragEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import com.sybotan.android.syrobot.R
+import com.sybotan.android.syrobot.entities.CodeUnit
 import com.sybotan.android.syrobot.entities.Motion
+import com.sybotan.android.syrobot.services.VibratorService
 import kotlinx.android.synthetic.main.widget_motion_list_item.view.*
 
 /**
@@ -121,10 +125,13 @@ class MotionListView(motionList: List<Motion>, context: Context, attrs: Attribut
                 //viewHolder!!.itemView.background = Drawable(Color.GRAY)
                 val pressedView = viewHolder!!.itemView
                 val bg = pressedView.background
+                pressedView.setBackgroundResource(R.drawable.shape_drag_effect)
                 pressedView.isPressed = true
-                pressedView.startDrag(null, DragShadowBuilder(pressedView),null, 0)
+                val data = ClipData.newPlainText(TAG, CodeUnit(Motion(11, "test11"),11).toString())
+                pressedView.startDrag(data, DragShadowBuilder(pressedView),null, 0)
                 pressedView.isPressed = false
                 pressedView.background = bg
+                VibratorService.vibrate(50)
             }
             // 不掉用父类onSelectedChanged，屏蔽移动原来的对象
             //super.onSelectedChanged(viewHolder, actionState)

@@ -21,37 +21,21 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.android.syrobot
+package com.sybotan.android.syrobot.services
 
-import android.app.Application
-import android.app.Service
-import android.content.Context
 import android.os.Vibrator
-import com.sybotan.android.syrobot.preferences.Opts
-import com.sybotan.android.syrobot.services.VibratorService
-import com.sybotan.android.syrobot.views.adapters.MotionCategoryAdapter
 
-/**
- * 应用入口
- *
- * @author  Andy
- */
-class SyRobot : Application() {
-    private val TAG = SyRobot::class.java.simpleName
+object VibratorService {
+    var vibrator: Vibrator? = null
 
     /**
-     * 创建应用时调用
+     * 震动
+     *
+     * @param   millisecond     震动时间，单位毫秒*
      */
-    override fun onCreate() {
-        super.onCreate()
-        // 初始化MainPreferences对象
-        Opts.pref = getSharedPreferences(TAG, Context.MODE_PRIVATE)
-        // 初始化震动器
-        VibratorService.vibrator = getSystemService(Service.VIBRATOR_SERVICE) as Vibrator
-
-        // 加载动作分类列表文件
-        MotionCategoryAdapter.loadMotionFile(applicationContext.assets.open("littlestar/motions.json"))
+    fun vibrate(millisecond: Long) {
+        vibrator!!.vibrate(millisecond)
         return
-    } // Function onCreate()
+    } // Function vibrate()
 
-} // Object  SyRobot
+} // Class VibratorService

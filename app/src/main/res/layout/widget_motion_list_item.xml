@@ -37,7 +37,6 @@
             android:layout_height="60dp"
             android:layout_margin="6dp"
             android:background="@drawable/ripple_effect_motion_icon"
-            android:contentDescription="@string/motion_icon_description"
             android:elevation="@dimen/elevation_low"
             android:padding="5dp"
             android:scaleType="fitCenter"

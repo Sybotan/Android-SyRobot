@@ -24,6 +24,7 @@
 package com.sybotan.android.syrobot.views
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -31,13 +32,13 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.text.SpannableStringBuilder
 import android.util.AttributeSet
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.AdapterView.INVALID_POSITION
 import com.squareup.picasso.Picasso
 import com.sybotan.android.syrobot.R
 import com.sybotan.android.syrobot.entities.CodeUnit
 import com.sybotan.android.syrobot.entities.Motion
+import com.sybotan.android.syrobot.services.VibratorService
 import kotlinx.android.synthetic.main.view_codeunit_list_item.view.*
 import java.util.*
 
@@ -54,6 +55,7 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
     // 代码列表
     var codeUnitList = ArrayList<CodeUnit>()
     val mainAdapter = CodeUnitListAdapter()
+    val itemTouchHelper: ItemTouchHelper
 
     // 初始化
     init {
@@ -61,20 +63,21 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
         adapter = mainAdapter
         // 添加分隔线
         addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-        ItemTouchHelper(ItemTouchHelperCallback()).attachToRecyclerView(this)
+        itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback())
+        itemTouchHelper.attachToRecyclerView(this)
+
         codeUnitList.add(CodeUnit(Motion(1, "test1"),1))
         codeUnitList.add(CodeUnit(Motion(2, "test2"),2))
         codeUnitList.add(CodeUnit(Motion(3, "test3"),3))
         codeUnitList.add(CodeUnit(Motion(4, "test4"),4))
         codeUnitList.add(CodeUnit(Motion(5, "test5"),5))
-        codeUnitList.add(CodeUnit(Motion(6, "test6"),6))
-        codeUnitList.add(CodeUnit(Motion(7, "test7"),7))
-        codeUnitList.add(CodeUnit(Motion(8, "test8"),8))
-        codeUnitList.add(CodeUnit(Motion(9, "test9"),9))
-        codeUnitList.add(CodeUnit(Motion(10, "test10"),10))
+        setOnDragListener(DragListener(this))
     } // init
 
-    inner class CodeUnitListAdapter : Adapter<CodeUnitListAdapter.CodeUnitListViewHolder>(){
+    /**
+     *
+     */
+    inner class CodeUnitListAdapter : Adapter<CodeUnitListViewHolder>(){
         /**
          * 创建视图holder
          *
@@ -105,18 +108,26 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
          */
         override fun getItemCount(): Int = codeUnitList.size
 
-        /**
-         * 视图Holder
-         */
-        inner class CodeUnitListViewHolder(val view: View) : ViewHolder(view) {
-            fun bind(codeUnit: CodeUnit) {
-                Log.v(CodeUnitListView.TAG, "file:///android_asset/littlestar/${codeUnit.motion.iconPath}")
-                Picasso.with(context).load("file:///android_asset/littlestar/${codeUnit.motion.iconPath}").into(view.uiMotionIcon)
-                view.uiMotionName.text = codeUnit.motion.name
-                view.uiLoopCount.text = SpannableStringBuilder(codeUnit.loopCount.toString())
-            } // Function bind()
-        }
     } // Class MotionAdapter()
+
+    /**
+     * 视图Holder
+     */
+    inner class CodeUnitListViewHolder(val view: View) : ViewHolder(view) {
+        fun bind(codeUnit: CodeUnit) {
+            Log.v(CodeUnitListView.TAG, "file:///android_asset/littlestar/${codeUnit.motion.iconPath}")
+            Picasso.with(context).load("file:///android_asset/littlestar/${codeUnit.motion.iconPath}").into(view.uiMotionIcon)
+            view.uiMotionName.text = codeUnit.motion.name
+            view.uiLoopCount.text = SpannableStringBuilder(codeUnit.loopCount.toString())
+            // 如果循环次数为-1,则隐藏
+            if (-1 == codeUnit.loopCount) {
+                view.visibility = View.INVISIBLE
+            } else {
+                view.visibility = View.VISIBLE
+            }
+            return
+        } // Function bind()
+    } // Class CodeUnitListViewHolder
 
     /**
      * 拖拽回调操作类
@@ -124,6 +135,42 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
      * @author  Andy
      */
     inner class ItemTouchHelperCallback : ItemTouchHelper.Callback() {
+        var viewBg: Drawable? = null
+        /**
+         * 在长按选中对象时调用
+         *
+         * @param   viewHolder      选中的对象
+         * @param   actionState     状态
+         */
+        override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+            if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+                val pressedView = viewHolder!!.itemView
+                // 保存原背景
+                viewBg = pressedView.background
+                // 设置拖拽时背景
+                pressedView.setBackgroundResource(R.drawable.shape_drag_effect)
+                VibratorService.vibrate(50)
+            }
+
+            super.onSelectedChanged(viewHolder, actionState)
+            return
+        } // Function onSelectedChanged()
+
+        /**
+         * 拖拽结束
+         *
+         * @param   RecyclerView    RecyclerView对象
+         * @param   viewHolder      拖拽的对象
+         */
+        override fun clearView(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder) {
+            super.clearView(recyclerView, viewHolder)
+            if (null != viewBg) {
+                viewHolder.itemView.background = viewBg
+                viewBg = null
+            }
+            return
+        } // Function clearView()
+
         /**
          * 获得拖拽删除标志
          *
@@ -132,7 +179,7 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
          */
         override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: ViewHolder): Int {
             // 上下滑拖拽
-            val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
+            val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
             // 左右滑删除
             val swipeFlags = ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
             return makeMovementFlags(dragFlags, swipeFlags)
@@ -166,5 +213,59 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
             return
         } // Function onSwiped()
 
+        override fun isLongPressDragEnabled(): Boolean {
+            return true
+        }
     } // Class ItemTouchHelperCallback()
+
+    inner class DragListener(view: CodeUnitListView) : View.OnDragListener {
+        val parent = view
+        var pos = INVALID_POSITION
+        override fun onDrag(v: View, event: DragEvent): Boolean {
+            when (event.action) {
+                DragEvent.ACTION_DRAG_ENTERED -> { // 拖入
+                    pos = INVALID_POSITION
+                }
+                DragEvent.ACTION_DRAG_EXITED-> {
+                    Log.d(TAG, "ACTION_DRAG_EXITED")
+                    if (INVALID_POSITION != pos) {
+                        codeUnitList.removeAt(pos)
+                        mainAdapter.notifyItemRemoved(pos)
+                    }
+                    pos = INVALID_POSITION
+                }
+                DragEvent.ACTION_DRAG_LOCATION-> {
+                    //Log.d(TAG, "ACTION_DRAG_LOCATION=${event.y}")
+                    val view = parent.findChildViewUnder(30.0f, event.y)
+                    var index = parent.getChildAdapterPosition(view)
+                    if (INVALID_POSITION == index && INVALID_POSITION == pos) {
+                        Log.d(TAG, "index=" + index)
+                        index = codeUnitList.size
+                    }
+                    if (INVALID_POSITION == pos && INVALID_POSITION != index) {
+                        pos = index
+                        Log.d(TAG, "pos=" + pos)
+                        codeUnitList.add(pos, CodeUnit(Motion(-1, ""),-1))
+                        mainAdapter.notifyItemInserted(pos)
+                    }
+                    if (INVALID_POSITION != pos && INVALID_POSITION != index &&
+                            pos != index && index < codeUnitList.size) {
+                        Collections.swap(codeUnitList, pos, index)
+                        mainAdapter.notifyItemMoved(pos, index)
+                        pos = index
+                    }
+                }
+                DragEvent.ACTION_DROP-> {
+                    Log.d(TAG, "ACTION_DROP=${event.y}")
+                    codeUnitList[pos] = CodeUnit(Motion(5, "test5"),5)
+                    mainAdapter.notifyItemChanged(pos)
+                    pos = INVALID_POSITION
+                }
+                else -> {
+                    // DO NOTHING }
+                }
+            }
+            return true
+        } // Function onDrag()
+    } // Function DragListener
 } // Class CodeUnitListView

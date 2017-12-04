@@ -54,6 +54,7 @@ class ProgrammingView(context: Context, attrs: AttributeSet? = null) : LinearLay
              */
             override fun instantiateItem(container: ViewGroup, position: Int): Any {
                 val view = MotionListView(getMotionList(position)!!, context)
+                //val view = CodeUnitListView(context)
                 container.addView(view)
                 return view
             } // Function instantiateItem()
