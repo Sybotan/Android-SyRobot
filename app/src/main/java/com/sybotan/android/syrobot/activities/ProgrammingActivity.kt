@@ -21,29 +21,34 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.android.syrobot.views
+package com.sybotan.android.syrobot.activities
 
-import android.content.Context
-import android.util.AttributeSet
-import android.view.LayoutInflater
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import com.sybotan.android.syrobot.R
+import com.sybotan.android.syrobot.views.MotionListView
 import com.sybotan.android.syrobot.views.adapters.MotionCategoryAdapter
-import kotlinx.android.synthetic.main.view_programming.view.*
+import kotlinx.android.synthetic.main.activity_programming.*
 
 /**
  * 编程界面
  *
  * @author  Andy
  */
-class ProgrammingView(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
-    private val TAG = ProgrammingView::class.java.simpleName
+class ProgrammingActivity : AppCompatActivity() {
+    companion object {
+        private val TAG = ProgrammingActivity::class.java.simpleName
+    }
 
-    // 初始化
-    init {
-        // 加载布局
-        LayoutInflater.from(context).inflate(R.layout.view_programming, this)
+    /**
+     * 创建时调用
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_programming)
+        updateAppbar()
+
         uiMotionCategoryPager.adapter = object : MotionCategoryAdapter() {
             /**
              * 实例化列表项视图
@@ -53,12 +58,24 @@ class ProgrammingView(context: Context, attrs: AttributeSet? = null) : LinearLay
              * @return  列表项视图
              */
             override fun instantiateItem(container: ViewGroup, position: Int): Any {
-                val view = MotionListView(getMotionList(position)!!, context)
-                //val view = CodeUnitListView(context)
+                val view = MotionListView(getMotionList(position)!!, baseContext)
                 container.addView(view)
                 return view
             } // Function instantiateItem()
         }
-    } // init
+        return
+    } // Function onCreate()
+    /**
+     * 更新顶部条
+     */
+    private fun updateAppbar() {
+        uiAppbar.setTitle(R.string.title_activity_about)
+        setSupportActionBar(uiAppbar)
+        // 标题栏显示返回，点击返回上一页
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        // 点击返回
+        uiAppbar.setNavigationOnClickListener{ finish() }
+        return
+    } // Function updateAppBar()
 
-} // Class JoystickView
+} // Class ProgrammingActivity

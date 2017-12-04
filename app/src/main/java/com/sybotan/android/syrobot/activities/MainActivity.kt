@@ -23,7 +23,6 @@
 
 package com.sybotan.android.syrobot.activities
 
-import android.app.Fragment
 import android.content.Intent
 import android.net.Uri
 import android.support.v4.view.GravityCompat
@@ -36,7 +35,7 @@ import android.view.MenuItem
 import com.sybotan.android.syrobot.R
 import com.sybotan.android.syrobot.preferences.Opts
 import com.sybotan.android.syrobot.views.JoystickView
-import com.sybotan.android.syrobot.views.ProgrammingView
+import com.sybotan.android.syrobot.views.ProgramListView
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -53,7 +52,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val SECRET_KEY = "tg41qnImYk7ScZ3foHgQXwkR0nOoTq8d"
 
     var joystickView : JoystickView? = null
-    var programmingView : ProgrammingView? = null
+    var programmingView : ProgramListView? = null
     /**
      * 创建Activity时调用
      */
@@ -63,7 +62,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         // 初始化控制与编程界面
         joystickView = JoystickView(this)
-        programmingView = ProgrammingView(this)
+        programmingView = ProgramListView(this)
 
         // 导航切换
         val toggle = ActionBarDrawerToggle(
