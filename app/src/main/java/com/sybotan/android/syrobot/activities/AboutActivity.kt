@@ -37,6 +37,7 @@ class AboutActivity : AppCompatActivity() {
     companion object {
         private val TAG = AboutActivity::class.java.simpleName
     } // companion object
+
     /**
      * 创建Activity时调用
      */
@@ -57,5 +58,6 @@ class AboutActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         // 点击返回
         uiAppbar.setNavigationOnClickListener{ finish() }
+        return
     } // Function updateAppBar()
 } // Class AboutActivity

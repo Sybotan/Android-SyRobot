@@ -42,9 +42,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
     // 解决lint语法检查错误（kotlin语法无法通过lint）
     lintOptions {
         abortOnError false

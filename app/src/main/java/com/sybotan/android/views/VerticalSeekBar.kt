@@ -21,64 +21,66 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.android.syrobot.activities
+package com.sybotan.android.views
 
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
+import android.graphics.Canvas
 import android.util.AttributeSet
-import android.view.View
-import com.sybotan.android.syrobot.R
-import com.sybotan.android.syrobot.preferences.Opts
-import kotlinx.android.synthetic.main.activity_joint_settings.*
+import android.util.Log
+import android.view.MotionEvent
+import android.widget.SeekBar
 
 /**
- * 关节设置Activity
+ * 垂直滑块
  *
  * @author  Andy
  */
-class JointSettingsActivity : AppCompatActivity() {
-    companion object {
-        private val TAG = JointSettingsActivity::class.java.simpleName
-    } // companion object
-
+class VerticalSeekBar(context: Context, attrs: AttributeSet? = null) : SeekBar(context, attrs) {
     /**
-     * 创建Activity时调用
-     */
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_joint_settings)
-        updateAppbar()
-
-        val view = createSettingView(Opts.robot) ?: return
-        uiContainer.addView(view)
-
-        return
-    } // Function onCreate()
-
-    /**
-     * 更新顶部条
-     */
-    private fun updateAppbar() {
-        uiAppbar.setTitle(R.string.title_activity_joint_settings)
-        setSupportActionBar(uiAppbar)
-        // 标题栏显示返回，点击返回上一页
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        // 点击返回
-        uiAppbar.setNavigationOnClickListener{ finish() }
-
-        return
-    } // Function updateAppBar()
-
-    /**
-     * 创建机器人关节设置视图
      *
-     * @param   robot       机器人名称
      */
-    fun createSettingView(robot:String): View? {
-        val clazz = Class.forName("com.sybotan.android.syrobot.fragments.$robot.JointSettingsFragment") ?: return null
-        val cons = clazz.getDeclaredConstructor(Context::class.java, AttributeSet::class.java) ?: return null
-        return cons.newInstance(this, null) as View
-    } // Function createSettingView()
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(heightMeasureSpec, widthMeasureSpec)
+        setMeasuredDimension(measuredHeight, measuredWidth)
+        return
+    } // Function onMeasure()
 
-} // Class JointSettingsActivity
+    /**
+     * 绘制过程
+     *
+     *
+     */
+    override fun onDraw(c: Canvas) {
+        //将SeekBar转转90度
+        c.rotate(-90f)
+        //将旋转后的视图移动回来
+        c.translate((-height).toFloat(), 0f)
+        Log.i("getHeight()", height.toString() + "")
+        super.onDraw(c)
+        return
+    } // Function onDraw()
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        if (!isEnabled) {
+            return false
+        }
+
+        when (event.action) {
+            MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE, MotionEvent.ACTION_UP -> {
+                //获取滑动的距离
+                var i = max - (max * event.y / height).toInt()
+                //设置进度
+                progress = i
+                Log.i("Progress", progress.toString() + "")
+                //每次拖动SeekBar都会调用
+                onSizeChanged(width, height, 0, 0)
+                Log.i("getWidth()", width.toString() + "")
+                Log.i("getHeight()", height.toString() + "")
+            }
+
+            MotionEvent.ACTION_CANCEL -> {
+            }
+        }
+        return true
+    } // Function onTouchEvent()
+} // Class VerticalSeekBar

@@ -28,9 +28,10 @@
 
     <!-- activity -->
     <string name="title_activity_about">关于</string>
-    <string name="title_activity_joint_settings">关节设置</string>
     <string name="title_activity_developer">开发者工具</string>
+    <string name="title_activity_joint_settings">关节设置</string>
     <string name="title_activity_help">帮助中心</string>
+    <string name="title_activity_robot_select">选择机器人</string>
 
     <!-- navigation -->
     <string name="navigation_drawer_open">打开导航面板</string>
@@ -82,6 +83,5 @@
     <string name="please_wait">请稍候...</string>
     <string name="connection_error">连接错误</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -50,8 +50,8 @@ class HelpActivity : AppCompatActivity() {
     } // Function onCreate()
 
     /**
-     * 更新顶部条
-     */
+    * 更新顶部条
+    */
     private fun updateAppbar() {
         uiAppbar.setTitle(R.string.title_activity_help)
         setSupportActionBar(uiAppbar)
@@ -59,5 +59,6 @@ class HelpActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         // 点击返回
         uiAppbar.setNavigationOnClickListener{ finish() }
+        return
     } // Function updateAppBar()
 } // Class HelpActivity

@@ -21,64 +21,50 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.android.syrobot.activities
+package com.sybotan.android.syrobot.fragments
 
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.util.AttributeSet
-import android.view.View
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import com.sybotan.android.syrobot.R
-import com.sybotan.android.syrobot.preferences.Opts
-import kotlinx.android.synthetic.main.activity_joint_settings.*
+import com.sybotan.android.syrobot.views.MotionGridView
+import com.sybotan.android.syrobot.views.adapters.MotionCategoryAdapter
+import kotlinx.android.synthetic.main.fragment_joystick.view.*
 
 /**
- * 关节设置Activity
+ * 控制界面
  *
  * @author  Andy
  */
-class JointSettingsActivity : AppCompatActivity() {
+class JoystickFragment(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
     companion object {
-        private val TAG = JointSettingsActivity::class.java.simpleName
-    } // companion object
+        private val TAG = JoystickFragment::class.java.simpleName
+    }
 
-    /**
-     * 创建Activity时调用
-     */
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_joint_settings)
-        updateAppbar()
+    init {
+        // 加载布局文件
+        LayoutInflater.from(context).inflate(R.layout.fragment_joystick, this)
 
-        val view = createSettingView(Opts.robot) ?: return
-        uiContainer.addView(view)
+        uiMainTabs.tabMode = TabLayout.MODE_FIXED
+        uiMainTabs.setupWithViewPager(uiMotionViewPager)
 
-        return
-    } // Function onCreate()
+        uiMotionViewPager.adapter = object : MotionCategoryAdapter(){
+            /**
+             * 实例化列表项视图
+             *
+             * @param   container   容器对象
+             * @param   position    数据项索引
+             * @return  列表项视图
+             */
+            override fun instantiateItem(container: ViewGroup, position: Int): Any {
+                val itemView = MotionGridView(getMotionList(position)!!, container.context)
+                container.addView(itemView)
+                return itemView
+            } // Function instantiateItem()
+        }
+    } // init
 
-    /**
-     * 更新顶部条
-     */
-    private fun updateAppbar() {
-        uiAppbar.setTitle(R.string.title_activity_joint_settings)
-        setSupportActionBar(uiAppbar)
-        // 标题栏显示返回，点击返回上一页
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        // 点击返回
-        uiAppbar.setNavigationOnClickListener{ finish() }
-
-        return
-    } // Function updateAppBar()
-
-    /**
-     * 创建机器人关节设置视图
-     *
-     * @param   robot       机器人名称
-     */
-    fun createSettingView(robot:String): View? {
-        val clazz = Class.forName("com.sybotan.android.syrobot.fragments.$robot.JointSettingsFragment") ?: return null
-        val cons = clazz.getDeclaredConstructor(Context::class.java, AttributeSet::class.java) ?: return null
-        return cons.newInstance(this, null) as View
-    } // Function createSettingView()
-
-} // Class JointSettingsActivity
+} // Class JoystickFragment

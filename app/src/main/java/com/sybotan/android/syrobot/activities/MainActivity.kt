@@ -34,8 +34,8 @@ import android.util.Log
 import android.view.MenuItem
 import com.sybotan.android.syrobot.R
 import com.sybotan.android.syrobot.preferences.Opts
-import com.sybotan.android.syrobot.views.JoystickView
-import com.sybotan.android.syrobot.views.ProgramListView
+import com.sybotan.android.syrobot.fragments.JoystickFragment
+import com.sybotan.android.syrobot.fragments.ProgramListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -51,8 +51,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val API_KEY = "RkSClKjZcclmDPBnn6c7RV7M"
     val SECRET_KEY = "tg41qnImYk7ScZ3foHgQXwkR0nOoTq8d"
 
-    var joystickView : JoystickView? = null
-    var programmingView : ProgramListView? = null
+    var joystickFragment: JoystickFragment? = null
+    var programListFragment: ProgramListFragment? = null
     /**
      * 创建Activity时调用
      */
@@ -61,8 +61,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
 
         // 初始化控制与编程界面
-        joystickView = JoystickView(this)
-        programmingView = ProgramListView(this)
+        joystickFragment = JoystickFragment(this)
+        programListFragment = ProgramListFragment(this)
 
         // 导航切换
         val toggle = ActionBarDrawerToggle(
@@ -98,14 +98,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      * @return
      */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        val intent : Intent
-        val id = item.getItemId()
-        Log.d(TAG, "menuId=$id")
-        when(id) {
-            R.id.uiNavTaobao -> intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://shop155631146.taobao.com"))
-            R.id.uiNavJointSettings -> intent = Intent(this, JointSettingsActivity::class.java)
-            R.id.uiNavHelp -> intent = Intent(this, HelpActivity::class.java)
-            else -> intent = Intent(this, AboutActivity::class.java)
+        val intent : Intent = when(item.itemId) {
+            R.id.uiNavTaobao -> Intent(Intent.ACTION_VIEW, Uri.parse("https://shop155631146.taobao.com"))
+            R.id.uiNavJointSettings -> Intent(this, JointSettingsActivity::class.java)
+            R.id.uiNavHelp -> Intent(this, HelpActivity::class.java)
+            else -> Intent(this, AboutActivity::class.java)
         }
 
         startActivity(intent)
@@ -117,7 +114,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      */
     private fun updateAppbar() {
         uiAppbar.setTitle(R.string.app_name)
-        // 回载菜单
+        // 加载菜单
         uiAppbar.inflateMenu(R.menu.menu_app)
 
         uiAppbar.setOnMenuItemClickListener({ item ->
@@ -138,15 +135,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      * 更新fragment
      */
     private fun updateFragment() {
-
         uiContainer.removeAllViews()
 
         if (Opts.joystickVisibility) {
-            uiContainer.addView(joystickView)
+            uiContainer.addView(joystickFragment)
         } else {
-            uiContainer.addView(programmingView)
+            uiContainer.addView(programListFragment)
         }
 
+        //fragmentManager.beginTransaction().replace(R.id.uiContainer, fragment).commit()
         return
     } // Function updateFragment()
 } // Class MainActivity

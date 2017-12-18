@@ -23,23 +23,19 @@
 
 package com.sybotan.android.syrobot.activities
 
-import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
 import com.sybotan.android.syrobot.R
-import com.sybotan.android.syrobot.preferences.Opts
-import kotlinx.android.synthetic.main.activity_joint_settings.*
+import kotlinx.android.synthetic.main.activity_about.*
 
 /**
- * 关节设置Activity
+ * 机器人选择窗口
  *
  * @author  Andy
  */
-class JointSettingsActivity : AppCompatActivity() {
+class RobotSelectActivity : AppCompatActivity() {
     companion object {
-        private val TAG = JointSettingsActivity::class.java.simpleName
+        private val TAG = RobotSelectActivity::class.java.simpleName
     } // companion object
 
     /**
@@ -47,12 +43,8 @@ class JointSettingsActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_joint_settings)
+        setContentView(R.layout.activity_robot_select)
         updateAppbar()
-
-        val view = createSettingView(Opts.robot) ?: return
-        uiContainer.addView(view)
-
         return
     } // Function onCreate()
 
@@ -60,25 +52,12 @@ class JointSettingsActivity : AppCompatActivity() {
      * 更新顶部条
      */
     private fun updateAppbar() {
-        uiAppbar.setTitle(R.string.title_activity_joint_settings)
+        uiAppbar.setTitle(R.string.title_activity_robot_select)
         setSupportActionBar(uiAppbar)
         // 标题栏显示返回，点击返回上一页
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         // 点击返回
         uiAppbar.setNavigationOnClickListener{ finish() }
-
         return
     } // Function updateAppBar()
-
-    /**
-     * 创建机器人关节设置视图
-     *
-     * @param   robot       机器人名称
-     */
-    fun createSettingView(robot:String): View? {
-        val clazz = Class.forName("com.sybotan.android.syrobot.fragments.$robot.JointSettingsFragment") ?: return null
-        val cons = clazz.getDeclaredConstructor(Context::class.java, AttributeSet::class.java) ?: return null
-        return cons.newInstance(this, null) as View
-    } // Function createSettingView()
-
-} // Class JointSettingsActivity
+} // Class RobotSelectActivity

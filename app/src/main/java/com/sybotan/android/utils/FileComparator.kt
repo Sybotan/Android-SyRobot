@@ -21,44 +21,64 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.android.syrobot.views
+package com.sybotan.android.utils
 
-import android.content.Context
-import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import android.widget.LinearLayout
-import com.sybotan.android.syrobot.R
-import com.sybotan.android.syrobot.views.adapters.MotionCategoryAdapter
-import kotlinx.android.synthetic.main.view_program_list.view.*
+import java.io.File
+import java.util.Comparator
 
 /**
- * 编程界面
- *
- * @author  Andy
+ * 文件排序器
  */
-class ProgramListView(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
-    private val TAG = ProgramListView::class.java.simpleName
+class FileComparator {
+    /**
+     * 名称升序
+     */
+    class NameAsc : Comparator<File> {
+        override fun compare(file1: File, file2: File): Int {
+            return if (file1.name > file2.name) {
+                1
+            } else {
+                -1
+            }
+        }
+    } // LastModifiedAsc
 
-    // 初始化
-    init {
-        // 加载布局
-        LayoutInflater.from(context).inflate(R.layout.view_program_list, this)
-        //uiMotionCategoryPager.adapter = object : MotionCategoryAdapter() {
-            /**
-             * 实例化列表项视图
-             *
-             * @param   container   容器对象
-             * @param   position    数据项索引
-             * @return  列表项视图
-             */
-            //override fun instantiateItem(container: ViewGroup, position: Int): Any {
-                //val view = MotionListView(getMotionList(position)!!, context)
-                //val view = CodeUnitListView(context)
-                //container.addView(view)
-                //return
-            //} // Function instantiateItem()
-        //}
-    } // init
+    /**
+     * 名称降序
+     */
+    class NameDesc : Comparator<File> {
+        override fun compare(file1: File, file2: File): Int {
+            return if (file1.name < file2.name) {
+                1
+            } else {
+                -1
+            }
+        }
+    } // NameDesc
 
-} // Class JoystickView
+    /**
+     * 创建时间升序
+     */
+    class LastModifiedAsc : Comparator<File> {
+        override fun compare(file1: File, file2: File): Int {
+            return if (file1.lastModified() > file2.lastModified()) {
+                1
+            } else {
+                -1
+            }
+        }
+    } // LastModifiedAsc
+
+    /**
+     * 创建时间降序
+     */
+    class LastModifiedDesc : Comparator<File> {
+        override fun compare(file1: File, file2: File): Int {
+            return if (file1.lastModified() < file2.lastModified()) {
+                1
+            } else {
+                -1
+            }
+        }
+    } // LastModifiedDesc
+} // Class FileComparator

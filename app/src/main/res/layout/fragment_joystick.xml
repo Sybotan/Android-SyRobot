@@ -25,12 +25,46 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="horizontal">
-        <com.sybotan.android.syrobot.views.CodeUnitListView
-                android:id="@+id/uiProgram"
-                style="@style/MotionListStyle"
+              android:orientation="vertical">
+
+    <android.support.design.widget.TabLayout
+            android:id="@+id/uiMainTabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue_grey_50"/>
+    <android.support.v4.view.ViewPager
+            android:id="@+id/uiMotionViewPager"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+    </android.support.v4.view.ViewPager>
+    <!-- 分隔线 -->
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="2sp"
+            android:background="@color/colorPrimary"/>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="3" >
+
+        <!-- 方向控制手柄 -->
+        <com.sybotan.android.syrobot.views.JoystickView
+                android:id="@+id/uiJoystick"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/uiProgramName"/>
+                android:layout_weight="1"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1">
+            <Button android:id="@+id/uiStopButton"
+                    android:text="@string/button_stop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

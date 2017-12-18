@@ -26,6 +26,7 @@ package com.sybotan.android.syrobot
 import android.app.Application
 import android.app.Service
 import android.content.Context
+import android.os.Environment
 import android.os.Vibrator
 import com.sybotan.android.syrobot.preferences.Opts
 import com.sybotan.android.syrobot.services.VibratorService
@@ -37,7 +38,10 @@ import com.sybotan.android.syrobot.views.adapters.MotionCategoryAdapter
  * @author  Andy
  */
 class SyRobot : Application() {
-    private val TAG = SyRobot::class.java.simpleName
+    companion object {
+        private val TAG = SyRobot::class.java.simpleName
+        val appStorePath = "${Environment.getExternalStorageDirectory().absolutePath}/com.sybotan.syrobot"
+    }
 
     /**
      * 创建应用时调用

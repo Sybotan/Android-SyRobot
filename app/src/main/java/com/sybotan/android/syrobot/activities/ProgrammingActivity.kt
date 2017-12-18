@@ -39,6 +39,7 @@ import kotlinx.android.synthetic.main.activity_programming.*
 class ProgrammingActivity : AppCompatActivity() {
     companion object {
         private val TAG = ProgrammingActivity::class.java.simpleName
+        val PROGRAM_NAME_PARM = "programName"
     }
 
     /**
@@ -48,6 +49,9 @@ class ProgrammingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_programming)
         updateAppbar()
+
+        // 取得传入的应用名称
+        uiProgramName.text = intent.getStringExtra(PROGRAM_NAME_PARM)
 
         uiMotionCategoryPager.adapter = object : MotionCategoryAdapter() {
             /**
@@ -65,6 +69,7 @@ class ProgrammingActivity : AppCompatActivity() {
         }
         return
     } // Function onCreate()
+
     /**
      * 更新顶部条
      */

@@ -31,7 +31,6 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.AttributeSet
 import android.util.Log
-import android.view.DragEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +39,7 @@ import com.sybotan.android.syrobot.R
 import com.sybotan.android.syrobot.entities.CodeUnit
 import com.sybotan.android.syrobot.entities.Motion
 import com.sybotan.android.syrobot.services.VibratorService
-import kotlinx.android.synthetic.main.widget_motion_list_item.view.*
+import kotlinx.android.synthetic.main.item_motion_list_item.view.*
 
 /**
  * 竖向单列滑动式Motion视图控件
@@ -73,7 +72,7 @@ class MotionListView(motionList: List<Motion>, context: Context, attrs: Attribut
          * @return  视图图holder
          */
         override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MotionViewHolder {
-            val view = LayoutInflater.from(parent!!.context).inflate(R.layout.widget_motion_list_item, parent, false)
+            val view = LayoutInflater.from(parent!!.context).inflate(R.layout.item_motion_list_item, parent, false)
             return MotionViewHolder(view)
         } // Function onCreateViewHolder()
 

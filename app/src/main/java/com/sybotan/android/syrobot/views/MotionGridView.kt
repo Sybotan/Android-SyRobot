@@ -34,7 +34,7 @@ import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import com.sybotan.android.syrobot.R
 import com.sybotan.android.syrobot.entities.Motion
-import kotlinx.android.synthetic.main.widget_motion_grid_item.view.*
+import kotlinx.android.synthetic.main.view_motion_grid_item.view.*
 
 /**
  * 横向三行滑动式Motion视图控件
@@ -55,6 +55,9 @@ class MotionGridView(motionList: List<Motion>, context: Context, attrs: Attribut
         adapter = MotionAdapter()
     } // init
 
+    /**
+     *
+     */
     inner class MotionAdapter : RecyclerView.Adapter<MotionAdapter.MotionViewHolder>(){
         /**
          * 创建视图holder
@@ -64,7 +67,7 @@ class MotionGridView(motionList: List<Motion>, context: Context, attrs: Attribut
          * @return  视图图holder
          */
         override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MotionViewHolder {
-            val view = LayoutInflater.from(parent!!.context).inflate(R.layout.widget_motion_grid_item, parent, false)
+            val view = LayoutInflater.from(parent!!.context).inflate(R.layout.view_motion_grid_item, parent, false)
             return MotionViewHolder(view)
         } // Function onCreateViewHolder()
 
