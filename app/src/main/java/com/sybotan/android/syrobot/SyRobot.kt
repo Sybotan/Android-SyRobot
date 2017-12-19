@@ -29,6 +29,7 @@ import android.content.Context
 import android.os.Environment
 import android.os.Vibrator
 import com.sybotan.android.syrobot.preferences.Opts
+import com.sybotan.android.syrobot.robots.Robot
 import com.sybotan.android.syrobot.services.VibratorService
 import com.sybotan.android.syrobot.views.adapters.MotionCategoryAdapter
 
@@ -41,6 +42,18 @@ class SyRobot : Application() {
     companion object {
         private val TAG = SyRobot::class.java.simpleName
         val appStorePath = "${Environment.getExternalStorageDirectory().absolutePath}/com.sybotan.syrobot"
+        var robot: Robot? = null
+
+        /**
+         * 根据名称，创建机器人
+         *
+         * @param   name        机器人名称
+         * @return  机器人控制类
+         */
+        fun loadRobot(name: String): Robot? {
+            val clazz = Class.forName("com.sybotan.android.syrobot.robots.Robot$name") ?: return null
+            return clazz.newInstance() as Robot
+        } // Function RobotLittleStar
     }
 
     /**
@@ -53,9 +66,11 @@ class SyRobot : Application() {
         // 初始化震动器
         VibratorService.vibrator = getSystemService(Service.VIBRATOR_SERVICE) as Vibrator
 
+        // 加载机器人
+        robot = loadRobot(Opts.robot)
+
         // 加载动作分类列表文件
         MotionCategoryAdapter.loadMotionFile(applicationContext.assets.open("littlestar/motions.json"))
         return
     } // Function onCreate()
-
 } // Object  SyRobot
