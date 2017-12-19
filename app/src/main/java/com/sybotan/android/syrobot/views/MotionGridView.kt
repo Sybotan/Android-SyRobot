@@ -43,7 +43,7 @@ import kotlinx.android.synthetic.main.view_motion_grid_item.view.*
  */
 class MotionGridView(motionList: List<Motion>, context: Context, attrs: AttributeSet? = null) : RecyclerView(context, attrs) {
     companion object {
-        private val TAG = MotionGridView::class.java.simpleName
+        private val TAG = MotionGridView::class.java.name
     }
 
     val motionList: List<Motion>

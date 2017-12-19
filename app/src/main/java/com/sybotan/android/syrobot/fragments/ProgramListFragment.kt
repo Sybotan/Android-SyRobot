@@ -54,7 +54,7 @@ import java.util.*
  */
 class ProgramListFragment(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
     companion object {
-        private val TAG = ProgramListFragment::class.java.simpleName
+        private val TAG = ProgramListFragment::class.java.name
     }
 
     val programPath = "${SyRobot.appStorePath}/${Opts.robot}"

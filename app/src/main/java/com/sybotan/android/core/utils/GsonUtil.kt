@@ -36,7 +36,7 @@ import java.util.ArrayList
  * @author  Andy
  */
 object GsonUtil {
-    private val TAG = GsonUtil::class.java.simpleName
+    private val TAG = GsonUtil::class.java.name
 
     fun toJson(obj: Any): String {
         val gson = Gson()

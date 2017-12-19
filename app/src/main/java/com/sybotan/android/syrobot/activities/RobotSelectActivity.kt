@@ -35,7 +35,7 @@ import kotlinx.android.synthetic.main.activity_about.*
  */
 class RobotSelectActivity : AppCompatActivity() {
     companion object {
-        private val TAG = RobotSelectActivity::class.java.simpleName
+        private val TAG = RobotSelectActivity::class.java.name
     } // companion object
 
     /**

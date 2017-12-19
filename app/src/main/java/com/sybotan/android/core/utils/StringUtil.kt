@@ -21,13 +21,40 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.android.syrobot.robots
+package com.sybotan.android.core.utils
 
 /**
- * 基于蓝牙协议的机器人
+ * 字符串工具
  *
  * @author  Andy
  */
-abstract class ConnetorHttp : Robot() {
+object StringUtil {
 
-} // Class ConnetorBluetooth()
+    /**
+     * 字节数组16进制字符串
+     *
+     * @param   ba      字节数组
+     * @return  16进制字符串
+     */
+    fun byteArrayToHexStr(ba: ByteArray): String {
+        val sb = StringBuilder("")
+        for (n in ba.indices) {
+            val stmp = String.format("%02x", ba[n])
+            sb.append(stmp)
+            sb.append(" ")
+        }
+        return sb.toString().toUpperCase().trim()
+    } // Function byteArrayToHexStr()
+
+    /**
+     * 将int类型转换成16进制数字符串，长度不够补0
+     *
+     * @param   v       要转换的数
+     * @param   len     转换的16进制数字符串长度
+     * @return  转换后的16进制字符串
+     */
+    fun intToHex(v: Int, len: Int): String {
+        var value = String.format("%0${len}x", v)
+        return value.substring(value.length - len)
+    } // Function intTo3Byte()
+} // Class StringUtil

@@ -30,4 +30,38 @@ package com.sybotan.android.syrobot.robots
  */
 abstract class Robot {
 
+    /**
+     * 播放指定动作
+     *
+     * @param   id      动作ID
+     */
+    abstract fun playMotion(id: Int)
+
+    /**
+     * 停止当前动作
+     */
+    abstract fun stopMotion()
+
+    /**
+     * 设置位置
+     *
+     * @param   id      关节id
+     * @param   pos     位置
+     */
+    abstract fun setPos(id: Int, pos: Int)
+
+    /**
+     * 设置关节零点位置
+     *
+     * @param   id      关节id
+     * @param   pos     位置
+     */
+    abstract fun setHome(id: Int, pos: Int)
+
+    /**
+     * 发送控制命令
+     *
+     * @param   cmd     控制命令
+     */
+    protected abstract fun sendCommand(cmd: String)
 } // Class Robot

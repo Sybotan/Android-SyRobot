@@ -39,7 +39,7 @@ import kotlinx.android.synthetic.main.activity_joint_settings.*
  */
 class JointSettingsActivity : AppCompatActivity() {
     companion object {
-        private val TAG = JointSettingsActivity::class.java.simpleName
+        private val TAG = JointSettingsActivity::class.java.name
     } // companion object
 
     /**

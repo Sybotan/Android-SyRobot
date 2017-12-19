@@ -32,7 +32,7 @@ import android.util.Log
  * @author  Andy
  */
 object Opts {
-    private val TAG = Opts::class.java.simpleName
+    private val TAG = Opts::class.java.name
 
     var pref : SharedPreferences? = null
 

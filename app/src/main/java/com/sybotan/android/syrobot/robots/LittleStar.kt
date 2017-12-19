@@ -23,11 +23,70 @@
 
 package com.sybotan.android.syrobot.robots
 
+import com.sybotan.android.core.utils.StringUtil
+
 /**
- * 基于TCP协议的机器人
+ * 机器人 小星
  *
  * @author  Andy
  */
-abstract class ConnetorTcp : Robot() {
+class LittleStar : Robot() {
+    companion object {
+        // 日志标签
+        private val TAG = LittleStar::class.java.name
+    } // companion object
 
-} // Class ConnetorTcp
+    /**
+     * 播放指定动作
+     *
+     * @param   id      动作ID
+     */
+    override fun playMotion(id: Int) {
+        val cmd = String.format("\$PM%02X", id)
+        sendCommand(cmd)
+        return
+    } // Function playMotion()
+
+    /**
+     * 停止当前动作
+     */
+    override fun stopMotion() {
+        sendCommand("\$SM")
+        return
+    } // Function stopMotion()
+
+    /**
+     * 设置位置
+     *
+     * @param   id      关节id
+     * @param   pos     位置
+     */
+    override fun setPos(id: Int, pos: Int) {
+        val cmd = String.format("\$AN%02X%s", id, StringUtil.intToHex(pos, 3))
+        sendCommand(cmd)
+        return
+    } // Function setPos()
+
+    /**
+     * 设置关节零点位置
+     *
+     * @param   id      关节id
+     * @param   pos     位置
+     */
+    override fun setHome(id: Int, pos: Int) {
+        val cmd = String.format("\$HO%02X%s", id, StringUtil.intToHex(pos, 3))
+        sendCommand(cmd)
+        return
+    } // Function setHome()
+
+    /**
+     * 发送控制命令
+     *
+     * @param   cmd     控制命令
+     */
+    override fun sendCommand(cmd: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    } // Function sendCommand
+
+
+} // Class RobotLittleStarTcp

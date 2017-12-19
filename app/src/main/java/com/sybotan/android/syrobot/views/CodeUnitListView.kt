@@ -49,7 +49,7 @@ import java.util.*
  */
 class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : RecyclerView(context, attrs) {
     companion object {
-        private val TAG = CodeUnitListView::class.java.simpleName
+        private val TAG = CodeUnitListView::class.java.name
     }
 
     // 代码列表

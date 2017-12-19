@@ -40,7 +40,7 @@ import kotlinx.android.synthetic.main.view_joystick.view.*
  */
 class JoystickView(context: Context, attrs: AttributeSet? = null) : RelativeLayout(context, attrs) {
     companion object {
-        private val TAG = JoystickView::class.java.simpleName
+        private val TAG = JoystickView::class.java.name
     } // companion object
 
     private val animatorX = ObjectAnimator()

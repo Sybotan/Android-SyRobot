@@ -48,7 +48,7 @@ import kotlinx.android.synthetic.main.item_motion_list_item.view.*
  */
 class MotionListView(motionList: List<Motion>, context: Context, attrs: AttributeSet? = null) : RecyclerView(context, attrs) {
     companion object {
-        private val TAG = MotionListView::class.java.simpleName
+        private val TAG = MotionListView::class.java.name
     }
 
     val motionList: List<Motion>

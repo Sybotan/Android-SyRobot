@@ -41,7 +41,7 @@ import kotlinx.android.synthetic.main.robot_littlestar_joint_settings.view.*
  */
 class JointSettingsFragment(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs), View.OnClickListener {
     companion object {
-        private val TAG = JointSettingsFragment::class.java.simpleName
+        private val TAG = JointSettingsFragment::class.java.name
     }
     var mJointPosList = intArrayOf(0, 150, 350, -100, -100, -50, 500, 300, -50, 0, 0, 0,
                                    0, -150, -350, 100, 100, -50, -500, -300, 50, 0, 0, 0)

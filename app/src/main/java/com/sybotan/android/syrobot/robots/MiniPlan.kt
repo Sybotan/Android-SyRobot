@@ -24,9 +24,57 @@
 package com.sybotan.android.syrobot.robots
 
 /**
- * 机器人小星
+ * 机器人 MiniPlan
  *
  * @author  Andy
  */
-class RobotLittleStar : Robot() {
-} // Class RobotLittleStarTcp
+class MiniPlan : Robot() {
+    companion object {
+        // 日志标签
+        private val TAG = MiniPlan::class.java.name
+    } // companion object
+    /**
+     * 播放指定动作
+     *
+     * @param   id      动作ID
+     */
+    override fun playMotion(id: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    } // Function playMotion()
+
+    /**
+     * 停止当前动作
+     */
+    override fun stopMotion() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    } // Function stopMotion()
+
+    /**
+     * 设置位置
+     *
+     * @param   id      关节id
+     * @param   pos     位置
+     */
+    override fun setPos(id: Int, pos: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    } // Function setPos()
+
+    /**
+     * 设置关节零点位置
+     *
+     * @param   id      关节id
+     * @param   pos     位置
+     */
+    override fun setHome(id: Int, pos: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    } // Function setHome()
+
+    /**
+     * 发送控制命令
+     *
+     * @param   cmd     控制命令
+     */
+    override fun sendCommand(cmd: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    } // Function sendCommand()
+} // Class MiniPlan

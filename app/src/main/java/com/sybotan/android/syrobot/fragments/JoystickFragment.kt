@@ -41,7 +41,7 @@ import kotlinx.android.synthetic.main.fragment_joystick.view.*
  */
 class JoystickFragment(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
     companion object {
-        private val TAG = JoystickFragment::class.java.simpleName
+        private val TAG = JoystickFragment::class.java.name
     }
 
     init {

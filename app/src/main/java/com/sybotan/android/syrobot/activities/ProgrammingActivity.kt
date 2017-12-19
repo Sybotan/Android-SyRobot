@@ -38,7 +38,7 @@ import kotlinx.android.synthetic.main.activity_programming.*
  */
 class ProgrammingActivity : AppCompatActivity() {
     companion object {
-        private val TAG = ProgrammingActivity::class.java.simpleName
+        private val TAG = ProgrammingActivity::class.java.name
         val PROGRAM_NAME_PARM = "programName"
     }
 

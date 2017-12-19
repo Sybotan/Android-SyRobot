@@ -35,7 +35,7 @@ import kotlinx.android.synthetic.main.activity_about.*
  */
 class AboutActivity : AppCompatActivity() {
     companion object {
-        private val TAG = AboutActivity::class.java.simpleName
+        private val TAG = AboutActivity::class.java.name
     } // companion object
 
     /**

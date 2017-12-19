@@ -39,14 +39,15 @@ import java.io.InputStream
  */
 open class MotionCategoryAdapter : PagerAdapter() {
     companion object {
-        private val TAG = MotionCategoryAdapter::class.java.simpleName
+        private val TAG = MotionCategoryAdapter::class.java.name
         lateinit var motionCategoryList: List<MotionCategory>
 
         fun loadMotionFile(input: InputStream) {
             motionCategoryList = GsonUtil.parseJsonArray(input, MotionCategory::class.java)
             Log.d(TAG, motionCategoryList.toString())
+            return
         } // Function loadMotionFile()
-    }
+    } // companion object
 
     /**
      * 判断view与obj是否为同一对象

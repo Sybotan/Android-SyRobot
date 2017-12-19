@@ -40,8 +40,10 @@ import com.sybotan.android.syrobot.views.adapters.MotionCategoryAdapter
  */
 class SyRobot : Application() {
     companion object {
-        private val TAG = SyRobot::class.java.simpleName
+        private val TAG = SyRobot::class.java.name
+
         val appStorePath = "${Environment.getExternalStorageDirectory().absolutePath}/com.sybotan.syrobot"
+
         var robot: Robot? = null
 
         /**
@@ -51,9 +53,9 @@ class SyRobot : Application() {
          * @return  机器人控制类
          */
         fun loadRobot(name: String): Robot? {
-            val clazz = Class.forName("com.sybotan.android.syrobot.robots.Robot$name") ?: return null
+            val clazz = Class.forName("com.sybotan.android.syrobot.robots.$name") ?: return null
             return clazz.newInstance() as Robot
-        } // Function RobotLittleStar
+        } // Function LittleStar
     }
 
     /**

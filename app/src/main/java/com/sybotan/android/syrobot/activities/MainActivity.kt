@@ -45,7 +45,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  */
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     companion object {
-        private val TAG = MainActivity::class.java.simpleName
+        private val TAG = MainActivity::class.java.name
     }
     val APP_ID = "10410170"
     val API_KEY = "RkSClKjZcclmDPBnn6c7RV7M"
