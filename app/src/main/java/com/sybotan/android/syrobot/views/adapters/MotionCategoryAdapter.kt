@@ -29,7 +29,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.sybotan.android.syrobot.entities.Motion
 import com.sybotan.android.syrobot.entities.MotionCategory
-import com.sybotan.android.utils.GsonUtil
+import com.sybotan.android.core.utils.GsonUtil
 import java.io.InputStream
 
 /**

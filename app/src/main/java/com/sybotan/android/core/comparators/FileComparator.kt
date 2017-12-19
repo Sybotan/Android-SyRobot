@@ -21,7 +21,7 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.android.utils
+package com.sybotan.android.core.comparators
 
 import java.io.File
 import java.util.Comparator

@@ -21,7 +21,7 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.android.utils
+package com.sybotan.android.core.utils
 
 import android.util.Log
 import com.google.gson.Gson

@@ -38,16 +38,12 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.squareup.picasso.Picasso
 import com.sybotan.android.syrobot.R
 import com.sybotan.android.syrobot.SyRobot
 import com.sybotan.android.syrobot.activities.ProgrammingActivity
-import com.sybotan.android.syrobot.entities.Motion
 import com.sybotan.android.syrobot.preferences.Opts
-import com.sybotan.android.syrobot.views.MotionGridView
-import com.sybotan.android.utils.FileComparator
+import com.sybotan.android.core.comparators.FileComparator
 import kotlinx.android.synthetic.main.fragment_program_list.view.*
-import kotlinx.android.synthetic.main.view_motion_grid_item.view.*
 import java.io.File
 import java.util.*
 
