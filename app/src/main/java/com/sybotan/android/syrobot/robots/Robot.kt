@@ -23,6 +23,9 @@
 
 package com.sybotan.android.syrobot.robots
 
+import org.jetbrains.anko.custom.async
+import org.jetbrains.anko.doAsync
+
 /**
  * 机器人基类
  *
@@ -59,9 +62,22 @@ abstract class Robot {
     abstract fun setHome(id: Int, pos: Int)
 
     /**
+     * 执行控制命令
+     *
+     * @param   cmd     控制命令
+     */
+    fun execCommand(cmd: String) {
+        doAsync {
+            sendCommand(cmd)
+        }
+        return
+    } // Function execCommand()
+
+    /**
      * 发送控制命令
      *
      * @param   cmd     控制命令
      */
     protected abstract fun sendCommand(cmd: String)
+
 } // Class Robot

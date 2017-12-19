@@ -43,7 +43,7 @@ class LittleStar : Robot() {
      */
     override fun playMotion(id: Int) {
         val cmd = String.format("\$PM%02X", id)
-        sendCommand(cmd)
+        execCommand(cmd)
         return
     } // Function playMotion()
 
@@ -51,7 +51,7 @@ class LittleStar : Robot() {
      * 停止当前动作
      */
     override fun stopMotion() {
-        sendCommand("\$SM")
+        execCommand("\$SM")
         return
     } // Function stopMotion()
 
@@ -63,7 +63,7 @@ class LittleStar : Robot() {
      */
     override fun setPos(id: Int, pos: Int) {
         val cmd = String.format("\$AN%02X%s", id, StringUtil.intToHex(pos, 3))
-        sendCommand(cmd)
+        execCommand(cmd)
         return
     } // Function setPos()
 
@@ -75,7 +75,7 @@ class LittleStar : Robot() {
      */
     override fun setHome(id: Int, pos: Int) {
         val cmd = String.format("\$HO%02X%s", id, StringUtil.intToHex(pos, 3))
-        sendCommand(cmd)
+        execCommand(cmd)
         return
     } // Function setHome()
 
