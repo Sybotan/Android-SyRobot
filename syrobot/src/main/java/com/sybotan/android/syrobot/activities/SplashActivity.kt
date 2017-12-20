@@ -25,39 +25,59 @@ package com.sybotan.android.syrobot.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.widget.LinearLayout
 import com.sybotan.android.syrobot.R
-import kotlinx.android.synthetic.main.activity_about.*
+import org.jetbrains.anko.*
 
 /**
- * 机器人选择窗口
+ * 启动界面
  *
  * @author  Andy
  */
-class RobotSelectActivity : AppCompatActivity() {
-    companion object {
-        private val TAG = RobotSelectActivity::class.java.name
-    } // companion object
+class SplashActivity : AppCompatActivity() {
+
+    val handler = Handler()
+
+    // 定时任务
+    val runnable = object : Runnable {
+        override fun run() {
+            startActivity<MainActivity>()
+            finish()
+            return
+        } // Function run()
+    } // Object Runnable()
 
     /**
-     * 创建Activity时调用
+     * 创建时调用
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_robot_select)
-        updateAppbar()
+        createViews()
+
+        // 3秒后进入主界面
+        handler.postDelayed(runnable, 3000)
         return
     } // Function onCreate()
 
     /**
-     * 更新顶部条
+     * 在启动窗口，屏蔽用户按返回键
      */
-    private fun updateAppbar() {
-        uiAppbar.setTitle(R.string.title_activity_robot_select)
-        setSupportActionBar(uiAppbar)
-        // 标题栏显示返回，点击返回上一页
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        // 点击返回
-        uiAppbar.setNavigationOnClickListener{ finish() }
+    override fun onBackPressed() {
+        // DO NOTHING
         return
-    } // Function updateAppBar()
-} // Class RobotSelectActivity
+    } // Function onBackPressed()
+
+    /**
+     * 创建Activi中的对象
+     */
+    private fun createViews() {
+        linearLayout {
+            orientation = LinearLayout.VERTICAL
+            imageView {
+                imageResource = R.drawable.app_splash
+            }.lparams(width = matchParent, height = matchParent)
+        }
+        return
+    } // Function create()
+} // Class SplashActivity()

@@ -33,10 +33,12 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.util.Log
 import android.view.MenuItem
 import com.sybotan.android.syrobot.R
+import com.sybotan.android.syrobot.SyRobot
 import com.sybotan.android.syrobot.preferences.Opts
 import com.sybotan.android.syrobot.fragments.JoystickFragment
 import com.sybotan.android.syrobot.fragments.ProgramListFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.toast
 
 /**
  * 主Activity
@@ -53,6 +55,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     var joystickFragment: JoystickFragment? = null
     var programListFragment: ProgramListFragment? = null
+
+    var currentTime = 0L
     /**
      * 创建Activity时调用
      */
@@ -83,10 +87,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      * 用户按返回键时调用
      */
     override fun onBackPressed() {
+        // 如果打开导航，则关闭导航
         if (uiDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             uiDrawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+
+            // 在指定时间间隔内，按两次退出。
+            val t = System.currentTimeMillis()
+            if (t - currentTime > 1000) {
+                toast(R.string.msg_more_exit_app)
+                currentTime = t
+            } else {
+                SyRobot.exitApp(this)
+            }
         }
         return
     } // Function onBackPressed()
@@ -99,10 +112,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val intent : Intent = when(item.itemId) {
-            R.id.uiNavTaobao -> Intent(Intent.ACTION_VIEW, Uri.parse("https://shop155631146.taobao.com"))
-            R.id.uiNavJointSettings -> Intent(this, JointSettingsActivity::class.java)
-            R.id.uiNavHelp -> Intent(this, HelpActivity::class.java)
-            else -> Intent(this, AboutActivity::class.java)
+            R.id.uiNavTaobao            -> Intent(Intent.ACTION_VIEW, Uri.parse("https://shop155631146.taobao.com"))
+            R.id.uiNavRobotSelect       -> Intent(this, RobotSelectActivity::class.java)
+            R.id.uiNavJointSettings     -> Intent(this, JointSettingsActivity::class.java)
+            R.id.uiNavHelp              -> Intent(this, HelpActivity::class.java)
+            else                        -> Intent(this, AboutActivity::class.java)
         }
 
         startActivity(intent)

@@ -22,19 +22,34 @@
   ~ *********************************************************************************************************************
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="none"
-        android:id="@+id/group_settings">
-        <item android:id="@+id/uiNavTaobao"
-              android:title="@string/action_taobao"/>
-        <item
-                android:id="@+id/uiNavJointSettings"
-                android:title="@string/nav_item_joint_settings"/>
-        <item
-                android:id="@+id/uiNavHelp"
-                android:title="@string/nav_item_help"/>
-        <item
-                android:id="@+id/uiNavAbout"
-                android:title="@string/nav_item_about"/>
-    </group>
-</menu>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <android.support.design.widget.AppBarLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+                android:id="@+id/uiAppbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+    </android.support.design.widget.AppBarLayout>
+    <Button
+            android:id="@+id/uiSelectButton"
+            android:text="MiniPlan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <Button
+            android:id="@+id/uiSelectButton1"
+            android:text="小星"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>

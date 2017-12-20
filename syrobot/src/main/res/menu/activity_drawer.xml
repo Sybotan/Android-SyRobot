@@ -22,11 +22,22 @@
   ~ *********************************************************************************************************************
   -->
 
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-</LinearLayout>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none"
+        android:id="@+id/group_settings">
+        <item android:id="@+id/uiNavTaobao"
+              android:title="@string/action_taobao"/>
+        <item
+                android:id="@+id/uiNavRobotSelect"
+                android:title="@string/title_activity_robot_select"/>
+        <item
+                android:id="@+id/uiNavJointSettings"
+                android:title="@string/title_activity_joint_settings"/>
+        <item
+                android:id="@+id/uiNavHelp"
+                android:title="@string/title_activity_help"/>
+        <item
+                android:id="@+id/uiNavAbout"
+                android:title="@string/title_activity_about"/>
+    </group>
+</menu>

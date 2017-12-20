@@ -36,10 +36,6 @@
     <!-- navigation -->
     <string name="navigation_drawer_open">打开导航面板</string>
     <string name="navigation_drawer_close">关闭导航面板</string>
-    <string name="nav_item_joint_settings">关节设置</string>
-    <string name="nav_item_developer">开发者工具</string>
-    <string name="nav_item_help">帮助中心</string>
-    <string name="nav_item_about">关于</string>
 
     <!-- motion -->
     <string name="motion_icon_description">图标</string>
@@ -75,6 +71,7 @@
     <string name="button_stop">停止</string>
 
     <!-- message -->
+    <string name="msg_more_exit_app">再按一次退出应用</string>
     <string name="scanning_syrobot">搜索机器人</string>
     <string name="syrobot_not_found">未找到机器人</string>
     <string name="select_syrobot">选择机器人</string>

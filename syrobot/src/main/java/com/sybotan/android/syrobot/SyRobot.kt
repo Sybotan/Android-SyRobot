@@ -26,8 +26,12 @@ package com.sybotan.android.syrobot
 import android.app.Application
 import android.app.Service
 import android.content.Context
+import android.content.Intent
 import android.os.Environment
 import android.os.Vibrator
+import android.support.v4.content.ContextCompat.startActivity
+import android.util.Log
+import com.sybotan.android.syrobot.activities.ExitActivity
 import com.sybotan.android.syrobot.preferences.Opts
 import com.sybotan.android.syrobot.robots.Robot
 import com.sybotan.android.syrobot.services.VibratorService
@@ -56,6 +60,32 @@ class SyRobot : Application() {
             val clazz = Class.forName("com.sybotan.android.syrobot.robots.$name") ?: return null
             return clazz.newInstance() as Robot
         } // Function LittleStar
+
+        /**
+         * 退出应用
+         *
+         * @param   context     上下文信息
+         */
+        fun exitApp(context: Context) {
+            var intent = Intent(context, ExitActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.putExtra(ExitActivity.REBOOT_PARAM, false)
+            context.startActivity(intent)
+            return
+        } // Function exitApp()
+
+        /**
+         * 重启应用
+         *
+         * @param   context     上下文信息
+         */
+        fun rebootApp(context: Context) {
+            var intent = Intent(context, ExitActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.putExtra(ExitActivity.REBOOT_PARAM, true)
+            context.startActivity(intent)
+            return
+        } // Function rebootApp()
     }
 
     /**
@@ -63,10 +93,13 @@ class SyRobot : Application() {
      */
     override fun onCreate() {
         super.onCreate()
+
         // 初始化MainPreferences对象
         Opts.pref = getSharedPreferences(TAG, Context.MODE_PRIVATE)
         // 初始化震动器
         VibratorService.vibrator = getSystemService(Service.VIBRATOR_SERVICE) as Vibrator
+
+        Log.d(TAG, "Robot '${Opts.robot}' start!!!!!!!!!")
 
         // 加载机器人
         robot = loadRobot(Opts.robot)
