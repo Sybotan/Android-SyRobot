@@ -143,7 +143,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             uiContainer.addView(programListFragment)
         }
 
-        //fragmentManager.beginTransaction().replace(R.id.uiContainer, fragment).commit()
         return
     } // Function updateFragment()
 } // Class MainActivity

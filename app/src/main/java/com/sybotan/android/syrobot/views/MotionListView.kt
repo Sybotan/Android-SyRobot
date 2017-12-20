@@ -38,6 +38,7 @@ import com.squareup.picasso.Picasso
 import com.sybotan.android.syrobot.R
 import com.sybotan.android.syrobot.entities.CodeUnit
 import com.sybotan.android.syrobot.entities.Motion
+import com.sybotan.android.syrobot.preferences.Opts
 import com.sybotan.android.syrobot.services.VibratorService
 import kotlinx.android.synthetic.main.item_motion_list_item.view.*
 
@@ -71,8 +72,8 @@ class MotionListView(motionList: List<Motion>, context: Context, attrs: Attribut
          * @param   viewType    视图类型
          * @return  视图图holder
          */
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MotionViewHolder {
-            val view = LayoutInflater.from(parent!!.context).inflate(R.layout.item_motion_list_item, parent, false)
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MotionViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_motion_list_item, parent, false)
             return MotionViewHolder(view)
         } // Function onCreateViewHolder()
 
@@ -82,8 +83,8 @@ class MotionListView(motionList: List<Motion>, context: Context, attrs: Attribut
          * @param   holder      保存数据holder
          * @param   position    数据索引
          */
-        override fun onBindViewHolder(holder: MotionViewHolder?, position: Int) {
-            holder!!.bind(motionList[position])
+        override fun onBindViewHolder(holder: MotionViewHolder, position: Int) {
+            holder.bind(motionList[position])
             return
         } // Function onBindViewHolder()
 
@@ -100,9 +101,10 @@ class MotionListView(motionList: List<Motion>, context: Context, attrs: Attribut
         inner class MotionViewHolder(val view: View) : ViewHolder(view) {
             fun bind(motion: Motion) {
                 Log.v(TAG, "file:///android_asset/littlestar/${motion.iconPath}")
-                Picasso.with(context).load("file:///android_asset/littlestar/${motion.iconPath}").into(view.uiMotionIcon)
+                Picasso.with(context).load("file:///android_asset/${Opts.robot.toLowerCase()}/${motion.iconPath}").into(view.uiMotionIcon)
                 view.uiMotionName.text = motion.name
-                //view.uiMotionNumber.text = String.format("%02X", motion.id)
+                view.tag = motion.id
+                return
             } // Function bind()
         }
     } // Class MotionAdapter()

@@ -45,6 +45,7 @@ import com.sybotan.android.syrobot.preferences.Opts
 import com.sybotan.android.core.comparators.FileComparator
 import kotlinx.android.synthetic.main.fragment_program_list.view.*
 import java.io.File
+import java.io.IOException
 import java.util.*
 
 /**
@@ -83,10 +84,14 @@ class ProgramListFragment(context: Context, attrs: AttributeSet? = null) : Linea
             path.mkdirs()
         }
 
-        fileList = path.listFiles().asList()
-        Collections.sort(fileList, FileComparator.LastModifiedDesc())
-        for (file in fileList!!) {
-            Log.d(TAG, "name = ${file.name}  size=${file.lastModified()}")
+        try {
+            fileList = path.listFiles()!!.asList()
+            Collections.sort(fileList, FileComparator.LastModifiedDesc())
+            for (file in fileList!!) {
+                Log.d(TAG, "name = ${file.name}  size=${file.lastModified()}")
+            }
+        } catch (e: Exception) {
+            // DO NOTHING
         }
 
         return
@@ -134,11 +139,15 @@ class ProgramListFragment(context: Context, attrs: AttributeSet? = null) : Linea
      * 新建程序
      */
     private fun newProgram(program: String) {
-        File("$programPath/$program").createNewFile()
+        try {
+            File("$programPath/$program").createNewFile()
 
-        var intent = Intent(context, ProgrammingActivity::class.java)
-        intent.putExtra(ProgrammingActivity.PROGRAM_NAME_PARM, program)
-        context.startActivity(intent)
+            var intent = Intent(context, ProgrammingActivity::class.java)
+            intent.putExtra(ProgrammingActivity.PROGRAM_NAME_PARM, program)
+            context.startActivity(intent)
+        } catch (e: IOException) {
+            // DO NOTHING
+        }
 
         return
     } // Function newProgram()
@@ -173,7 +182,7 @@ class ProgramListFragment(context: Context, attrs: AttributeSet? = null) : Linea
          *
          * @return  数据项数量
          */
-        override fun getItemCount(): Int = fileList!!.size
+        override fun getItemCount(): Int = if (null != fileList) fileList!!.size else 0
 
         /**
          * 视图Holder

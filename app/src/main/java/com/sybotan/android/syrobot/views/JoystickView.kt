@@ -27,11 +27,11 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.MotionEvent
+import android.view.View
 import android.widget.RelativeLayout
 import com.sybotan.android.syrobot.R
-import kotlinx.android.synthetic.main.view_joystick.view.*
+import org.jetbrains.anko.*
 
 /**
  * 方向控制手柄
@@ -43,6 +43,8 @@ class JoystickView(context: Context, attrs: AttributeSet? = null) : RelativeLayo
         private val TAG = JoystickView::class.java.name
     } // companion object
 
+    private val uiBackground: View = View(context)
+    private val uiStick: View = View(context)
     private val animatorX = ObjectAnimator()
     private val animatorY = ObjectAnimator()
     private var initialized = false
@@ -53,8 +55,14 @@ class JoystickView(context: Context, attrs: AttributeSet? = null) : RelativeLayo
 
     // 初始化
     init {
-        // 加载布局
-        LayoutInflater.from(context).inflate(R.layout.view_joystick, this)
+        uiBackground.backgroundResource = R.drawable.joystick_background
+        uiBackground.elevation = dimen(R.dimen.elevation_low).toFloat()
+        addView(uiBackground)
+
+        uiStick.backgroundResource = R.drawable.joystick_stick
+        uiStick.elevation = dimen(R.dimen.elevation_high).toFloat()
+        addView(uiStick)
+
         animatorX.propertyName = "x"
         animatorY.propertyName = "y"
         animatorX.target = uiStick
@@ -132,6 +140,7 @@ class JoystickView(context: Context, attrs: AttributeSet? = null) : RelativeLayo
         animatorY.setFloatValues(y.toFloat())
         animatorX.start()
         animatorY.start()
+
         return
     } // Function animateStick()
 } // Class JoystickView

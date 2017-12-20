@@ -23,6 +23,12 @@
 
 package com.sybotan.android.syrobot.robots
 
+import android.util.Log
+import com.sybotan.android.syrobot.services.VibratorService
+import org.jetbrains.anko.doAsync
+import java.net.HttpURLConnection
+import java.net.URL
+
 /**
  * 机器人 MiniPlan
  *
@@ -39,14 +45,22 @@ class MiniPlan : Robot() {
      * @param   id      动作ID
      */
     override fun playMotion(id: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var cmd = if (id >=0 ) {
+            "controller?pm=$id"
+        } else {
+            "controller?pms=${-id}"
+        }
+
+        sendCommand(cmd)
+        return
     } // Function playMotion()
 
     /**
      * 停止当前动作
      */
     override fun stopMotion() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        // DO NOTHING
+        return
     } // Function stopMotion()
 
     /**
@@ -75,6 +89,22 @@ class MiniPlan : Robot() {
      * @param   cmd     控制命令
      */
     override fun sendCommand(cmd: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Log.d(TAG, "sendCommand = $cmd")
+        // 发送指令，启动震动
+        VibratorService.vibrate(50)
+
+        doAsync {
+            try {
+                val url1 = URL("http://192.168.4.1/$cmd")
+                val urlConn = url1.openConnection() as HttpURLConnection
+                urlConn.connectTimeout = 5000
+                urlConn.requestMethod = "GET"
+                urlConn.responseCode
+                urlConn.disconnect()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        return
     } // Function sendCommand()
 } // Class MiniPlan

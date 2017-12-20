@@ -38,6 +38,7 @@ import com.squareup.picasso.Picasso
 import com.sybotan.android.syrobot.R
 import com.sybotan.android.syrobot.entities.CodeUnit
 import com.sybotan.android.syrobot.entities.Motion
+import com.sybotan.android.syrobot.preferences.Opts
 import com.sybotan.android.syrobot.services.VibratorService
 import kotlinx.android.synthetic.main.view_codeunit_list_item.view.*
 import java.util.*
@@ -85,8 +86,8 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
          * @param   viewType    视图类型
          * @return  视图图holder
          */
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CodeUnitListViewHolder {
-            val view = LayoutInflater.from(parent!!.context).inflate(R.layout.view_codeunit_list_item, parent, false)
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CodeUnitListViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.view_codeunit_list_item, parent, false)
             return CodeUnitListViewHolder(view)
         } // Function onCreateViewHolder()
 
@@ -96,8 +97,8 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
          * @param   holder      保存数据holder
          * @param   position    数据索引
          */
-        override fun onBindViewHolder(holder: CodeUnitListViewHolder?, position: Int) {
-            holder!!.bind(codeUnitList[position])
+        override fun onBindViewHolder(holder: CodeUnitListViewHolder, position: Int) {
+            holder.bind(codeUnitList[position])
             return
         } // Function onBindViewHolder()
 
@@ -115,10 +116,12 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
      */
     inner class CodeUnitListViewHolder(val view: View) : ViewHolder(view) {
         fun bind(codeUnit: CodeUnit) {
-            Log.v(CodeUnitListView.TAG, "file:///android_asset/littlestar/${codeUnit.motion.iconPath}")
-            Picasso.with(context).load("file:///android_asset/littlestar/${codeUnit.motion.iconPath}").into(view.uiMotionIcon)
+            Log.v(CodeUnitListView.TAG, "file:///android_asset/${Opts.robot.toLowerCase()}/${codeUnit.motion.iconPath}")
+            Picasso.with(context).load("file:///android_asset/${Opts.robot.toLowerCase()}/${codeUnit.motion.iconPath}").into(view.uiMotionIcon)
             view.uiMotionName.text = codeUnit.motion.name
             view.uiLoopCount.text = SpannableStringBuilder(codeUnit.loopCount.toString())
+            view.tag = codeUnit.motion.id
+
             // 如果循环次数为-1,则隐藏
             if (-1 == codeUnit.loopCount) {
                 view.visibility = View.INVISIBLE

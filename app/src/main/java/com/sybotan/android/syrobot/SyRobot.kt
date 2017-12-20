@@ -72,7 +72,7 @@ class SyRobot : Application() {
         robot = loadRobot(Opts.robot)
 
         // 加载动作分类列表文件
-        MotionCategoryAdapter.loadMotionFile(applicationContext.assets.open("littlestar/motions.json"))
+        MotionCategoryAdapter.loadMotionFile(applicationContext.assets.open("${Opts.robot.toLowerCase()}/motions.json"))
         return
     } // Function onCreate()
 } // Object  SyRobot

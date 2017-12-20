@@ -62,18 +62,6 @@ abstract class Robot {
     abstract fun setHome(id: Int, pos: Int)
 
     /**
-     * 执行控制命令
-     *
-     * @param   cmd     控制命令
-     */
-    fun execCommand(cmd: String) {
-        doAsync {
-            sendCommand(cmd)
-        }
-        return
-    } // Function execCommand()
-
-    /**
      * 发送控制命令
      *
      * @param   cmd     控制命令

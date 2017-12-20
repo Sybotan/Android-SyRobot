@@ -38,7 +38,7 @@ object Opts {
 
     // 机器人名字
     var robot: String
-        get() = pref!!.getString("robot", "LittleStar")
+        get() = pref!!.getString("robot", "MiniPlan")
         set(value){
             pref!!.edit().putString("robot", value).apply()
             Log.d(TAG, "Opts::robot=$value")

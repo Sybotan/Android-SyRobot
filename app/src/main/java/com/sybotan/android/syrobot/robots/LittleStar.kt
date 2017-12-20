@@ -23,7 +23,14 @@
 
 package com.sybotan.android.syrobot.robots
 
+import android.util.Log
 import com.sybotan.android.core.utils.StringUtil
+import com.sybotan.android.syrobot.services.VibratorService
+import org.jetbrains.anko.doAsync
+import java.io.IOException
+import java.io.OutputStream
+import java.net.InetSocketAddress
+import java.net.Socket
 
 /**
  * 机器人 小星
@@ -36,6 +43,17 @@ class LittleStar : Robot() {
         private val TAG = LittleStar::class.java.name
     } // companion object
 
+    private lateinit var socket: Socket
+
+    init {
+        doAsync {
+            socket = Socket()
+            socket.oobInline = true
+            socket.keepAlive = true
+            reconnect()
+        }
+    }
+
     /**
      * 播放指定动作
      *
@@ -43,7 +61,7 @@ class LittleStar : Robot() {
      */
     override fun playMotion(id: Int) {
         val cmd = String.format("\$PM%02X", id)
-        execCommand(cmd)
+        sendCommand(cmd)
         return
     } // Function playMotion()
 
@@ -51,7 +69,7 @@ class LittleStar : Robot() {
      * 停止当前动作
      */
     override fun stopMotion() {
-        execCommand("\$SM")
+        sendCommand("\$SM")
         return
     } // Function stopMotion()
 
@@ -63,7 +81,7 @@ class LittleStar : Robot() {
      */
     override fun setPos(id: Int, pos: Int) {
         val cmd = String.format("\$AN%02X%s", id, StringUtil.intToHex(pos, 3))
-        execCommand(cmd)
+        sendCommand(cmd)
         return
     } // Function setPos()
 
@@ -75,7 +93,7 @@ class LittleStar : Robot() {
      */
     override fun setHome(id: Int, pos: Int) {
         val cmd = String.format("\$HO%02X%s", id, StringUtil.intToHex(pos, 3))
-        execCommand(cmd)
+        sendCommand(cmd)
         return
     } // Function setHome()
 
@@ -85,8 +103,31 @@ class LittleStar : Robot() {
      * @param   cmd     控制命令
      */
     override fun sendCommand(cmd: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Log.d(TAG, "sendCommand = $cmd")
+        // 发送指令，启动震动
+        VibratorService.vibrate(50)
+
+        doAsync {
+            try {
+                if (!socket.isConnected) {
+                    reconnect()
+                }
+
+                val out = socket.getOutputStream()
+                out.write(cmd.toByteArray())
+                out.flush()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+
+        return
     } // Function sendCommand
 
+    private fun reconnect() {
+        Log.d(TAG, "reconnect-------------------------")
+        socket.connect(InetSocketAddress("192.168.4.1",23))
+        return
+    } // Function reconnect()
 
 } // Class RobotLittleStarTcp

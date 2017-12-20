@@ -23,7 +23,9 @@
 
 package com.sybotan.android.syrobot.robots
 
+import android.util.Log
 import com.sybotan.android.core.utils.StringUtil
+import com.sybotan.android.syrobot.services.VibratorService
 
 /**
  * 机器人 Plen2
@@ -43,7 +45,7 @@ class Plen2 : Robot() {
      */
     override fun playMotion(id: Int) {
         val cmd = String.format("\$PM%02X", id)
-        execCommand(cmd)
+        sendCommand(cmd)
         return
     } // Function playMotion()
 
@@ -51,7 +53,7 @@ class Plen2 : Robot() {
      * 停止当前动作
      */
     override fun stopMotion() {
-        execCommand("\$SM")
+        sendCommand("\$SM")
         return
     } // Function stopMotion()
 
@@ -63,7 +65,7 @@ class Plen2 : Robot() {
      */
     override fun setPos(id: Int, pos: Int) {
         val cmd = String.format("\$AN%02X%s", id, StringUtil.intToHex(pos, 3))
-        execCommand(cmd)
+        sendCommand(cmd)
         return
     } // Function setPos()
 
@@ -75,7 +77,7 @@ class Plen2 : Robot() {
      */
     override fun setHome(id: Int, pos: Int) {
         val cmd = String.format("\$HO%02X%s", id, StringUtil.intToHex(pos, 3))
-        execCommand(cmd)
+        sendCommand(cmd)
         return
     } // Function setHome()
 
@@ -85,6 +87,10 @@ class Plen2 : Robot() {
      * @param   cmd     控制命令
      */
     override fun sendCommand(cmd: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Log.d(TAG, "sendCommand = $cmd")
+        // 发送指令，启动震动
+        VibratorService.vibrate(50)
+
+        return
     } // Function sendCommand()
 } // Class Plen2
