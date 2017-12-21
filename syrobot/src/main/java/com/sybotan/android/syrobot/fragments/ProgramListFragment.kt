@@ -25,11 +25,9 @@ package com.sybotan.android.syrobot.fragments
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
@@ -37,16 +35,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.TextView
 import com.sybotan.android.syrobot.R
 import com.sybotan.android.syrobot.SyRobot
-import com.sybotan.android.syrobot.activities.ProgrammingActivity
 import com.sybotan.android.syrobot.preferences.Opts
 import com.sybotan.android.core.comparators.FileComparator
+import com.sybotan.android.syrobot.activities.ProgrammingActivity
 import kotlinx.android.synthetic.main.fragment_program_list.view.*
+import kotlinx.android.synthetic.main.view_program_list_item.view.*
 import java.io.File
 import java.io.IOException
 import java.util.*
+import org.jetbrains.anko.*
+import java.text.SimpleDateFormat
 
 /**
  * 编程界面
@@ -105,19 +105,24 @@ class ProgramListFragment(context: Context, attrs: AttributeSet? = null) : Linea
 
         // 新建按钮
         uiNewButton.setOnClickListener {
-            val pargramNameEdit = EditText(context)
+            var pargramNameEdit = EditText(context)
             AlertDialog.Builder(context).setTitle("请输入程序名").setIcon(
                     android.R.drawable.ic_dialog_info).setView(pargramNameEdit)
-                    .setPositiveButton("确定") { dialog, which ->
+                    .setPositiveButton(R.string.button_ok) { dialog, which ->
                         val programName = pargramNameEdit.text.toString().trim { it <= ' ' }
                         newProgram(programName)
                     }
-                    .setNegativeButton("取消", null).show()
+                    .setNegativeButton(R.string.button_cancel, null).show()
         } // uiNewButton
 
         // 删除按钮
         uiDeleteButton.setOnClickListener {
-
+            AlertDialog.Builder(context).setTitle("请输入程序名").setIcon(
+                    android.R.drawable.ic_dialog_info)
+                    .setPositiveButton(R.string.button_ok) {dialog, which ->
+                        context.toast("asdffasdfsaf")
+                    }
+                    .setNegativeButton(R.string.button_cancel, null).show()
         } // uiDeleteButton
 
         return
@@ -131,7 +136,6 @@ class ProgramListFragment(context: Context, attrs: AttributeSet? = null) : Linea
         // 添加默认分隔线
         uiProgramList.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         uiProgramList.adapter = FileAdapter()
-        ItemTouchHelper(ItemTouchHelperCallback()).attachToRecyclerView(uiProgramList)
         return
     } // Function initFileList()
 
@@ -141,14 +145,22 @@ class ProgramListFragment(context: Context, attrs: AttributeSet? = null) : Linea
     private fun newProgram(program: String) {
         try {
             File("$programPath/$program").createNewFile()
-
-            var intent = Intent(context, ProgrammingActivity::class.java)
-            intent.putExtra(ProgrammingActivity.PROGRAM_NAME_PARM, program)
-            context.startActivity(intent)
+            context.startActivity<ProgrammingActivity>(ProgrammingActivity.PROGRAM_NAME_PARM to program)
         } catch (e: IOException) {
             // DO NOTHING
         }
+        return
+    } // Function newProgram()
 
+    /**
+     * 新建程序
+     */
+    private fun openProgram(program: String) {
+        try {
+            context.startActivity<ProgrammingActivity>(ProgrammingActivity.PROGRAM_NAME_PARM to program)
+        } catch (e: IOException) {
+            // DO NOTHING
+        }
         return
     } // Function newProgram()
 
@@ -161,8 +173,15 @@ class ProgramListFragment(context: Context, attrs: AttributeSet? = null) : Linea
          * @param   viewType    视图类型
          * @return  视图图holder
          */
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): FileViewHolder {
-            val view = TextView(parent!!.context)
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FileViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.view_program_list_item, parent, false)
+            view.setOnClickListener {
+                openProgram(view.tag.toString())
+            }
+            view.setOnLongClickListener {
+                uiToolBar.visibility = View.VISIBLE
+                true
+            }
             return FileViewHolder(view)
         } // Function onCreateViewHolder()
 
@@ -172,8 +191,8 @@ class ProgramListFragment(context: Context, attrs: AttributeSet? = null) : Linea
          * @param   holder      保存数据holder
          * @param   position    数据索引
          */
-        override fun onBindViewHolder(holder: FileViewHolder?, position: Int) {
-            holder!!.bind(fileList!![position])
+        override fun onBindViewHolder(holder: FileViewHolder, position: Int) {
+            holder.bind(fileList!![position])
             return
         } // Function onBindViewHolder()
 
@@ -189,42 +208,13 @@ class ProgramListFragment(context: Context, attrs: AttributeSet? = null) : Linea
          */
         inner class FileViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
             fun bind(file: File) {
-                (view as TextView).text = file.name
+                view.uiProgramName.text = file.name
+                val df = SimpleDateFormat("yyyy/MM/dd HH:mm:ss") //格式化当前系统日期
+                view.uiLastModified.text = df.format(Date(file.lastModified()))
+                view.tag = file.name
                 return
             } // Function bind()
         } // Class FileViewHolder
 
     } // Class FileAdapter
-
-    /**
-     * 拖拽回调操作类
-     *
-     * @author  Andy
-     */
-    inner class ItemTouchHelperCallback : ItemTouchHelper.Callback(){
-        /**
-         *
-         */
-        override fun getMovementFlags(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?): Int {
-            // 左右滑删除
-            val swipeFlags = ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-            return makeMovementFlags(0, swipeFlags)
-        } // Function getMovementFlags()
-
-        /**
-         *
-         */
-        override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, target: RecyclerView.ViewHolder?): Boolean {
-            // DO NOTHING
-            return true
-        } // Function onMove()
-
-        /**
-         *
-         */
-        override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        } // Function onSwiped()
-
-    } // Class ItemTouchHelperCallback
 } // Class JoystickView

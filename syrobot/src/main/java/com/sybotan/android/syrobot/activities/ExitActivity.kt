@@ -29,6 +29,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.widget.ImageView
 import android.widget.LinearLayout
 import com.sybotan.android.syrobot.R
 import org.jetbrains.anko.imageResource
@@ -102,6 +103,7 @@ class ExitActivity : AppCompatActivity() {
             orientation = LinearLayout.VERTICAL
             imageView {
                 imageResource = R.drawable.app_exit
+                scaleType = ImageView.ScaleType.FIT_XY
             }.lparams(width = matchParent, height = matchParent)
         }
         return

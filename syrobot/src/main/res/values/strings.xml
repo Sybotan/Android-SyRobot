@@ -64,9 +64,11 @@
     <string name="action_allow">允许</string>
 
     <!-- 按钮 -->
+    <string name="button_cancel">取消</string>
+    <string name="button_home_setting">回中设置</string>
     <string name="button_max">最大值</string>
     <string name="button_min">最小值</string>
-    <string name="button_home_setting">回中设置</string>
+    <string name="button_ok">确定</string>
     <string name="button_step">增量</string>
     <string name="button_stop">停止</string>
 

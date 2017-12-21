@@ -26,6 +26,7 @@ package com.sybotan.android.syrobot.activities
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.widget.ImageView
 import android.widget.LinearLayout
 import com.sybotan.android.syrobot.R
 import org.jetbrains.anko.*
@@ -76,6 +77,7 @@ class SplashActivity : AppCompatActivity() {
             orientation = LinearLayout.VERTICAL
             imageView {
                 imageResource = R.drawable.app_splash
+                scaleType = ImageView.ScaleType.FIT_XY
             }.lparams(width = matchParent, height = matchParent)
         }
         return

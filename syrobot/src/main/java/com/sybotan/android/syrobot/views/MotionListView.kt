@@ -40,7 +40,7 @@ import com.sybotan.android.syrobot.entities.CodeUnit
 import com.sybotan.android.syrobot.entities.Motion
 import com.sybotan.android.syrobot.preferences.Opts
 import com.sybotan.android.syrobot.services.VibratorService
-import kotlinx.android.synthetic.main.item_motion_list_item.view.*
+import kotlinx.android.synthetic.main.view_motion_list_item.view.*
 
 /**
  * 竖向单列滑动式Motion视图控件
@@ -73,7 +73,7 @@ class MotionListView(motionList: List<Motion>, context: Context, attrs: Attribut
          * @return  视图图holder
          */
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MotionViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_motion_list_item, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.view_motion_list_item, parent, false)
             return MotionViewHolder(view)
         } // Function onCreateViewHolder()
 
