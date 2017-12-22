@@ -144,7 +144,7 @@ class ProgramListFragment(context: Context, attrs: AttributeSet? = null) : Linea
      */
     private fun newProgram(program: String) {
         try {
-            File("$programPath/$program").createNewFile()
+            File("$programPath/$program.prg").createNewFile()
             context.startActivity<ProgrammingActivity>(ProgrammingActivity.PROGRAM_NAME_PARM to program)
         } catch (e: IOException) {
             // DO NOTHING
@@ -208,10 +208,10 @@ class ProgramListFragment(context: Context, attrs: AttributeSet? = null) : Linea
          */
         inner class FileViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
             fun bind(file: File) {
-                view.uiProgramName.text = file.name
+                view.uiProgramName.text = file.nameWithoutExtension
                 val df = SimpleDateFormat("yyyy/MM/dd HH:mm:ss") //格式化当前系统日期
                 view.uiLastModified.text = df.format(Date(file.lastModified()))
-                view.tag = file.name
+                view.tag = file.nameWithoutExtension
                 return
             } // Function bind()
         } // Class FileViewHolder

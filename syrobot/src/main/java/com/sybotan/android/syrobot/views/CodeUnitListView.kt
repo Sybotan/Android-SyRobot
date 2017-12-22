@@ -29,18 +29,23 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.text.ClipboardManager
 import android.text.SpannableStringBuilder
 import android.util.AttributeSet
 import android.util.Log
 import android.view.*
 import android.widget.AdapterView.INVALID_POSITION
 import com.squareup.picasso.Picasso
+import com.sybotan.android.core.utils.GsonUtil
 import com.sybotan.android.syrobot.R
 import com.sybotan.android.syrobot.entities.CodeUnit
 import com.sybotan.android.syrobot.entities.Motion
 import com.sybotan.android.syrobot.preferences.Opts
 import com.sybotan.android.syrobot.services.VibratorService
 import kotlinx.android.synthetic.main.view_codeunit_list_item.view.*
+import java.io.File
+import java.io.IOException
+import java.io.InputStream
 import java.util.*
 
 /**
@@ -54,7 +59,8 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
     }
 
     // 代码列表
-    var codeUnitList = ArrayList<CodeUnit>()
+    var codeUnitList: MutableList<CodeUnit> = ArrayList<CodeUnit>()
+
     val mainAdapter = CodeUnitListAdapter()
     val itemTouchHelper: ItemTouchHelper
 
@@ -66,14 +72,38 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
         addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback())
         itemTouchHelper.attachToRecyclerView(this)
-
-        codeUnitList.add(CodeUnit(Motion(1, "test1"),1))
-        codeUnitList.add(CodeUnit(Motion(2, "test2"),2))
-        codeUnitList.add(CodeUnit(Motion(3, "test3"),3))
-        codeUnitList.add(CodeUnit(Motion(4, "test4"),4))
-        codeUnitList.add(CodeUnit(Motion(5, "test5"),5))
         setOnDragListener(DragListener(this))
     } // init
+
+    /**
+     * 打开程序
+     *
+     */
+    fun openProgram(filePath: String) {
+        try {
+            val file = File(filePath)
+            codeUnitList = GsonUtil.parseJsonArray(file, CodeUnit::class.java) as MutableList<CodeUnit>
+            mainAdapter.notifyDataSetChanged()
+        } catch (e: Exception) {
+            // DO NOTHING
+            e.printStackTrace()
+        }
+        return
+    } // Function openProgram()
+
+    /**
+     * 保存程序
+     */
+    fun saveProgram(filePath: String) {
+        try {
+            Log.d(TAG, "codeUnitList = $codeUnitList")
+            GsonUtil.writeToFile(filePath, codeUnitList)
+        } catch (e: Exception) {
+          // DO NOTHING
+            e.printStackTrace()
+        }
+        return
+    } // Function saveProgram()
 
     /**
      *
@@ -98,7 +128,9 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
          * @param   position    数据索引
          */
         override fun onBindViewHolder(holder: CodeUnitListViewHolder, position: Int) {
-            holder.bind(codeUnitList[position])
+            if (null != codeUnitList) {
+                holder.bind(codeUnitList!![position])
+            }
             return
         } // Function onBindViewHolder()
 
@@ -107,7 +139,12 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
          *
          * @return  数据项数量
          */
-        override fun getItemCount(): Int = codeUnitList.size
+        override fun getItemCount(): Int {
+            if (null != codeUnitList) {
+                return codeUnitList!!.size
+            }
+            return 0
+        } // Function getItemCount()
 
     } // Class MotionAdapter()
 
@@ -210,8 +247,9 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
          * @param   direction       删除方向（例如：是左移删除还是右移删除）
          */
         override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
+
             val pos = viewHolder.adapterPosition
-            codeUnitList.removeAt(pos)
+            // PLX codeUnitList!!.removeAt(pos)
             mainAdapter.notifyItemRemoved(pos)
             return
         } // Function onSwiped()
@@ -225,6 +263,12 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
         val parent = view
         var pos = INVALID_POSITION
         override fun onDrag(v: View, event: DragEvent): Boolean {
+            val clipDescription = event.clipDescription
+
+            if (clipDescription == null || MotionListView.DRAG_CODE_UNIT_LABEL != clipDescription.label) {
+                return false
+            }
+
             when (event.action) {
                 DragEvent.ACTION_DRAG_ENTERED -> { // 拖入
                     pos = INVALID_POSITION
@@ -249,6 +293,7 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
                         pos = index
                         Log.d(TAG, "pos=" + pos)
                         codeUnitList.add(pos, CodeUnit(Motion(-1, ""),-1))
+
                         mainAdapter.notifyItemInserted(pos)
                     }
                     if (INVALID_POSITION != pos && INVALID_POSITION != index &&
@@ -259,10 +304,19 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
                     }
                 }
                 DragEvent.ACTION_DROP-> {
-                    Log.d(TAG, "ACTION_DROP=${event.y}")
-                    codeUnitList[pos] = CodeUnit(Motion(5, "test5"),5)
-                    mainAdapter.notifyItemChanged(pos)
-                    pos = INVALID_POSITION
+                    try {
+                        Log.d(TAG, "ACTION_DROP=${event.y}")
+                        Log.d(TAG, "data=${event.clipData}")
+                        val params = event.clipData.toString().split(":")
+                        if (params.size >= 3) {
+                            codeUnitList[pos] = CodeUnit(Motion(params[1].toInt(), params[2]), 1)
+                            mainAdapter.notifyItemChanged(pos)
+                            pos = INVALID_POSITION
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        // DO NOTHING
+                    }
                 }
                 else -> {
                     // DO NOTHING }

@@ -50,6 +50,7 @@ import kotlinx.android.synthetic.main.view_motion_list_item.view.*
 class MotionListView(motionList: List<Motion>, context: Context, attrs: AttributeSet? = null) : RecyclerView(context, attrs) {
     companion object {
         private val TAG = MotionListView::class.java.name
+        val DRAG_CODE_UNIT_LABEL = "DRAG_CODE_UNIT_LABEL"
     }
 
     val motionList: List<Motion>
@@ -128,7 +129,7 @@ class MotionListView(motionList: List<Motion>, context: Context, attrs: Attribut
                 val bg = pressedView.background
                 pressedView.setBackgroundResource(R.drawable.shape_drag_effect)
                 pressedView.isPressed = true
-                val data = ClipData.newPlainText(TAG, CodeUnit(Motion(11, "test11"),11).toString())
+                val data = ClipData.newPlainText(DRAG_CODE_UNIT_LABEL, "${pressedView.tag}:${pressedView.uiMotionName.text}:")
                 pressedView.startDrag(data, DragShadowBuilder(pressedView),null, 0)
                 pressedView.isPressed = false
                 pressedView.background = bg

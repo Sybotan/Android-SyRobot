@@ -25,8 +25,11 @@ package com.sybotan.android.syrobot.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.ViewGroup
 import com.sybotan.android.syrobot.R
+import com.sybotan.android.syrobot.SyRobot
+import com.sybotan.android.syrobot.preferences.Opts
 import com.sybotan.android.syrobot.views.MotionListView
 import com.sybotan.android.syrobot.views.adapters.MotionCategoryAdapter
 import kotlinx.android.synthetic.main.activity_programming.*
@@ -42,6 +45,8 @@ class ProgrammingActivity : AppCompatActivity() {
         val PROGRAM_NAME_PARM = "programName"
     }
 
+    val programPath = "${SyRobot.appStorePath}/${Opts.robot}"
+    var program: String = ""
     /**
      * 创建时调用
      */
@@ -51,7 +56,9 @@ class ProgrammingActivity : AppCompatActivity() {
         updateAppbar()
 
         // 取得传入的应用名称
-        uiProgramName.text = intent.getStringExtra(PROGRAM_NAME_PARM)
+        program = intent.getStringExtra(PROGRAM_NAME_PARM)
+        uiProgramName.text = program
+        uiProgram.openProgram("$programPath/$program.prg")
 
         uiMotionCategoryPager.adapter = object : MotionCategoryAdapter() {
             /**
@@ -69,6 +76,16 @@ class ProgrammingActivity : AppCompatActivity() {
         }
         return
     } // Function onCreate()
+
+    /**
+     * 退出时保存程序
+     */
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause()----------$programPath/$program.prg")
+        uiProgram.saveProgram("$programPath/$program.prg")
+        return
+    } // Function onPause()
 
     /**
      * 更新顶部条

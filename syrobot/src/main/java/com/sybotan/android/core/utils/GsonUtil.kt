@@ -121,7 +121,8 @@ object GsonUtil {
     fun <T> parseJsonArray(jsonData: String, type: Class<T>): List<T> {
         val gson = Gson()
         val result = ArrayList<T>()
-        val array = JsonParser().parse(jsonData).asJsonArray
+        Log.d(TAG, "jsonData=${jsonData}")
+        val array = JsonParser().parse(jsonData.trim()).asJsonArray
         for (elem in array) {
             result.add(gson.fromJson(elem, type))
         }
@@ -131,18 +132,39 @@ object GsonUtil {
     /**
      * 将Json数据解析成相应的映射对象列表
      *
-     * @param in        要解析的JSON数据输入源
+     * @param `inputStreamn`        要解析的JSON数据输入源
      * @param type      类型
      * @param <T>       泛型
      * @return          解析结果
     </T> */
     @Throws(IOException::class)
-    fun <T> parseJsonArray(`in`: InputStream, type: Class<T>): List<T> {
-        val count = `in`.available()
+    fun <T> parseJsonArray(inputStreamn: InputStream, type: Class<T>): List<T> {
+        val count = inputStreamn.available()
         val buf = ByteArray(count)
         var readCount = 0
         while (readCount < count) {
-            readCount += `in`.read(buf, readCount, count - readCount)
+            readCount += inputStreamn.read(buf, readCount, count - readCount)
+        }
+
+        return parseJsonArray(String(buf), type)
+    } // Function parseJsonArray()
+
+    /**
+     * 将Json数据解析成相应的映射对象列表
+     *
+     * @param `inputStreamn`        要解析的JSON数据输入源
+     * @param type      类型File
+     * @param <T>       泛型
+     * @return          解析结果
+    </T> */
+    @Throws(IOException::class)
+    fun <T> parseJsonArray(file: File, type: Class<T>): List<T> {
+        val inputStreamn = FileInputStream(file)
+        val count = inputStreamn.available()
+        val buf = ByteArray(count)
+        var readCount = 0
+        while (readCount < count) {
+            readCount += inputStreamn.read(buf, readCount, count - readCount)
         }
 
         return parseJsonArray(String(buf), type)
