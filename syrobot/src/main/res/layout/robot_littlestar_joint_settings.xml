@@ -106,7 +106,7 @@
                       android:textAlignment="center"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"/>
-            <com.sybotan.android.views.VerticalSeekBar
+            <com.sybotan.android.view.VerticalSeekBar
                     android:id="@+id/uiSeekBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

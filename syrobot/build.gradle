@@ -90,6 +90,11 @@ dependencies {
     // https://mvnrepository.com/artifact/com.baidu.aip/java-sdk
     compile group: 'com.baidu.aip', name: 'java-sdk', version: '3.3.2'
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Sybotan
+    compile group: 'com.sybotan.android', name:'sybotan-android-core', version: '1.0.0'
+    compile group: 'com.sybotan.android', name:'sybotan-android-view', version: '1.0.0'
+
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
