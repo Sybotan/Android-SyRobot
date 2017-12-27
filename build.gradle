@@ -21,6 +21,9 @@
  * ********************************************************************************************************************
  */
 
+group 'com.sybotan.android'
+version SYROBOT_VERSION
+
 buildscript {
     ext.kotlin_version = '1.2.10'
     repositories {
@@ -40,7 +43,7 @@ allprojects {
     repositories {
         jcenter()
         maven {url 'https://dl.bintray.com/jetbrains/anko'}
-        maven {url 'https://dl.bintray.com/sybotanrobot/android'}
+        maven {url MAVEN_REPO_PUBLIC_URL}
     }
 }
 
