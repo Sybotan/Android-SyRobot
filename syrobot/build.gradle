@@ -21,37 +21,73 @@
  * ********************************************************************************************************************
  */
 
+group rootProject.group
+version rootProject.version
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+configurations.all {
+    // 更新最新依赖(默认为24小时，这里设置为每次build都检查)
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+def currentCode = getVersionCode()
+
 android {
-    compileSdkVersion 25
-    buildToolsVersion "26.0.0"
+    compileSdkVersion ANDROID_SDK_VERSION.toInteger()
+    buildToolsVersion ANDROID_BUILD_TOOLS_VERSION
     defaultConfig {
         applicationId "com.sybotan.android.syrobot"
-        minSdkVersion 21
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion ANDROID_MIN_SDK_VERSION.toInteger()
+        targetSdkVersion ANDROID_SDK_VERSION.toInteger()
+        versionCode currentCode
+        versionName project.version
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        // 设置构建时间
+        buildConfigField("String", "buildTime", "\"" + new Date().format("yyyy/MM/dd HH:mm:ss")+"\"")
     }
+    // 签名配置
+    signingConfigs {
+        release {
+            storeFile file('SyRobot.jks')
+            storePassword 'SyRobot20090421'
+            keyAlias 'SyRobot'
+            keyPassword 'SyRobot20090421'
+        }
+
+    }
+
     buildTypes {
         release {
+            //开启代码混淆
             minifyEnabled false
+            // zip压缩对齐
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
+            // 启动签名
+            signingConfig signingConfigs.release
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            // 修改生成的apk名字，格式为 app名-版本号-打包时间-release.apk
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def oldFile = output.outputFile
+                    if (variant.buildType.name.equals('release')) {
+                        def releaseApkName = project.name + "-v${project.version}-${new Date().format('yyyyMMddHHmmss')}-release.apk"
+                        output.outputFile = new File(oldFile.parent, releaseApkName)
+                    }
+                }
+            } // 修改生成的apk名字
         }
     }
     // 解决lint语法检查错误（kotlin语法无法通过lint）
     lintOptions {
         abortOnError false
-    }
-//    compileOptions {
-//        sourceCompatibility JavaVersion.VERSION_1_7
-//        targetCompatibility JavaVersion.VERSION_1_7
-//    }
-    configurations.all {
-        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
     }
 }
 
@@ -101,6 +137,4 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }
-repositories {
-    mavenCentral()
-}
+

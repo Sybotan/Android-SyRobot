@@ -94,6 +94,7 @@ class SyRobot : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        Log.d(TAG, BuildConfig.buildTime)
         // 初始化MainPreferences对象
         Opts.pref = getSharedPreferences(TAG, Context.MODE_PRIVATE)
         // 初始化震动器

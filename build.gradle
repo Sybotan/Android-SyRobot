@@ -22,7 +22,7 @@
  */
 
 group 'com.sybotan.android'
-version SYROBOT_VERSION
+version '2.0'
 
 buildscript {
     ext.kotlin_version = '1.2.10'
@@ -33,9 +33,6 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
 
@@ -49,4 +46,24 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+// 读取版本号
+def getVersionCode() {
+    def versionFile = file('version.properties')
+    def Properties versionProps = new Properties()
+    if (versionFile.canRead()){
+        versionProps.load(new FileInputStream(versionFile))
+        def versionCode = versionProps['VERSION_CODE'].toInteger()
+        def runTasks = gradle.startParameter.taskNames
+        if ('assembleRelease' in runTasks) {
+            versionProps['VERSION_CODE'] = (++versionCode).toString()
+            versionProps.store(versionFile.newWriter(), null)
+        }
+        return versionCode
+    }
+
+    versionProps['VERSION_CODE'] = '1'
+    versionProps.store(versionFile.newWriter(), null)
+    return 1
 }
