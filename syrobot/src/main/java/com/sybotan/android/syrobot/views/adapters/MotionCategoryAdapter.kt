@@ -44,7 +44,6 @@ open class MotionCategoryAdapter : PagerAdapter() {
 
         fun loadMotionFile(input: InputStream) {
             motionCategoryList = GsonUtil.parseJsonArray(input, MotionCategory::class.java)
-            Log.d(TAG, motionCategoryList.toString())
             return
         } // Function loadMotionFile()
     } // companion object

@@ -22,12 +22,15 @@
   ~ *********************************************************************************************************************
   -->
 
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
     <android.support.design.widget.AppBarLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -38,13 +41,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>
-
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+        </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
+    <android.support.design.widget.TabLayout
+            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+            android:id="@+id/uiMainTabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue_grey_50"/>
     <android.support.v4.view.ViewPager
             android:id="@+id/uiRobotViewPager"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="2"/>
-
-</LinearLayout>
+    </LinearLayout>
+    <Button
+            android:id="@+id/uiSelectRobotButton"
+            android:text="@string/button_select_robot"
+            android:layout_margin="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+</RelativeLayout >

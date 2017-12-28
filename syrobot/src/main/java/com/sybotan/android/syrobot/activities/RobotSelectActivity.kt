@@ -23,16 +23,14 @@
 
 package com.sybotan.android.syrobot.activities
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.sybotan.android.syrobot.R
 import com.sybotan.android.syrobot.SyRobot
 import com.sybotan.android.syrobot.preferences.Opts
+import com.sybotan.android.syrobot.views.adapters.RobotPagerAdapter
 import kotlinx.android.synthetic.main.activity_robot_select.*
-
 
 /**
  * 机器人选择窗口
@@ -52,7 +50,16 @@ class RobotSelectActivity : AppCompatActivity() {
         setContentView(R.layout.activity_robot_select)
         updateAppbar()
 
-        setupUi()
+        uiMainTabs.setupWithViewPager(uiRobotViewPager)
+
+        uiRobotViewPager.adapter = RobotPagerAdapter(this)
+
+        uiSelectRobotButton.setOnClickListener {
+            var robotAdapter = uiRobotViewPager.adapter  as RobotPagerAdapter
+            Log.d(TAG, robotAdapter.robots[uiRobotViewPager.currentItem].id)
+            Opts.robot = robotAdapter.robots[uiRobotViewPager.currentItem].id
+            SyRobot.rebootApp(this)
+        }
         return
     } // Function onCreate()
 
@@ -68,11 +75,4 @@ class RobotSelectActivity : AppCompatActivity() {
         uiAppbar.setNavigationOnClickListener{ finish() }
         return
     } // Function updateAppBar()
-
-    /**
-     * 设置界面
-     */
-    private fun setupUi() {
-        return
-    } // Function setupUi()
 } // Class RobotSelectActivity

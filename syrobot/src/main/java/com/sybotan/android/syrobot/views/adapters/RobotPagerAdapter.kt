@@ -21,53 +21,79 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.android.syrobot.activities
+package com.sybotan.android.syrobot.views.adapters
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
+import android.content.Context
 import android.support.v4.view.PagerAdapter
+import android.util.Log
 import android.view.View
-import com.sybotan.android.syrobot.BuildConfig
-import com.sybotan.android.syrobot.R
-import kotlinx.android.synthetic.main.activity_about.*
 import android.view.ViewGroup
 import android.widget.ImageView
-
+import com.squareup.picasso.Picasso
+import com.sybotan.android.syrobot.entities.Robot
 
 /**
- * 关于
+ * 机器人选择适配器
  *
  * @author  Andy
  */
-class AboutActivity : AppCompatActivity() {
+class RobotPagerAdapter(val context: Context) : PagerAdapter() {
     companion object {
-        private val TAG = AboutActivity::class.java.name
+        private val TAG = RobotPagerAdapter::class.java.name
     } // companion object
 
-    /**
-     * 创建Activity时调用
-     */
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_about)
-        updateAppbar()
-
-        val packInfo = packageManager.getPackageInfo(packageName, 0)
-        uiVersion.text = "Version:${packInfo.versionName}  build:${BuildConfig.buildTime}"
-        return
-    } // Function onCreate()
+    // 机器人列表
+    val robots = listOf<Robot>(
+            Robot("LittleStar", "小星"),
+            Robot("Plen2", "Plen2"),
+            Robot("MiniPlan", "MiniPlan"))
 
     /**
-     * 更新顶部条
      */
-    private fun updateAppbar() {
-        uiAppbar.setTitle(R.string.title_activity_about)
-        setSupportActionBar(uiAppbar)
-        // 标题栏显示返回，点击返回上一页
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        // 点击返回
-        uiAppbar.setNavigationOnClickListener{ finish() }
-        return
-    } // Function updateAppBar()
+    override fun isViewFromObject(view: View, obj: Any): Boolean {
+        return view == obj
+    } // Function
 
-} // Class AboutActivity
+    /**
+     * 返回支持的机器人数量
+     */
+    override fun getCount(): Int = robots.size
+
+    /**
+     * 获得页标题
+     *
+     * @param   position    页面索引
+     * @return  页面标题
+     */
+    override fun getPageTitle(position: Int): String {
+        return robots[position].name
+    } // Function getPageTitle()
+
+    /**
+     * 释放对象
+     *
+     * @param   container   容器
+     * @param   position    被释放对象在容器中的索引
+     * @param   obj         被释放对象
+     */
+    override fun destroyItem(container: ViewGroup, position: Int, obj: Any) {
+        container.removeView(obj as View)
+        return
+    } // Function destroyItem()
+
+    /**
+     * 实例化列表项视图
+     *
+     * @param   container   容器对象
+     * @param   position    数据项索引
+     * @return  列表项视图
+     */
+    override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        val view = ImageView(context)
+        view.scaleType = ImageView.ScaleType.FIT_XY
+        Picasso.with(context).load("file:///android_asset/${robots[position].id.toLowerCase()}/robot.png").into(view)
+        container.addView(view)
+
+        return view
+    } // Function instantiateItem()
+} // Class RobotPagerAdapter

@@ -69,6 +69,7 @@
     <string name="button_max">最大值</string>
     <string name="button_min">最小值</string>
     <string name="button_ok">确定</string>
+    <string name="button_select_robot">选择机器人</string>
     <string name="button_step">增量</string>
     <string name="button_stop">停止</string>
 

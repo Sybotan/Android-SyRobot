@@ -32,6 +32,7 @@ import android.os.Vibrator
 import android.util.Log
 import com.sybotan.android.syrobot.activities.ExitActivity
 import com.sybotan.android.syrobot.preferences.Opts
+import com.sybotan.android.syrobot.robots.LittleStar
 import com.sybotan.android.syrobot.robots.Robot
 import com.sybotan.android.syrobot.services.VibratorService
 import com.sybotan.android.syrobot.views.adapters.MotionCategoryAdapter
@@ -56,8 +57,13 @@ class SyRobot : Application() {
          * @return  机器人控制类
          */
         fun loadRobot(name: String): Robot? {
-            val clazz = Class.forName("com.sybotan.android.syrobot.robots.$name") ?: return null
-            return clazz.newInstance() as Robot
+            try {
+                val clazz = Class.forName("com.sybotan.android.syrobot.robots.$name") ?: return null
+                return clazz.newInstance() as Robot
+            } catch (e: Exception) {
+                Opts.robot = "LittleStar"
+                return LittleStar()
+            }
         } // Function LittleStar
 
         /**
