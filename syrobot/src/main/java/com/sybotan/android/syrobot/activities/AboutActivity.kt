@@ -25,6 +25,7 @@ package com.sybotan.android.syrobot.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.sybotan.android.syrobot.BuildConfig
 import com.sybotan.android.syrobot.R
 import kotlinx.android.synthetic.main.activity_about.*
 
@@ -45,6 +46,9 @@ class AboutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
         updateAppbar()
+
+        val packInfo = packageManager.getPackageInfo(packageName, 0)
+        uiVersion.text = "Version:${packInfo.versionName}  build:${BuildConfig.buildTime}"
         return
     } // Function onCreate()
 

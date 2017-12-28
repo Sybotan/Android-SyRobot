@@ -73,18 +73,6 @@ class RobotSelectActivity : AppCompatActivity() {
      * 设置界面
      */
     private fun setupUi() {
-        // 选择按钮
-        uiSelectButton.setOnClickListener {
-            Opts.robot = "MiniPlan"
-            // 重启app
-            SyRobot.rebootApp(this)
-        } // Function setOnClickListener()
-
-        // 选择按钮
-        uiSelectButton1.setOnClickListener {
-            Opts.robot = "LittleStar"
-            SyRobot.rebootApp(this)
-        } // Function setOnClickListener()
         return
     } // Function setupUi()
 } // Class RobotSelectActivity

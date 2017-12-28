@@ -29,7 +29,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Environment
 import android.os.Vibrator
-import android.support.v4.content.ContextCompat.startActivity
 import android.util.Log
 import com.sybotan.android.syrobot.activities.ExitActivity
 import com.sybotan.android.syrobot.preferences.Opts
@@ -94,7 +93,6 @@ class SyRobot : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        Log.d(TAG, BuildConfig.buildTime)
         // 初始化MainPreferences对象
         Opts.pref = getSharedPreferences(TAG, Context.MODE_PRIVATE)
         // 初始化震动器

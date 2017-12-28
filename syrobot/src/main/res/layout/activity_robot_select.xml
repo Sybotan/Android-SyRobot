@@ -41,15 +41,10 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
     </android.support.design.widget.AppBarLayout>
-    <Button
-            android:id="@+id/uiSelectButton"
-            android:text="MiniPlan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    <Button
-            android:id="@+id/uiSelectButton1"
-            android:text="小星"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+    <android.support.v4.view.ViewPager
+            android:id="@+id/uiRobotViewPager"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="2"/>
 
 </LinearLayout>

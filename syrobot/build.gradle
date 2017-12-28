@@ -47,7 +47,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         // 设置构建时间
-        buildConfigField("String", "buildTime", "\"" + new Date().format("yyyy/MM/dd HH:mm:ss")+"\"")
+        buildConfigField("String", "buildTime", "\"" + new Date().format("yyyyMMddHHmmss")+"\"")
     }
     // 签名配置
     signingConfigs {

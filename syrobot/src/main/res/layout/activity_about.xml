@@ -41,24 +41,34 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
     </android.support.design.widget.AppBarLayout>
-    <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:orientation="vertical"
-                  android:paddingTop="?attr/actionBarSize">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <ImageView android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   app:srcCompat="@drawable/logo_sybotan"/>
-        <TextView android:text="斯伯坦机器人 V1.1.0"
-                  android:textAlignment="center"
-                  android:layout_width="match_parent"
-                  android:textSize="25dp"
-                  android:layout_height="wrap_content"/>
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/logo"/>
+        <TextView
+                android:text="@string/app_name"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/text_size_large"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:id="@+id/uiVersion"
+                android:text="V1.1.0"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/text_size_medium"
+                android:layout_height="wrap_content"/>
 
-        <GridLayout android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/blue_grey_50">
+        <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/blue_grey_50">
 
         </GridLayout>
         <TextView android:text="@string/copyright"
