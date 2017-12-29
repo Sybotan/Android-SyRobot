@@ -37,6 +37,7 @@ import com.sybotan.android.syrobot.SyRobot
 import com.sybotan.android.syrobot.preferences.Opts
 import com.sybotan.android.syrobot.fragments.JoystickFragment
 import com.sybotan.android.syrobot.fragments.ProgramListFragment
+import com.sybotan.android.syrobot.views.adapters.RobotPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 
@@ -127,7 +128,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      * 更新顶部条
      */
     private fun updateAppbar() {
-        uiAppbar.setTitle(R.string.app_name)
+        val robot = RobotPagerAdapter.robotById(Opts.robot)
+        // 如果设置的机器人存在，则在标题显示机器人名称，否则显示应用名称
+        if (null != robot) {
+            uiAppbar.title = robot.name
+        } else {
+            uiAppbar.setTitle(R.string.app_name)
+        }
+
         // 加载菜单
         uiAppbar.inflateMenu(R.menu.menu_app)
 

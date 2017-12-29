@@ -1,0 +1,72 @@
+[
+  {
+    "name": "标准",
+    "motionList": [
+      {
+        "id": 1,
+        "iconPath": "images/normal/bow.png",
+        "name": "鞠躬"
+      },
+      {
+        "id": 2,
+        "iconPath": "images/normal/waving.png",
+        "name": "挥手"
+      },
+      {
+        "id": 3,
+        "iconPath": "images/normal/iron_man.png",
+        "name": "钢铁侠"
+      },
+      {
+        "id": 4,
+        "iconPath": "images/normal/apache.png",
+        "name": "阿帕奇"
+      },
+      {
+        "id": 5,
+        "iconPath": "images/normal/balance.png",
+        "name": "平衡"
+      },
+      {
+        "id": 6,
+        "iconPath": "images/normal/warm.png",
+        "name": "暖身"
+      },
+      {
+        "id": 7,
+        "iconPath": "images/normal/glico.png",
+        "name": "独立"
+      },
+      {
+        "id": 8,
+        "iconPath": "images/normal/dance.png",
+        "name": "跳舞"
+      },
+      {
+        "id": 99,
+        "iconPath": "images/normal/auto.png",
+        "name": "自动"
+      },
+      {
+        "id": 70,
+        "iconPath": "images/no_image.png",
+        "name": "向前走"
+      },
+      {
+        "id": 71,
+        "iconPath": "images/no_image.png",
+        "name": "向左转"
+      },
+      {
+        "id": 72,
+        "iconPath": "images/no_image.png",
+        "name": "向右转"
+      },
+      {
+        "id": 73,
+        "iconPath": "images/no_image.png",
+        "name": "向后退"
+      }
+    ]
+  }
+]

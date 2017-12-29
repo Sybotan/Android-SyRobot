@@ -30,7 +30,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
+import com.sybotan.android.core.utils.GsonUtil
 import com.sybotan.android.syrobot.entities.Robot
+import java.io.InputStream
 
 /**
  * 机器人选择适配器
@@ -40,15 +42,41 @@ import com.sybotan.android.syrobot.entities.Robot
 class RobotPagerAdapter(val context: Context) : PagerAdapter() {
     companion object {
         private val TAG = RobotPagerAdapter::class.java.name
+
+        // 机器人列表
+        lateinit var robots: List<Robot>
+
+        /**
+         * 从输入流加载机器人列表
+         *
+         * @param   input       输入流
+         */
+        fun loadRobots(input: InputStream) {
+            robots = GsonUtil.parseJsonArray(input, Robot::class.java)
+            Log.d(TAG, "loadrobots count=${robots.size}")
+            return
+        } // Function loadMotionFile()
+
+        /**
+         * 根据机器人ID获得机器人对象
+         *
+         * @param   ID      机器人ID
+         */
+        fun robotById(id: String) : Robot? {
+            for (robot in robots) {
+                if (id == robot.id) {
+                    return robot
+                }
+            }
+            return null
+        }
     } // companion object
 
-    // 机器人列表
-    val robots = listOf<Robot>(
-            Robot("LittleStar", "小星"),
-            Robot("Plen2", "Plen2"),
-            Robot("MiniPlan", "MiniPlan"))
-
     /**
+     * 判断view与obj是否为同一对象
+     *
+     * @param   view
+     * @param   obj
      */
     override fun isViewFromObject(view: View, obj: Any): Boolean {
         return view == obj

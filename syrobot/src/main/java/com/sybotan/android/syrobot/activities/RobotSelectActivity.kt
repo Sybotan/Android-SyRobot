@@ -55,9 +55,9 @@ class RobotSelectActivity : AppCompatActivity() {
         uiRobotViewPager.adapter = RobotPagerAdapter(this)
 
         uiSelectRobotButton.setOnClickListener {
-            var robotAdapter = uiRobotViewPager.adapter  as RobotPagerAdapter
-            Log.d(TAG, robotAdapter.robots[uiRobotViewPager.currentItem].id)
-            Opts.robot = robotAdapter.robots[uiRobotViewPager.currentItem].id
+            //var robotAdapter = uiRobotViewPager.adapter  as RobotPagerAdapter
+            Log.d(TAG, RobotPagerAdapter.robots[uiRobotViewPager.currentItem].id)
+            Opts.robot = RobotPagerAdapter.robots[uiRobotViewPager.currentItem].id
             SyRobot.rebootApp(this)
         }
         return

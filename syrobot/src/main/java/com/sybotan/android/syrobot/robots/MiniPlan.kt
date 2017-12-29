@@ -34,7 +34,7 @@ import java.net.URL
  *
  * @author  Andy
  */
-class MiniPlan : Robot() {
+open class MiniPlan : Robot() {
     companion object {
         // 日志标签
         private val TAG = MiniPlan::class.java.name

@@ -42,8 +42,14 @@ open class MotionCategoryAdapter : PagerAdapter() {
         private val TAG = MotionCategoryAdapter::class.java.name
         lateinit var motionCategoryList: List<MotionCategory>
 
+        /**
+         * 从输入流加载动作定义文件
+         *
+         * @param   input       输入流
+         */
         fun loadMotionFile(input: InputStream) {
             motionCategoryList = GsonUtil.parseJsonArray(input, MotionCategory::class.java)
+            Log.d(TAG, "MotionCategoryList.size = ${motionCategoryList.size}")
             return
         } // Function loadMotionFile()
     } // companion object

@@ -36,6 +36,7 @@ import com.sybotan.android.syrobot.robots.LittleStar
 import com.sybotan.android.syrobot.robots.Robot
 import com.sybotan.android.syrobot.services.VibratorService
 import com.sybotan.android.syrobot.views.adapters.MotionCategoryAdapter
+import com.sybotan.android.syrobot.views.adapters.RobotPagerAdapter
 
 /**
  * 应用入口
@@ -109,6 +110,8 @@ class SyRobot : Application() {
         // 加载机器人
         robot = loadRobot(Opts.robot)
 
+        // 从文件加载机器人列表
+        RobotPagerAdapter.loadRobots(applicationContext.assets.open("robots.json"))
         // 加载动作分类列表文件
         MotionCategoryAdapter.loadMotionFile(applicationContext.assets.open("${Opts.robot.toLowerCase()}/motions.json"))
         return
