@@ -31,6 +31,7 @@ import com.sybotan.android.syrobot.SyRobot
 import com.sybotan.android.syrobot.preferences.Opts
 import com.sybotan.android.syrobot.views.adapters.RobotPagerAdapter
 import kotlinx.android.synthetic.main.activity_robot_select.*
+import org.jetbrains.anko.alert
 
 /**
  * 机器人选择窗口
@@ -51,14 +52,19 @@ class RobotSelectActivity : AppCompatActivity() {
         updateAppbar()
 
         uiMainTabs.setupWithViewPager(uiRobotViewPager)
-
         uiRobotViewPager.adapter = RobotPagerAdapter(this)
 
         uiSelectRobotButton.setOnClickListener {
-            //var robotAdapter = uiRobotViewPager.adapter  as RobotPagerAdapter
-            Log.d(TAG, RobotPagerAdapter.robots[uiRobotViewPager.currentItem].id)
-            Opts.robot = RobotPagerAdapter.robots[uiRobotViewPager.currentItem].id
-            SyRobot.rebootApp(this)
+            val robotId = RobotPagerAdapter.robots[uiRobotViewPager.currentItem].id
+            if (robotId != Opts.robot) {
+                Log.d(TAG, robotId)
+                Opts.robot = robotId
+                alert(R.string.msg_selected_reboot, R.string.title_activity_robot_select) {
+                    positiveButton(R.string.button_ok) {
+                        SyRobot.rebootApp(baseContext)
+                    }
+                }.show()
+            }
         }
         return
     } // Function onCreate()

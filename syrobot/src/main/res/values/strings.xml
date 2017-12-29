@@ -75,6 +75,8 @@
 
     <!-- message -->
     <string name="msg_more_exit_app">再按一次退出应用</string>
+    <string name="msg_selected_reboot">\t\t您已经选择了一个新的机器人，需重启APP。点 \"确定\" 重启。</string>
+
     <string name="scanning_syrobot">搜索机器人</string>
     <string name="syrobot_not_found">未找到机器人</string>
     <string name="select_syrobot">选择机器人</string>

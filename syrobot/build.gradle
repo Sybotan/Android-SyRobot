@@ -27,6 +27,7 @@ version rootProject.version
 apply plugin: "com.android.application"
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-android-extensions"
+apply plugin: "org.jetbrains.dokka"
 
 configurations.all {
     // 更新最新依赖(默认为24小时，这里设置为每次build都检查)
@@ -140,8 +141,6 @@ dependencies {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 文档生成
-apply plugin: "org.jetbrains.dokka"
-
 dokka {
     outputFormat = "javadoc"
     outputDirectory = "$buildDir/javadoc"
