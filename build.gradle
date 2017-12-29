@@ -27,7 +27,7 @@ version "2.0"
 buildscript {
     ext.versions = [
             kotlin: "1.2.10",
-            dokka: "0.9.8",
+            dokka: "0.9.15",
             sybotan: "1.0.1-SNAPSHOT"
     ]
     repositories {
