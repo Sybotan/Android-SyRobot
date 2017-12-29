@@ -24,13 +24,13 @@
 group rootProject.group
 version rootProject.version
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: "com.android.application"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android-extensions"
 
 configurations.all {
     // 更新最新依赖(默认为24小时，这里设置为每次build都检查)
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    resolutionStrategy.cacheChangingModulesFor 0, "seconds"
 }
 
 def currentCode = getVersionCode()
@@ -52,10 +52,10 @@ android {
     // 签名配置
     signingConfigs {
         release {
-            storeFile file('SyRobot.jks')
-            storePassword 'SyRobot20090421'
-            keyAlias 'SyRobot'
-            keyPassword 'SyRobot20090421'
+            storeFile file("SyRobot.jks")
+            storePassword "SyRobot20090421"
+            keyAlias "SyRobot"
+            keyPassword "SyRobot20090421"
         }
 
     }
@@ -71,14 +71,14 @@ android {
             // 启动签名
             signingConfig signingConfigs.release
 
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
 
             // 修改生成的apk名字，格式为 app名-版本号-打包时间-release.apk
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
                     def oldFile = output.outputFile
-                    if (variant.buildType.name.equals('release')) {
-                        def releaseApkName = project.name + "-v${project.version}-${new Date().format('yyyyMMddHHmmss')}-release.apk"
+                    if (variant.buildType.name.equals("release")) {
+                        def releaseApkName = project.name + "-v${project.version}-${new Date().format("yyyyMMddHHmmss")}-release.apk"
                         output.outputFile = new File(oldFile.parent, releaseApkName)
                     }
                 }
@@ -92,49 +92,58 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
+    compile fileTree(dir: "libs", include: ["*.jar"])
+    androidTestCompile("com.android.support.test.espresso:espresso-core:2.2.2", {
+        exclude group: "com.android.support", module: "support-annotations"
     })
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin"
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // anko依赖
     // https://mvnrepository.com/artifact/org.jetbrains.anko/anko-common
-    compile group: 'org.jetbrains.anko', name: 'anko-common', version: '0.10.3'
+    compile group: "org.jetbrains.anko", name: "anko-common", version: "0.10.3"
     // https://mvnrepository.com/artifact/org.jetbrains.anko/anko-sdk25
-    compile group: 'org.jetbrains.anko', name: 'anko-sdk25', version: '0.10.3'
+    compile group: "org.jetbrains.anko", name: "anko-sdk25", version: "0.10.3"
     // https://mvnrepository.com/artifact/org.jetbrains.anko/anko-appcompat-v7
-    compile group: 'org.jetbrains.anko', name: 'anko-appcompat-v7', version: '0.10.3'
+    compile group: "org.jetbrains.anko", name: "anko-appcompat-v7", version: "0.10.3"
     // https://mvnrepository.com/artifact/org.jetbrains.anko/anko-design
-    compile group: 'org.jetbrains.anko', name: 'anko-design', version: '0.10.3'
+    compile group: "org.jetbrains.anko", name: "anko-design", version: "0.10.3"
     // https://mvnrepository.com/artifact/org.jetbrains.anko/anko-recyclerview-v7
-    compile group: 'org.jetbrains.anko', name: 'anko-recyclerview-v7', version: '0.10.3'
+    compile group: "org.jetbrains.anko", name: "anko-recyclerview-v7", version: "0.10.3"
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // 图片加载框架
     // https://mvnrepository.com/artifact/com.squareup.picasso/picasso
-    compile group: 'com.squareup.picasso', name: 'picasso', version: '2.5.2'
+    compile group: "com.squareup.picasso", name: "picasso", version: "2.5.2"
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // 谷歌JSON解析
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
-    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.2'
+    compile group: "com.google.code.gson", name: "gson", version: "2.8.2"
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // 百度AI接口
     // https://mvnrepository.com/artifact/com.baidu.aip/java-sdk
-    compile group: 'com.baidu.aip', name: 'java-sdk', version: '3.3.2'
+    compile group: "com.baidu.aip", name: "java-sdk", version: "3.3.2"
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Sybotan
-    compile group: 'com.sybotan.android', name:'sybotan-android-core', version: SYBOTAN_VERSION, changing: true
-    compile group: 'com.sybotan.android', name:'sybotan-android-view', version: SYBOTAN_VERSION, changing: true
+    compile group: "com.sybotan.android", name: "sybotan-android-core", version: "$versions.sybotan", changing: true
+    compile group: "com.sybotan.android", name: "sybotan-android-view", version: "$versions.sybotan", changing: true
 
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
+    compile "com.android.support:appcompat-v7:25.3.1"
+    compile "com.android.support:design:25.3.1"
+    compile "com.android.support:support-v4:25.3.1"
+    compile "com.android.support.constraint:constraint-layout:1.0.2"
+    testCompile "junit:junit:4.12"
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 文档生成
+apply plugin: "org.jetbrains.dokka"
+
+dokka {
+    outputFormat = "javadoc"
+    outputDirectory = "$buildDir/javadoc"
+    sourceDirs = files("src/main/java")
+}

@@ -21,25 +21,30 @@
  * ********************************************************************************************************************
  */
 
-group 'com.sybotan.android'
-version '2.0'
+group "com.sybotan.android"
+version "2.0"
 
 buildscript {
-    ext.kotlin_version = '1.2.10'
+    ext.versions = [
+            kotlin: "1.2.10",
+            dokka: "0.9.8",
+            sybotan: "1.0.1-SNAPSHOT"
+    ]
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+        classpath "com.android.tools.build:gradle:2.3.0"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$versions.kotlin"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$versions.dokka"
     }
 }
 
 allprojects {
     repositories {
         jcenter()
-        maven {url 'https://dl.bintray.com/jetbrains/anko'}
+        maven {url "https://dl.bintray.com/jetbrains/anko"}
         maven {url MAVEN_REPO_PUBLIC_URL}
     }
 }
@@ -50,20 +55,20 @@ task clean(type: Delete) {
 
 // 读取版本号
 def getVersionCode() {
-    def versionFile = file('version.properties')
+    def versionFile = file("version.properties")
     def Properties versionProps = new Properties()
     if (versionFile.canRead()){
         versionProps.load(new FileInputStream(versionFile))
-        def versionCode = versionProps['VERSION_CODE'].toInteger()
+        def versionCode = versionProps["VERSION_CODE"].toInteger()
         def runTasks = gradle.startParameter.taskNames
-        if ('assembleRelease' in runTasks) {
-            versionProps['VERSION_CODE'] = (++versionCode).toString()
+        if ("assembleRelease" in runTasks) {
+            versionProps["VERSION_CODE"] = (++versionCode).toString()
             versionProps.store(versionFile.newWriter(), null)
         }
         return versionCode
     }
 
-    versionProps['VERSION_CODE'] = '1'
+    versionProps["VERSION_CODE"] = "1"
     versionProps.store(versionFile.newWriter(), null)
     return 1
 }
