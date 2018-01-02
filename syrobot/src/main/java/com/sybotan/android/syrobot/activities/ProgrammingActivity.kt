@@ -91,7 +91,7 @@ class ProgrammingActivity : AppCompatActivity() {
      * 更新顶部条
      */
     private fun updateAppbar() {
-        uiAppbar.setTitle(R.string.title_activity_about)
+        uiAppbar.setTitle(R.string.title_activity_programming)
         setSupportActionBar(uiAppbar)
         // 标题栏显示返回，点击返回上一页
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)

@@ -31,6 +31,7 @@
     <string name="title_activity_developer">开发者工具</string>
     <string name="title_activity_joint_settings">关节设置</string>
     <string name="title_activity_help">帮助中心</string>
+    <string name="title_activity_programming">编程</string>
     <string name="title_activity_robot_select">选择机器人</string>
 
     <!-- navigation -->

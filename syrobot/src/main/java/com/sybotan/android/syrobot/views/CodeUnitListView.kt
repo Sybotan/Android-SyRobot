@@ -29,7 +29,6 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
-import android.text.ClipboardManager
 import android.text.SpannableStringBuilder
 import android.util.AttributeSet
 import android.util.Log
@@ -44,8 +43,6 @@ import com.sybotan.android.syrobot.preferences.Opts
 import com.sybotan.android.syrobot.services.VibratorService
 import kotlinx.android.synthetic.main.view_codeunit_list_item.view.*
 import java.io.File
-import java.io.IOException
-import java.io.InputStream
 import java.util.*
 
 /**
@@ -249,14 +246,10 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
         override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
 
             val pos = viewHolder.adapterPosition
-            // PLX codeUnitList!!.removeAt(pos)
+            codeUnitList.removeAt(pos)
             mainAdapter.notifyItemRemoved(pos)
             return
         } // Function onSwiped()
-
-        override fun isLongPressDragEnabled(): Boolean {
-            return true
-        }
     } // Class ItemTouchHelperCallback()
 
     inner class DragListener(view: CodeUnitListView) : View.OnDragListener {
@@ -308,8 +301,8 @@ class CodeUnitListView(context: Context, attrs: AttributeSet? = null) : Recycler
                         Log.d(TAG, "ACTION_DROP=${event.y}")
                         Log.d(TAG, "data=${event.clipData}")
                         val params = event.clipData.toString().split(":")
-                        if (params.size >= 3) {
-                            codeUnitList[pos] = CodeUnit(Motion(params[1].toInt(), params[2]), 1)
+                        if (params.size >= 4) {
+                            codeUnitList[pos] = CodeUnit(Motion(params[1].toInt(), params[2], params[3]), 1)
                             mainAdapter.notifyItemChanged(pos)
                             pos = INVALID_POSITION
                         }

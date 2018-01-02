@@ -4,47 +4,47 @@
     "motionList": [
       {
         "id": 1,
-        "iconPath": "images/normal/bow.png",
+        "iconPath": "images/no_image.png",
         "name": "鞠躬"
       },
       {
         "id": 2,
-        "iconPath": "images/normal/waving.png",
+        "iconPath": "images/no_image.png",
         "name": "挥手"
       },
       {
         "id": 3,
-        "iconPath": "images/normal/iron_man.png",
+        "iconPath": "images/no_image.png",
         "name": "钢铁侠"
       },
       {
         "id": 4,
-        "iconPath": "images/normal/apache.png",
+        "iconPath": "images/no_image.png",
         "name": "阿帕奇"
       },
       {
         "id": 5,
-        "iconPath": "images/normal/balance.png",
+        "iconPath": "images/no_image.png",
         "name": "平衡"
       },
       {
         "id": 6,
-        "iconPath": "images/normal/warm.png",
+        "iconPath": "images/no_image.png",
         "name": "暖身"
       },
       {
         "id": 7,
-        "iconPath": "images/normal/glico.png",
+        "iconPath": "images/no_image.png",
         "name": "独立"
       },
       {
         "id": 8,
-        "iconPath": "images/normal/dance.png",
+        "iconPath": "images/no_image.png",
         "name": "跳舞"
       },
       {
         "id": 99,
-        "iconPath": "images/normal/auto.png",
+        "iconPath": "images/no_image.png",
         "name": "自动"
       },
       {

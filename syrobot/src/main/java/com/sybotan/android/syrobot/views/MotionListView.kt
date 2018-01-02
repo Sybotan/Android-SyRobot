@@ -101,10 +101,10 @@ class MotionListView(motionList: List<Motion>, context: Context, attrs: Attribut
          */
         inner class MotionViewHolder(val view: View) : ViewHolder(view) {
             fun bind(motion: Motion) {
-                Log.v(TAG, "file:///android_asset/littlestar/${motion.iconPath}")
                 Picasso.with(context).load("file:///android_asset/${Opts.robot.toLowerCase()}/${motion.iconPath}").into(view.uiMotionIcon)
+                view.uiMotionIcon.contentDescription = motion.iconPath
+                view.uiMotionNumber.text = String.format("%02X", motion.id)
                 view.uiMotionName.text = motion.name
-                view.tag = motion.id
                 return
             } // Function bind()
         }
@@ -129,7 +129,8 @@ class MotionListView(motionList: List<Motion>, context: Context, attrs: Attribut
                 val bg = pressedView.background
                 pressedView.setBackgroundResource(R.drawable.shape_drag_effect)
                 pressedView.isPressed = true
-                val data = ClipData.newPlainText(DRAG_CODE_UNIT_LABEL, "${pressedView.tag}:${pressedView.uiMotionName.text}:")
+                val data = ClipData.newPlainText(DRAG_CODE_UNIT_LABEL, "${pressedView.uiMotionNumber.text}:" +
+                        "${pressedView.uiMotionName.text}:${pressedView.uiMotionIcon.contentDescription}:")
                 pressedView.startDrag(data, DragShadowBuilder(pressedView),null, 0)
                 pressedView.isPressed = false
                 pressedView.background = bg

@@ -104,11 +104,11 @@ dependencies {
     // https://mvnrepository.com/artifact/org.jetbrains.anko/anko-common
     compile group: "org.jetbrains.anko", name: "anko-common", version: "0.10.3"
     // https://mvnrepository.com/artifact/org.jetbrains.anko/anko-sdk25
-    //compile group: "org.jetbrains.anko", name: "anko-sdk25", version: "0.10.3"
+    compile group: "org.jetbrains.anko", name: "anko-sdk25", version: "0.10.3"
     // https://mvnrepository.com/artifact/org.jetbrains.anko/anko-appcompat-v7
-    //compile group: "org.jetbrains.anko", name: "anko-appcompat-v7", version: "0.10.3"
+    compile group: "org.jetbrains.anko", name: "anko-appcompat-v7", version: "0.10.3"
     // https://mvnrepository.com/artifact/org.jetbrains.anko/anko-design
-    //compile group: "org.jetbrains.anko", name: "anko-design", version: "0.10.3"
+    compile group: "org.jetbrains.anko", name: "anko-design", version: "0.10.3"
     // https://mvnrepository.com/artifact/org.jetbrains.anko/anko-recyclerview-v7
     //compile group: "org.jetbrains.anko", name: "anko-recyclerview-v7", version: "0.10.3"
 
