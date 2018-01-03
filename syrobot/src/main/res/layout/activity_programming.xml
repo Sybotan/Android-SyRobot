@@ -117,7 +117,7 @@
                              android:scaleType="fitCenter"
                              android:src="@drawable/icon_play"/>
             </LinearLayout>
-            <com.sybotan.android.syrobot.views.CodeUnitListView
+            <com.sybotan.SyRobot.views.CodeUnitListView
                     android:id="@+id/uiProgram"
                     style="@style/MotionListStyle"
                     android:layout_width="match_parent"

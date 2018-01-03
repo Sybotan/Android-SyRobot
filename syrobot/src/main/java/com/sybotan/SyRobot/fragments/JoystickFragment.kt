@@ -21,20 +21,50 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.SyRobot;
+package com.sybotan.SyRobot.fragments
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import android.content.Context
+import android.support.design.widget.TabLayout
+import android.util.AttributeSet
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import com.sybotan.SyRobot.R
+import com.sybotan.SyRobot.views.MotionGridView
+import com.sybotan.SyRobot.views.adapters.MotionCategoryAdapter
+import kotlinx.android.synthetic.main.fragment_joystick.view.*
 
 /**
- * Example local unit test, which will execute on the development machine (host).
+ * 控制界面
  *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * @author  Andy
  */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+class JoystickFragment(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
+    companion object {
+        private val TAG = JoystickFragment::class.java.name
     }
-}
+
+    init {
+        // 加载布局文件
+        LayoutInflater.from(context).inflate(R.layout.fragment_joystick, this)
+
+        uiMainTabs.tabMode = TabLayout.MODE_FIXED
+        uiMainTabs.setupWithViewPager(uiMotionViewPager)
+
+        uiMotionViewPager.adapter = object : MotionCategoryAdapter(){
+            /**
+             * 实例化列表项视图
+             *
+             * @param   container   容器对象
+             * @param   position    数据项索引
+             * @return  列表项视图
+             */
+            override fun instantiateItem(container: ViewGroup, position: Int): Any {
+                val itemView = MotionGridView(getMotionList(position)!!, container.context)
+                container.addView(itemView)
+                return itemView
+            } // Function instantiateItem()
+        }
+    } // init
+
+} // Class JoystickFragment

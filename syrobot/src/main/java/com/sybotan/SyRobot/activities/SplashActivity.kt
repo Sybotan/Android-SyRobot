@@ -21,20 +21,65 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.SyRobot;
+package com.sybotan.SyRobot.activities
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.os.Handler
+import android.widget.ImageView
+import android.widget.LinearLayout
+import com.sybotan.SyRobot.R
+import org.jetbrains.anko.*
 
 /**
- * Example local unit test, which will execute on the development machine (host).
+ * 启动界面
  *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * @author  Andy
  */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
-}
+class SplashActivity : AppCompatActivity() {
+
+    val handler = Handler()
+
+    // 定时任务
+    val runnable = object : Runnable {
+        override fun run() {
+            startActivity<MainActivity>()
+            finish()
+            return
+        } // Function run()
+    } // Object Runnable()
+
+    /**
+     * 创建时调用
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        createViews()
+
+        // 3秒后进入主界面
+        handler.postDelayed(runnable, 3000)
+        return
+    } // Function onCreate()
+
+    /**
+     * 在启动窗口，屏蔽用户按返回键
+     */
+    override fun onBackPressed() {
+        // DO NOTHING
+        return
+    } // Function onBackPressed()
+
+    /**
+     * 创建Activi中的对象
+     */
+    private fun createViews() {
+        linearLayout {
+            orientation = LinearLayout.VERTICAL
+            imageView {
+                imageResource = R.drawable.app_splash
+                scaleType = ImageView.ScaleType.FIT_XY
+            }.lparams(width = matchParent, height = matchParent)
+        }
+        return
+    } // Function create()
+} // Class SplashActivity()

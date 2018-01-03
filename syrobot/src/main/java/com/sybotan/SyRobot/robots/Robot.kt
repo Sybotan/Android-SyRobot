@@ -21,20 +21,51 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.SyRobot;
+package com.sybotan.SyRobot.robots
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.jetbrains.anko.custom.async
+import org.jetbrains.anko.doAsync
 
 /**
- * Example local unit test, which will execute on the development machine (host).
+ * 机器人基类
  *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * @author  Andy
  */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
-}
+abstract class Robot {
+
+    /**
+     * 播放指定动作
+     *
+     * @param   id      动作ID
+     */
+    abstract fun playMotion(id: Int)
+
+    /**
+     * 停止当前动作
+     */
+    abstract fun stopMotion()
+
+    /**
+     * 设置位置
+     *
+     * @param   id      关节id
+     * @param   pos     位置
+     */
+    abstract fun setPos(id: Int, pos: Int)
+
+    /**
+     * 设置关节零点位置
+     *
+     * @param   id      关节id
+     * @param   pos     位置
+     */
+    abstract fun setHome(id: Int, pos: Int)
+
+    /**
+     * 发送控制命令
+     *
+     * @param   cmd     控制命令
+     */
+    protected abstract fun sendCommand(cmd: String)
+
+} // Class Robot

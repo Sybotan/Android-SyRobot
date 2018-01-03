@@ -22,7 +22,7 @@
   ~ *********************************************************************************************************************
   -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.sybotan.android.syrobot">
+          package="com.sybotan.SyRobot">
 
     <!-- 网络访问权限 -->
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -45,6 +45,12 @@
             android:theme="@style/AppTheme">
         <activity
                 android:name=".activities.AboutActivity"
+                android:configChanges="orientation|screenSize"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".activities.ExitActivity"
                 android:configChanges="orientation|screenSize"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
@@ -74,6 +80,12 @@
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
+                android:name=".activities.RobotSelectActivity"
+                android:configChanges="orientation|screenSize"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
                 android:name=".activities.SplashActivity"
                 android:configChanges="orientation|screenSize"
                 android:screenOrientation="portrait"
@@ -84,18 +96,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-                android:name=".activities.RobotSelectActivity"
-                android:configChanges="orientation|screenSize"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
-                android:name=".activities.ExitActivity"
-                android:configChanges="orientation|screenSize"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+
+
     </application>
 
 </manifest>

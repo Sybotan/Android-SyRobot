@@ -21,20 +21,76 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.SyRobot;
+package com.sybotan.SyRobot.robots
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import android.util.Log
+import com.sybotan.android.core.utils.StringUtil
+import com.sybotan.SyRobot.services.VibratorService
 
 /**
- * Example local unit test, which will execute on the development machine (host).
+ * 机器人 Plen2
  *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * @author  Andy
  */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
-}
+class Plen2 : Robot() {
+    companion object {
+        // 日志标签
+        private val TAG = Plen2::class.java.name
+    } // companion object
+
+    /**
+     * 播放指定动作
+     *
+     * @param   id      动作ID
+     */
+    override fun playMotion(id: Int) {
+        val cmd = String.format("\$PM%02X", id)
+        sendCommand(cmd)
+        return
+    } // Function playMotion()
+
+    /**
+     * 停止当前动作
+     */
+    override fun stopMotion() {
+        sendCommand("\$SM")
+        return
+    } // Function stopMotion()
+
+    /**
+     * 设置位置
+     *
+     * @param   id      关节id
+     * @param   pos     位置
+     */
+    override fun setPos(id: Int, pos: Int) {
+        val cmd = String.format("\$AN%02X%s", id, StringUtil.intToHex(pos, 3))
+        sendCommand(cmd)
+        return
+    } // Function setPos()
+
+    /**
+     * 设置关节零点位置
+     *
+     * @param   id      关节id
+     * @param   pos     位置
+     */
+    override fun setHome(id: Int, pos: Int) {
+        val cmd = String.format("\$HO%02X%s", id, StringUtil.intToHex(pos, 3))
+        sendCommand(cmd)
+        return
+    } // Function setHome()
+
+    /**
+     * 发送控制命令
+     *
+     * @param   cmd     控制命令
+     */
+    override fun sendCommand(cmd: String) {
+        Log.d(TAG, "sendCommand = $cmd")
+        // 发送指令，启动震动
+        VibratorService.vibrate(50)
+
+        return
+    } // Function sendCommand()
+} // Class Plen2

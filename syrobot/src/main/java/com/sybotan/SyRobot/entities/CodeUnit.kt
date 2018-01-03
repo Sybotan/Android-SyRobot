@@ -21,20 +21,15 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.SyRobot;
-
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+package com.sybotan.SyRobot.entities
 
 /**
- * Example local unit test, which will execute on the development machine (host).
+ * 代码单元
  *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * @author  Andy
  */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
-}
+data class CodeUnit(
+        var motion: Motion,
+        var loopCount: Int = 1
+)
+// Class CodeUnit

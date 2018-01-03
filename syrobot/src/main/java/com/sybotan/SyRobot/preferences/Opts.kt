@@ -21,20 +21,35 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.SyRobot;
+package com.sybotan.SyRobot.preferences
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import android.content.SharedPreferences
+import android.util.Log
 
 /**
- * Example local unit test, which will execute on the development machine (host).
+ * 系统参数设置
  *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * @author  Andy
  */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
-}
+object Opts {
+    private val TAG = Opts::class.java.name
+
+    var pref : SharedPreferences? = null
+
+    // 机器人名字
+    var robot: String
+        get() = pref!!.getString("robot", "MiniPlan")
+        set(value){
+            pref!!.edit().putString("robot", value).apply()
+            Log.d(TAG, "Opts::robot=$value")
+        }
+
+    // 是否显示手柄控制界面
+    var joystickVisibility: Boolean
+        get() = pref!!.getBoolean("joystickVisibility", true)
+        set(value){
+            pref!!.edit().putBoolean("joystickVisibility", value).apply()
+            Log.d(TAG, "Opts::joystickVisibility=$value")
+        }
+
+} // Object Opts

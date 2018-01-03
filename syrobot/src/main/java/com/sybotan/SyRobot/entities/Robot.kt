@@ -21,20 +21,14 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.SyRobot;
-
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+package com.sybotan.SyRobot.entities
 
 /**
- * Example local unit test, which will execute on the development machine (host).
+ * 机器人定义类
  *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * @author  Andy
  */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
-}
+data class Robot(
+        val id: String,             // 机器人ID
+        val name: String            // 机器人名称
+) // Class Robot

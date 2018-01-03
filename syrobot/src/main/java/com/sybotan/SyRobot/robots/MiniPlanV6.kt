@@ -21,20 +21,11 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.SyRobot;
-
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+package com.sybotan.SyRobot.robots
 
 /**
- * Example local unit test, which will execute on the development machine (host).
+ * 机器人 MiniPlanV6
  *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * @author  Andy
  */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
-}
+class MiniPlanV6 : MiniPlan()

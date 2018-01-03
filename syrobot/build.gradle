@@ -40,7 +40,7 @@ android {
     compileSdkVersion ANDROID_SDK_VERSION.toInteger()
     buildToolsVersion ANDROID_BUILD_TOOLS_VERSION
     defaultConfig {
-        applicationId "com.sybotan.android.syrobot"
+        applicationId "com.sybotan.SyRobot"
         minSdkVersion ANDROID_MIN_SDK_VERSION.toInteger()
         targetSdkVersion ANDROID_SDK_VERSION.toInteger()
         versionCode currentCode

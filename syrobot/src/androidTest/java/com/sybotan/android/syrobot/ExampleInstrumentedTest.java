@@ -21,7 +21,7 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.android.syrobot;
+package com.sybotan.SyRobot;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -44,6 +44,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.sybotan.android.syrobot", appContext.getPackageName());
+        assertEquals("com.sybotan.SyRobot", appContext.getPackageName());
     }
 }

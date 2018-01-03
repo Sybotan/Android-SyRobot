@@ -21,20 +21,21 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.SyRobot;
+package com.sybotan.SyRobot.services
 
-import org.junit.Test;
+import android.os.Vibrator
 
-import static org.junit.Assert.*;
+object VibratorService {
+    var vibrator: Vibrator? = null
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
-}
+    /**
+     * 震动
+     *
+     * @param   millisecond     震动时间，单位毫秒*
+     */
+    fun vibrate(millisecond: Long) {
+        vibrator!!.vibrate(millisecond)
+        return
+    } // Function vibrate()
+
+} // Class VibratorService

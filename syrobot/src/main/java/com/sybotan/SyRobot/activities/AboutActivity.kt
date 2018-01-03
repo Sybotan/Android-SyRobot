@@ -21,20 +21,53 @@
  * ********************************************************************************************************************
  */
 
-package com.sybotan.SyRobot;
+package com.sybotan.SyRobot.activities
 
-import org.junit.Test;
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.support.v4.view.PagerAdapter
+import android.view.View
+import com.sybotan.SyRobot.BuildConfig
+import com.sybotan.SyRobot.R
+import kotlinx.android.synthetic.main.activity_about.*
+import android.view.ViewGroup
+import android.widget.ImageView
 
-import static org.junit.Assert.*;
 
 /**
- * Example local unit test, which will execute on the development machine (host).
+ * 关于
  *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * @author  Andy
  */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
-}
+class AboutActivity : AppCompatActivity() {
+    companion object {
+        private val TAG = AboutActivity::class.java.name
+    } // companion object
+
+    /**
+     * 创建Activity时调用
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_about)
+        updateAppbar()
+
+        val packInfo = packageManager.getPackageInfo(packageName, 0)
+        uiVersion.text = "Version:${packInfo.versionName}  build:${BuildConfig.buildTime}"
+        return
+    } // Function onCreate()
+
+    /**
+     * 更新顶部条
+     */
+    private fun updateAppbar() {
+        uiAppbar.setTitle(R.string.title_activity_about)
+        setSupportActionBar(uiAppbar)
+        // 标题栏显示返回，点击返回上一页
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        // 点击返回
+        uiAppbar.setNavigationOnClickListener{ finish() }
+        return
+    } // Function updateAppBar()
+
+} // Class AboutActivity
